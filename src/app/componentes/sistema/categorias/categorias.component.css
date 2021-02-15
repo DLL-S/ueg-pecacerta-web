@@ -1,0 +1,38 @@
+.categoria {
+    max-width: 80%;
+    margin-right: 20px;
+    padding-right: 5px;
+    padding-top: 80px;
+
+}
+
+section{
+    margin: auto;
+    margin-top: 10px;
+  }
+
+#categoria-field{
+    width: 10px;
+}
+
+#column-item{
+    cursor: pointer;
+}
+
+.button-salvar{
+    width: 120px;
+    align-self:flex-end;
+}
+
+.button-limpar{
+    width: 120px;
+    margin-right: 20px;
+}
+
+.acoes-botao{
+    display: inline;
+    width: auto;
+    align-self:flex-end;
+    align-content: flex-end;
+    margin-bottom: 20px;
+}
