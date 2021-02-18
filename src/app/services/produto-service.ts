@@ -3,34 +3,35 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, EMPTY } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Produto } from '../models/produto';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ProdutoService {
 
-    private baseUrl = "http://localhost:8080/api/v1/produto";
+  private baseUrl = `${environment.apiBaseUrl}/produtos`;
 
-    constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    create(produto: Produto): Observable<any> {
-        return this.http.post<Produto>(this.baseUrl, produto).pipe(
-          map((obj) => obj)
-        );
-      }
+  create(produto: Produto): Observable<any> {
+    return this.http.post<Produto>(this.baseUrl, produto).pipe(
+      map((obj) => obj)
+    );
+  }
 
-      read(): Observable<Produto[]>{
-        return this.http.get<Produto[]>(this.baseUrl+"s")
+  read(): Observable<Produto[]> {
+    return this.http.get<Produto[]>(this.baseUrl)
 
-      }
+  }
 
-      readById(id: number): Observable<Produto> {
-        const url = `${this.baseUrl}/${id}`;
-        return this.http.get<Produto>(url).pipe(
-          map((obj) => obj)
-        );
-      }
+  readById(id: number): Observable<Produto> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.get<Produto>(url).pipe(
+      map((obj) => obj)
+    );
+  }
 
-      update(produto: Produto): Observable<Produto> {
-        const url = `${this.baseUrl}/${produto.codigo}`;
-        return this.http.put<Produto>(url, produto);
-      }
+  update(produto: Produto): Observable<Produto> {
+    const url = `${this.baseUrl}/${produto.codigo}`;
+    return this.http.put<Produto>(url, produto);
+  }
 }
