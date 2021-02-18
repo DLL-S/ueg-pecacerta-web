@@ -2,13 +2,13 @@ import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-mensagens',
+  selector: 'app-messages',
   template: `<small class="p-invalid" *ngIf="hasError()">
   {{ text }}
 </small>`,
   styles: []
 })
-export class MensagensComponent {
+export class MessagesComponent {
 
   @Input() error: string;
   @Input() control: FormControl;

@@ -1,4 +1,4 @@
 export class Categoria {
-    codigo?: number;
-    nome?: string;
+  codigo?: number;
+  nome?: string;
 }

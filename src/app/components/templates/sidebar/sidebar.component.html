@@ -1,0 +1,9 @@
+<p-sidebar class="p-d-flex p-flex-column" [(visible)]="visibility" [baseZIndex]="10000" [style]="{width:'16em'}">
+  <header routerLink="/" (click)="visibility = false">
+      <img src="assets/logo.png" alt="Logo peça certa">
+  </header>
+
+  <nav class="menu">
+      <p-menu [model]="items" [style]="{border:'none'}" (click)="visibility = false"></p-menu>
+  </nav>
+</p-sidebar>

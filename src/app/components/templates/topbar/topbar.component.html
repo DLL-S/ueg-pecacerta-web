@@ -1,0 +1,15 @@
+<p-toolbar>
+  <div class="menu p-toolbar-group-left" (click)="callSideBar()">
+    <i class="pi pi-bars" style="font-size: 1.5rem"></i>
+  </div>
+
+  <div class="p-toolbar-group-center">
+    {{ title }}
+  </div>
+
+  <div class="p-toolbar-group-right">
+    <a routerLink="/login">
+      <i class="fas fa-user-circle" style="vertical-align: baseline;"></i> Sair
+    </a>
+  </div>
+</p-toolbar>

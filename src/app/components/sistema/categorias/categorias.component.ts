@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria-service';
-import { SelectItem } from 'primeng/api';
-import { $, element } from 'protractor';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-categorias',
@@ -26,7 +23,7 @@ export class CategoriasComponent implements OnInit {
   ngOnInit(): void {
     this.categoria = new Categoria();
     this.textoBotao = "Salvar";
-    this.categoriaService.read().subscribe(Response => {this.categorias = Response});    
+    this.categoriaService.read().subscribe(Response => {this.categorias = Response});
   }
 
   salvarCategoria() {
@@ -34,7 +31,7 @@ export class CategoriasComponent implements OnInit {
     .create(this.categoria).subscribe(data => {
       console.log(data)
       this.categoria = new Categoria();
-    }, 
+    },
     error => console.log(error));
   }
 
@@ -44,7 +41,7 @@ export class CategoriasComponent implements OnInit {
       this.salvarCategoria();
     } else{
       this.categoriaService.update(this.categoria).subscribe(
-        response => { this.categorias[this.findIndexById(this.categoria.codigo)] = response });   
+        response => { this.categorias[this.findIndexById(this.categoria.codigo)] = response });
       }
       window.location.reload();
 

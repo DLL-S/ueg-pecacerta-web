@@ -4,7 +4,14 @@ import { PrimeNGConfig } from 'primeng/api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styles: [
+    `@media(min-width: 1200px) {
+        .container {
+          width: 95%;
+          margin: 0 auto auto;
+        }
+      }
+  `]
 })
 export class AppComponent {
 

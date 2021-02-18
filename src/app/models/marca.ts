@@ -1,4 +1,4 @@
 export interface Marca {
-    codigo?: number;
-    nome?: string;
+  codigo?: number;
+  nome?: string;
 }

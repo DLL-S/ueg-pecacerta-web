@@ -1,0 +1,15 @@
+i {
+	cursor: pointer;
+	opacity: 100%;
+	transition: opacity 1s;
+}
+
+i:hover {
+	opacity: 75%;
+	transition: opacity 1s;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

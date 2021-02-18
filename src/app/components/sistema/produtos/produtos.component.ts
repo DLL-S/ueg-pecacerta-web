@@ -1,13 +1,10 @@
-import { MarcaService } from './../../../services/marca-service';
-import { ProdutoService } from './../../../services/produto-service';
-import { Marca } from './../../../models/marca';
-import { Categoria } from 'src/app/models/categoria';
-import { CategoriaService } from 'src/app/services/categoria-service';
 import { Component, OnInit } from '@angular/core';
+import { Marca } from 'src/app/models/marca';
+import { Categoria } from 'src/app/models/categoria';
 import { Produto } from 'src/app/models/produto';
-import { SelectItem } from 'primeng/api';
-import { $, element } from 'protractor';
-import { NgForm } from '@angular/forms';
+import { MarcaService } from 'src/app/services/marca-service';
+import { CategoriaService } from 'src/app/services/categoria-service';
+import { ProdutoService } from 'src/app/services/produto-service';
 
 @Component({
   selector: 'app-produtos',
@@ -15,41 +12,42 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./produtos.component.css']
 })
 export class ProdutosComponent implements OnInit {
+
   categorias: Categoria[] = [];
   marcas: Marca[] = []
   produtos: Produto[] = [];
   produto: Produto;
   submitted = false;
   textoBotao: String;
-  constructor(private categoriaService : CategoriaService, private marcaService : MarcaService, private produtoService : ProdutoService) { }
+  constructor(private categoriaService: CategoriaService, private marcaService: MarcaService, private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
     this.produto = new Produto();
     this.textoBotao = "Salvar";
-    this.categoriaService.read().subscribe(Response => {this.categorias = Response.sort((a,b) => a.nome.localeCompare(b.nome))});
-    this.marcaService.read().subscribe(Response => {this.marcas = Response.sort((a,b) => a.nome.localeCompare(b.nome))});
-    this.produtoService.read().subscribe(Response => {this.produtos = Response});
+    this.categoriaService.read().subscribe(Response => { this.categorias = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
+    this.marcaService.read().subscribe(Response => { this.marcas = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
+    this.produtoService.read().subscribe(Response => { this.produtos = Response });
   }
 
   salvarProduto() {
     this.produtoService
-    .create(this.produto).subscribe(data => {
-      console.log(data)
-      this.produto = new Produto();
-    },
-    error => console.log(error));
+      .create(this.produto).subscribe(data => {
+        console.log(data)
+        this.produto = new Produto();
+      },
+        error => console.log(error));
   }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
-    if(this.produto.codigo == null){
+    if (this.produto.codigo == null) {
       this.salvarProduto();
-    } else{
+    } else {
       this.produtoService.update(this.produto).subscribe(
         response => { this.categorias[this.findIndexById(this.produto.codigo)] = response });
-      }
+    }
 
-      window.location.reload();
+    window.location.reload();
   }
 
   findIndexById(codigo: number): number {
@@ -65,7 +63,7 @@ export class ProdutosComponent implements OnInit {
   }
 
 
-  alteraProduto(produto: Produto){
+  alteraProduto(produto: Produto) {
     this.textoBotao = "Alterar";
     this.produto.codigo = produto.codigo;
     this.produto.codigoDeBarras = produto.codigoDeBarras;
@@ -77,7 +75,7 @@ export class ProdutosComponent implements OnInit {
     this.produto.qtdeEstoque = produto.qtdeEstoque;
   }
 
-  limpaFormulario(){
+  limpaFormulario() {
     this.textoBotao = "Salvar";
   }
 

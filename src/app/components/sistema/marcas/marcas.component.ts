@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { Marca } from './../../../models/marca';
-import { MarcaService } from './../../../services/marca-service';
+import { Marca } from 'src/app/models/marca';
+import { MarcaService } from 'src/app/services/marca-service';
 
 @Component({
   selector: 'app-marcas',

@@ -1,8 +1,8 @@
 import { Marca } from './marca';
 import { Categoria } from 'src/app/models/categoria';
 
-export class Produto{
-  codigo?:number;
+export class Produto {
+  codigo?: number;
   codigoDeBarras: string;
   nome: string;
   descricao: string;

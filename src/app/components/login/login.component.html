@@ -11,17 +11,17 @@
                 <label for="username">E-mail</label>
                 <input class="p-mb-2" pInputText name="usuario" type="email" ngModel #usuario="ngModel" email required
                     aria-describedby="usuario-helper" placeholder="Insira o email">
-                    <app-mensagens id="usuario-helper" [control]="usuario" error="required" text="Informe um e-mail"></app-mensagens>
-                    <app-mensagens id="usuario-helper" [control]="usuario" error="email" text="Informe um e-mail válido"></app-mensagens>
+                    <app-messages id="usuario-helper" [control]="usuario" error="required" text="Informe um e-mail"></app-messages>
+                    <app-messages id="usuario-helper" [control]="usuario" error="email" text="Informe um e-mail válido"></app-messages>
             </div>
             <div class="password">
                 <label for="username">Senha</label>
                 <input class="p-mb-2" pInputText name="senha" type="password" ngModel #senha="ngModel" required minlength="8"
                 aria-describedby="senha-helper" placeholder="********">
-                <app-mensagens id="senha-helper" [control]="senha" error="required" text="Informe sua senha"></app-mensagens>
-                <app-mensagens id="senha-helper" [control]="senha" error="minlength" text="No mínimo 8 caracteres"></app-mensagens>
+                <app-messages id="senha-helper" [control]="senha" error="required" text="Informe sua senha"></app-messages>
+                <app-messages id="senha-helper" [control]="senha" error="minlength" text="No mínimo 8 caracteres"></app-messages>
             </div>
-            <button class="button-login btnSalvar" pButton type="submit" [disabled]="!loginForm.valid" label="Entrar" routerLink="/"></button>
+            <button appPrimaryColor class="button-login" pButton type="submit" [disabled]="!loginForm.valid" label="Entrar" routerLink="/"></button>
 
         </form>
     </div>
