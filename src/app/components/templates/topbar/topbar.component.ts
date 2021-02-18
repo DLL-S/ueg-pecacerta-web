@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShowSidebarService } from './../sidebar/event/show-sidebar.service';
+import { TopbarTitleService } from './../../../services/topbar-title.service';
 
 @Component({
   selector: 'app-topbar',
@@ -8,11 +9,16 @@ import { ShowSidebarService } from './../sidebar/event/show-sidebar.service';
 })
 export class TopbarComponent implements OnInit {
 
-  title = "Peça Certa";
+  constructor(private showSidebarService: ShowSidebarService, private topbarTitleService: TopbarTitleService) { }
 
-  constructor(private showSidebarService: ShowSidebarService) { }
+  ngOnInit(): void { }
 
-  ngOnInit(): void {
+  get title(): string {
+    return this.topbarTitleService.topbarData.title;
+  }
+
+  get routerUrl(): string {
+    return this.topbarTitleService.topbarData.routerUrl;
   }
 
   callSideBar() {

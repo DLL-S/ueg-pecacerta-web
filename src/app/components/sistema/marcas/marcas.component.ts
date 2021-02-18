@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { Marca } from 'src/app/models/marca';
-import { MarcaService } from 'src/app/services/marca-service';
+import { Marca } from 'src/app/models/marca.model';
+import { MarcaService } from 'src/app/services/marca.service';
+import { TopbarTitleService } from 'src/app/services/topbar-title.service';
 
 @Component({
   selector: 'app-marcas',
@@ -17,7 +18,11 @@ export class MarcasComponent implements OnInit {
   submitted: boolean;
   textoBotao: String;
 
-  constructor(private marcaService: MarcaService) {
+  constructor(private marcaService: MarcaService, private topbarTitleService: TopbarTitleService) {
+    topbarTitleService.topbarData = {
+      title: 'Cadastro de marcas',
+      routerUrl: '/sistema/marcas'
+    }
   }
 
   ngOnInit(): void {

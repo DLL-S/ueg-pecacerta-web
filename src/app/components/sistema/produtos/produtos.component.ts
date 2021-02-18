@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Marca } from 'src/app/models/marca';
-import { Categoria } from 'src/app/models/categoria';
-import { Produto } from 'src/app/models/produto';
-import { MarcaService } from 'src/app/services/marca-service';
-import { CategoriaService } from 'src/app/services/categoria-service';
-import { ProdutoService } from 'src/app/services/produto-service';
+import { Marca } from 'src/app/models/marca.model';
+import { Categoria } from 'src/app/models/categoria.model';
+import { Produto } from 'src/app/models/produto.model';
+import { MarcaService } from 'src/app/services/marca.service';
+import { CategoriaService } from 'src/app/services/categoria.service';
+import { ProdutoService } from 'src/app/services/produto.service';
+import { TopbarTitleService } from 'src/app/services/topbar-title.service';
 
 @Component({
   selector: 'app-produtos',
@@ -19,7 +20,14 @@ export class ProdutosComponent implements OnInit {
   produto: Produto;
   submitted = false;
   textoBotao: String;
-  constructor(private categoriaService: CategoriaService, private marcaService: MarcaService, private produtoService: ProdutoService) { }
+
+  constructor(private categoriaService: CategoriaService, private marcaService: MarcaService,
+    private produtoService: ProdutoService, private topbarTitleService: TopbarTitleService) {
+    topbarTitleService.topbarData = {
+      title: 'Cadastro de produtos',
+      routerUrl: '/'
+    }
+  }
 
   ngOnInit(): void {
     this.produto = new Produto();

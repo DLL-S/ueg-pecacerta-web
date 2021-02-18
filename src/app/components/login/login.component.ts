@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TopbarTitleService } from 'src/app/services/topbar-title.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private topbarTitleService: TopbarTitleService) {
+    topbarTitleService.topbarData = {
+      title: 'Login',
+      routerUrl: '/login'
+    }
+  }
 
   ngOnInit(): void {
   }

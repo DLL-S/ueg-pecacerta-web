@@ -5,9 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { ShowSidebarService } from './components/templates/sidebar/event/show-sidebar.service';
-import { MarcaService } from './services/marca-service';
-import { CategoriaService } from './services/categoria-service';
-import { ProdutoService } from './services/produto-service';
+import { MarcaService } from './services/marca.service';
+import { CategoriaService } from './services/categoria.service';
+import { ProdutoService } from './services/produto.service';
 
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';

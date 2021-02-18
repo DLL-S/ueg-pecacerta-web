@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Categoria } from 'src/app/models/categoria';
-import { CategoriaService } from 'src/app/services/categoria-service';
+import { Categoria } from 'src/app/models/categoria.model';
+import { CategoriaService } from 'src/app/services/categoria.service';
+import { TopbarTitleService } from 'src/app/services/topbar-title.service';
 
 @Component({
   selector: 'app-categorias',
@@ -16,9 +17,12 @@ export class CategoriasComponent implements OnInit {
 
   categorias: Categoria[];
 
-
-  constructor(private categoriaService : CategoriaService) {
-   }
+  constructor(private categoriaService : CategoriaService, private topbarTitleService: TopbarTitleService) {
+    topbarTitleService.topbarData = {
+      title: 'Cadastro de categorias',
+      routerUrl: '/sistema/categorias'
+    }
+  }
 
   ngOnInit(): void {
     this.categoria = new Categoria();
