@@ -10,6 +10,8 @@ import { CategoriaService } from './services/categoria.service';
 import { ProdutoService } from './services/produto.service';
 
 import { MenuModule } from 'primeng/menu';
+import { FieldsetModule } from 'primeng/fieldset';
+import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { SidebarModule } from 'primeng/sidebar';
@@ -34,6 +36,8 @@ import { MarcasComponent } from './components/sistema/marcas/marcas.component';
 import { SidebarComponent } from './components/templates/sidebar/sidebar.component';
 import { TopbarComponent } from './components/templates/topbar/topbar.component';
 import { PrimaryColorDirective } from './directives/primary-color.directive';
+import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
+import { ProdutosListComponent } from './components/sistema/produtos/produtos-list/produtos-list.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,9 @@ import { PrimaryColorDirective } from './directives/primary-color.directive';
     SidebarComponent,
     TopbarComponent,
     MessagesComponent,
-    PrimaryColorDirective
+    PrimaryColorDirective,
+    ProdutosSearchComponent,
+    ProdutosListComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +73,9 @@ import { PrimaryColorDirective } from './directives/primary-color.directive';
     MessageModule,
     ToolbarModule,
     DialogModule,
-    InputNumberModule
+    InputNumberModule,
+    FieldsetModule,
+    CheckboxModule
   ],
   providers: [
     ShowSidebarService,

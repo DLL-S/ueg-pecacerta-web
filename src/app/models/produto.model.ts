@@ -9,5 +9,6 @@ export class Produto {
   categoria: Categoria;
   marca: Marca;
   preco: DoubleRange;
-  qtdeEstoque: number
+  qtdeEstoque: number;
+  ativo: boolean;
 }

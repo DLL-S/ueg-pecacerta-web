@@ -1,0 +1,138 @@
+<p-table #dt [value]="produtos" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo"
+  [rowHover]="true" dataKey="codigo"
+  currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecords} entradas"
+  [showCurrentPageReport]="true" ortMode="multiple" sortField="codigo">
+
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      Lançamentos
+      <div>
+        <button appPrimaryColor pButton style="margin-right: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
+          tooltipPosition="top" (click)="openNew()"></button>
+        <button appPrimaryColor (click)="reloadPage()" pButton icon="pi pi-refresh" pTooltip="Recarregar" tooltipPosition="top"></button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="codigo">Codigo <p-sortIcon field="codigo"></p-sortIcon>
+      </th>
+      <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+      </th>
+      <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon>
+      </th>
+      <th pSortableColumn="categoria.nome">Categoria <p-sortIcon field="categoria.nome"></p-sortIcon>
+      </th>
+      <th pSortableColumn="marca.nome">Marca <p-sortIcon field="marca.nome"></p-sortIcon>
+      </th>
+      <th pSortableColumn="preco">Preço <p-sortIcon field="preco"></p-sortIcon>
+      </th>
+      <th pSortableColumn="qtdeEstoque">Estoque <p-sortIcon field="qtdeEstoque"></p-sortIcon>
+      </th>
+      <th class="acoes">Ativo</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-produtoItemTabela>
+    <tr (click)="editProduct(produtoItemTabela)">
+      <td>
+        <span class="p-column-title">Código</span>
+        {{produtoItemTabela.codigo}}
+      </td>
+      <td>
+        <span class="p-column-title">Nome</span>
+        {{produtoItemTabela.nome}}
+      </td>
+      <td>
+        <span class="p-column-title">Descrição</span>
+        {{produtoItemTabela.descricao}}
+      </td>
+      <td>
+        <span class="p-column-title">Categoria</span>
+        {{produtoItemTabela.categoria.nome}}
+      </td>
+      <td>
+        <span class="p-column-title">Marca</span>
+        {{produtoItemTabela.marca.nome}}
+      </td>
+      <td>
+        <span class="p-column-title">Preço</span>
+        {{produtoItemTabela.preco | currency: 'BRL'}}
+      </td>
+      <td>
+        <span class="p-column-title">Estoque</span>
+        {{produtoItemTabela.qtdeEstoque}}
+      </td>
+      <td class="acoes">
+        <span class="p-column-title">Ativo</span>
+        <p-checkbox [(ngModel)]="produtoItemTabela.ativo" binary="true" inputId="binary"
+          (click)="updateStatus(produtoItemTabela, $event)"></p-checkbox>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes do produto" [modal]="true"
+  styleClass="p-fluid">
+
+  <ng-template pTemplate="content">
+
+    <div class="p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label for="codigo">Código</label>
+        <input type="number" pInputText id="codigo" [(ngModel)]="produto.codigo" placeholder="Novo" readonly disabled />
+      </div>
+      <div class="p-field p-col">
+        <label for="codbarras">Código De Barras</label>
+        <input type="text" pInputText ngModel name="codigoDeBarras" required [(ngModel)]="produto.codigoDeBarras"
+        minlength="13" maxlength="13" altofocus placeholder="Código de barras">
+        <small class="p-invalid" *ngIf="submitted && !produto.codigoDeBarras">Código de barras é obrigatório.</small>
+      </div>
+    </div>
+
+    <div class="p-field">
+      <label for="nome">Nome</label>
+      <input type="text" pInputText id="nome" [(ngModel)]="produto.nome" placeholder="Nome do produto" required />
+      <small class="p-invalid" *ngIf="submitted && !produto.nome">Nome é obrigatório.</small>
+    </div>
+    <div class="p-field">
+      <label for="descricao">Descrição</label>
+      <input class="inputDescricao" type="text" pInputText ngModel name="descricao" [(ngModel)]="produto.descricao"
+        placeholder="Descrição do produto">
+    </div>
+
+    <div class="p-field">
+      <label class="p-mb-3">Categoria</label>
+      <p-dropdown optionLabel="nome" [options]="categorias" ngModel name="categoria" [(ngModel)]="produto.categoria"
+        placeholder="Selecionar..." required>
+      </p-dropdown>
+    </div>
+    <div class="p-field">
+      <label class="p-mb-3">Marca</label>
+      <p-dropdown optionLabel="nome" [options]="marcas" ngModel name="marca" [(ngModel)]="produto.marca"
+        placeholder="Selecionar..." required>
+      </p-dropdown>
+    </div>
+
+    <div class="p-formgrid p-grid">
+      <div class="p-field p-col">
+        <label for="preco">Preço</label>
+        <p-inputNumber name="preco" id="preco" [(ngModel)]="produto.preco" required mode="currency" currency="BRL"
+          locale="pt-BR" placeholder="R$ 0,00" (click)="$event.target.select()" aria-describedby="valor-help">
+        </p-inputNumber>
+      </div>
+      <div class="p-field p-col">
+        <label for="qtdeEstoque">Quantidade</label>
+        <input type="number" id="qtdeEstoque" pInputText [(ngModel)]="produto.qtdeEstoque" required ngModel
+          name="qtdeEstoque" min="0" placeholder="0">
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button [style]="{color: '#18778C'}" pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button [style]="{color: '#18778C'}" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
+
+</p-dialog>
