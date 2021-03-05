@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-messages',
-  template: `<small class="p-invalid" *ngIf="hasError()">
+  template: `<small class="p-error" *ngIf="hasError()">
   {{ text }}
 </small>`,
   styles: []

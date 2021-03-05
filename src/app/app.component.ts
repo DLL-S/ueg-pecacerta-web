@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,9 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent {
 
-  constructor(private primengConfig: PrimeNGConfig) { }
+  constructor(private primengConfig: PrimeNGConfig, private titleService: Title) {
+    this.titleService.setTitle("Peça Certa");
+  }
 
   ngOnInit() {
     this.primengConfig.ripple = true;

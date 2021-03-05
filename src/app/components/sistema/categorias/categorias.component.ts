@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { TopbarTitleService } from 'src/app/services/topbar-title.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-categorias',
@@ -17,11 +18,12 @@ export class CategoriasComponent implements OnInit {
 
   categorias: Categoria[];
 
-  constructor(private categoriaService : CategoriaService, private topbarTitleService: TopbarTitleService) {
+  constructor(private categoriaService : CategoriaService, private topbarTitleService: TopbarTitleService, private titleService: Title) {
     topbarTitleService.topbarData = {
       title: 'Cadastro de categorias',
       routerUrl: '/sistema/categorias'
-    }
+    };
+    this.titleService.setTitle("Peça Certa (Cadastro de Categorias)");
   }
 
   ngOnInit(): void {

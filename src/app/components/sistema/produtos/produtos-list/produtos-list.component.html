@@ -9,7 +9,8 @@
       <div>
         <button appPrimaryColor pButton style="margin-right: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
           tooltipPosition="top" (click)="openNew()"></button>
-        <button appPrimaryColor (click)="reloadPage()" pButton icon="pi pi-refresh" pTooltip="Recarregar" tooltipPosition="top"></button>
+        <button appPrimaryColor (click)="reloadPage()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
+          tooltipPosition="top"></button>
       </div>
     </div>
   </ng-template>
@@ -73,66 +74,90 @@
   </ng-template>
 </p-table>
 
-<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes do produto" [modal]="true"
-  styleClass="p-fluid">
+<form #dialogoForm="ngForm">
+  <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes do produto" [modal]="true"
+    styleClass="p-fluid">
 
-  <ng-template pTemplate="content">
 
-    <div class="p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="codigo">Código</label>
-        <input type="number" pInputText id="codigo" [(ngModel)]="produto.codigo" placeholder="Novo" readonly disabled />
+    <ng-template pTemplate="content">
+      <div class="p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="codigo">Código</label>
+          <input type="number" pInputText id="codigo" name="codigo" [(ngModel)]="produto.codigo" placeholder="Novo"
+            disabled />
+        </div>
+        <div class="p-field p-col">
+          <label for="codbarras">Código De Barras</label>
+          <input type="text" pInputText ngModel id="codigoDeBarras" name="codigoDeBarras" #codigoDeBarras="ngModel"
+            [(ngModel)]="produto.codigoDeBarras" minlength="13" maxlength="13" required autofocus
+            placeholder="Código de barras" aria-describedby="codbarras-helper">
+          <app-messages id="codbarras-helper" [control]="codigoDeBarras" error="required"
+            text="Informe o Código de Barras"></app-messages>
+          <app-messages id="codbarras-helper" [control]="codigoDeBarras" error="minlength"
+            text="Deve possuir 13 caracteres"></app-messages>
+          <app-messages id="codbarras-helper" [control]="codigoDeBarras" error="maxlength"
+            text="Deve possuir 13 caracteres"></app-messages>
+        </div>
       </div>
-      <div class="p-field p-col">
-        <label for="codbarras">Código De Barras</label>
-        <input type="text" pInputText ngModel name="codigoDeBarras" required [(ngModel)]="produto.codigoDeBarras"
-        minlength="13" maxlength="13" altofocus placeholder="Código de barras">
-        <small class="p-invalid" *ngIf="submitted && !produto.codigoDeBarras">Código de barras é obrigatório.</small>
+
+      <div class="p-field">
+        <label for="nome">Nome</label>
+        <input type="text" pInputText id="nome" name="nome" #nome="ngModel" [(ngModel)]="produto.nome"
+          placeholder="Nome do produto" maxLength="50" required aria-describedby="nome-helper" />
+        <app-messages id="nome-helper" [control]="nome" error="required" text="Informe o Nome"></app-messages>
       </div>
-    </div>
-
-    <div class="p-field">
-      <label for="nome">Nome</label>
-      <input type="text" pInputText id="nome" [(ngModel)]="produto.nome" placeholder="Nome do produto" required />
-      <small class="p-invalid" *ngIf="submitted && !produto.nome">Nome é obrigatório.</small>
-    </div>
-    <div class="p-field">
-      <label for="descricao">Descrição</label>
-      <input class="inputDescricao" type="text" pInputText ngModel name="descricao" [(ngModel)]="produto.descricao"
-        placeholder="Descrição do produto">
-    </div>
-
-    <div class="p-field">
-      <label class="p-mb-3">Categoria</label>
-      <p-dropdown optionLabel="nome" [options]="categorias" ngModel name="categoria" [(ngModel)]="produto.categoria"
-        placeholder="Selecionar..." required>
-      </p-dropdown>
-    </div>
-    <div class="p-field">
-      <label class="p-mb-3">Marca</label>
-      <p-dropdown optionLabel="nome" [options]="marcas" ngModel name="marca" [(ngModel)]="produto.marca"
-        placeholder="Selecionar..." required>
-      </p-dropdown>
-    </div>
-
-    <div class="p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="preco">Preço</label>
-        <p-inputNumber name="preco" id="preco" [(ngModel)]="produto.preco" required mode="currency" currency="BRL"
-          locale="pt-BR" placeholder="R$ 0,00" (click)="$event.target.select()" aria-describedby="valor-help">
-        </p-inputNumber>
+      <div class="p-field">
+        <label for="descricao">Descrição</label>
+        <input class="inputDescricao" type="text" pInputText ngModel id="descricao" name="descricao"
+          #descricao="ngModel" [(ngModel)]="produto.descricao" placeholder="Descrição do produto">
       </div>
-      <div class="p-field p-col">
-        <label for="qtdeEstoque">Quantidade</label>
-        <input type="number" id="qtdeEstoque" pInputText [(ngModel)]="produto.qtdeEstoque" required ngModel
-          name="qtdeEstoque" min="0" placeholder="0">
+
+      <div class="p-field">
+        <label class="p-mb-3">Categoria</label>
+        <p-dropdown optionLabel="nome" [options]="categorias" ngModel id="categoria" name="categoria"
+          #categoria="ngModel" [(ngModel)]="produto.categoria" placeholder="Selecionar..." required
+          aria-describedby="categoria-helper">
+        </p-dropdown>
+        <app-messages id="categoria-helper" [control]="categoria" error="required" text="Selecione uma Categoria">
+        </app-messages>
       </div>
-    </div>
-  </ng-template>
+      <div class="p-field">
+        <label class="p-mb-3">Marca</label>
+        <p-dropdown optionLabel="nome" [options]="marcas" ngModel id="marca" name="marca" #marca="ngModel"
+          [(ngModel)]="produto.marca" placeholder="Selecionar..." required aria-describedby="marca-helper">
+        </p-dropdown>
+        <app-messages id="marca-helper" [control]="marca" error="required" text="Selecione uma Marca"></app-messages>
+      </div>
 
-  <ng-template pTemplate="footer">
-    <button [style]="{color: '#18778C'}" pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button [style]="{color: '#18778C'}" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-  </ng-template>
+      <div class="p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="preco">Preço</label>
+          <p-inputNumber name="preco" id="preco" #preco="ngModel" [(ngModel)]="produto.preco" required mode="currency"
+            currency="BRL" locale="pt-BR" placeholder="R$ 0,00" (click)="$event.target.select()"
+            aria-describedby="preco-help">
+          </p-inputNumber>
+          <app-messages id="preco-helper" [control]="preco" error="required" text="Informe o Preço do produto">
+          </app-messages>
+        </div>
+        <div class="p-field p-col">
+          <label for="qtdeEstoque">Quantidade</label>
+          <input type="number" pInputText [(ngModel)]="produto.qtdeEstoque" required min="0" ngModel
+            #qtdeEstoque="ngModel" id="qtdeEstoque" name="qtdeEstoque" placeholder="0"
+            aria-describedby="qtdeEstoque-helper">
+          <app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="required"
+            text="Informe o estoque inicial"></app-messages>
+          <app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="min"
+            text="Quantidade deve ser maior que 0"></app-messages>
+        </div>
+      </div>
+    </ng-template>
 
-</p-dialog>
+    <ng-template pTemplate="footer">
+      <button [style]="{color: '#18778C'}" pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="hideDialog()"></button>
+      <button [style]="{color: '#18778C'}" pButton pRipple type="submit" label="Salvar" icon="pi pi-check"
+        class="p-button-text" (click)="saveProduct()" [disabled]="!dialogoForm.valid"></button>
+    </ng-template>
+
+  </p-dialog>
+</form>

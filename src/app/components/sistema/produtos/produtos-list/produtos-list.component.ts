@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Produto } from 'src/app/models/produto.model';
 import { ProdutoService } from 'src/app/services/produto.service';
 
+
 @Component({
   selector: 'app-produtos-list',
   templateUrl: './produtos-list.component.html',
@@ -48,23 +49,22 @@ export class ProdutosListComponent implements OnInit {
   saveProduct() {
     this.submitted = true;
 
-    if (this.produto.nome.trim()) {
-      if (this.produto.codigo) {
-        this.produtoService.update(this.produto).subscribe(
-          response => this.produtos[this.findIndexById(this.produto.codigo)] = response
-        );
-      }
-      else {
-        this.produtoService.create(this.produto).subscribe(
-          response => this.produtos.push(response)
-        );
-      }
-
-      this.produtos = [...this.produtos];
-      this.dialog = false;
-      this.produto = new Produto();
-      this.reloadPage();
+    if (this.produto.codigo) {
+      this.produtoService.update(this.produto).subscribe(
+        response => this.produtos[this.findIndexById(this.produto.codigo)] = response
+      );
     }
+    else {
+      this.produtoService.create(this.produto).subscribe(
+        response => this.produtos.push(response)
+      );
+    }
+
+    this.produtos = [...this.produtos];
+    this.dialog = false;
+    this.produto = new Produto();
+    this.reloadPage();
+
   }
 
   reloadPage() {

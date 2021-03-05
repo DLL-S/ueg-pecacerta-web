@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { IsMobileService } from 'src/app/components/templates/utils/is-mobile.service';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Marca } from 'src/app/models/marca.model';
@@ -21,11 +22,13 @@ export class ProdutosSearchComponent implements OnInit {
   produtos: Produto[] = [];
 
   constructor(private isMobileService: IsMobileService, private produtoService: ProdutoService,
-    private categoriaService: CategoriaService, private marcaService: MarcaService, private topbarTitleService: TopbarTitleService) {
+    private categoriaService: CategoriaService, private marcaService: MarcaService,
+    private titleService: Title, private topbarTitleService: TopbarTitleService) {
     this.topbarTitleService.topbarData = {
       title: 'Cadastro De Produto',
       routerUrl: '/sistema/produtos'
-    }
+    };
+    this.titleService.setTitle("Peça Certa (Cadastro de Produtos)");
     this.isMobile = isMobileService.checkPlatform();
   }
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -9,20 +9,17 @@ import { MarcaService } from './services/marca.service';
 import { CategoriaService } from './services/categoria.service';
 import { ProdutoService } from './services/produto.service';
 
+import { SidebarModule } from 'primeng/sidebar';
+import { ToolbarModule } from 'primeng/toolbar';
 import { MenuModule } from 'primeng/menu';
 import { FieldsetModule } from 'primeng/fieldset';
-import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
-import { CardModule } from 'primeng/card';
-import { SidebarModule } from 'primeng/sidebar';
-import { MessagesModule } from 'primeng/messages';
-import { MessageModule } from 'primeng/message';
-import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
-import { InputNumberModule } from 'primeng/inputnumber'
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber'
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -61,27 +58,25 @@ import { ProdutosListComponent } from './components/sistema/produtos/produtos-li
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    InputTextModule,
     FormsModule,
-    MenuModule,
-    ButtonModule,
-    TableModule,
-    CardModule,
-    DropdownModule,
     SidebarModule,
-    MessagesModule,
-    MessageModule,
     ToolbarModule,
-    DialogModule,
-    InputNumberModule,
+    MenuModule,
     FieldsetModule,
-    CheckboxModule
+    TableModule,
+    DialogModule,
+    DropdownModule,
+    InputTextModule,
+    InputNumberModule,
+    ButtonModule,
+    CheckboxModule,
   ],
   providers: [
     ShowSidebarService,
     CategoriaService,
     ProdutoService,
-    MarcaService
+    MarcaService,
+    Title
   ],
   bootstrap: [AppComponent]
 })
