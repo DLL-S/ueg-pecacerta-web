@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NotifyComponent } from 'src/app/components/templates/utils/notify/notify.component';
 import { Produto } from 'src/app/models/produto.model';
 import { ProdutoService } from 'src/app/services/produto.service';
 
@@ -13,9 +14,9 @@ export class ProdutosListComponent implements OnInit {
   @Input() produtos = [];
   @Input() categorias = [];
   @Input() marcas = [];
+  @ViewChild(NotifyComponent) notify: NotifyComponent;
 
   dialog: boolean;
-  submitted: boolean;
   produto: Produto;
   produtoSelecionado: Produto[];
 
@@ -27,12 +28,10 @@ export class ProdutosListComponent implements OnInit {
 
   hideDialog() {
     this.dialog = false;
-    this.submitted = false;
   }
 
   openNew() {
     this.produto = new Produto();
-    this.submitted = false;
     this.dialog = true;
   }
 
@@ -43,11 +42,13 @@ export class ProdutosListComponent implements OnInit {
 
   updateStatus(produto: Produto, event: any) {
     event.stopPropagation();
-    this.produtoService.updateStatus(produto, produto.ativo).subscribe();
+    this.produtoService.updateStatus(produto, produto.ativo).subscribe(() =>
+      this.notify.showMessage("info", "Atenção", "Status do produto alterado!")
+    );
   }
 
   saveProduct() {
-    this.submitted = true;
+
 
     if (this.produto.codigo) {
       this.produtoService.update(this.produto).subscribe(
@@ -64,7 +65,6 @@ export class ProdutosListComponent implements OnInit {
     this.dialog = false;
     this.produto = new Produto();
     this.reloadPage();
-
   }
 
   reloadPage() {

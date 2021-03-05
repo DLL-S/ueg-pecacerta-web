@@ -20,6 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber'
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +35,8 @@ import { TopbarComponent } from './components/templates/topbar/topbar.component'
 import { PrimaryColorDirective } from './directives/primary-color.directive';
 import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
 import { ProdutosListComponent } from './components/sistema/produtos/produtos-list/produtos-list.component';
+import { NotifyComponent } from './components/templates/utils/notify/notify.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import { ProdutosListComponent } from './components/sistema/produtos/produtos-li
     MessagesComponent,
     PrimaryColorDirective,
     ProdutosSearchComponent,
-    ProdutosListComponent
+    ProdutosListComponent,
+    NotifyComponent
   ],
   imports: [
     BrowserModule,
@@ -68,13 +72,15 @@ import { ProdutosListComponent } from './components/sistema/produtos/produtos-li
     InputNumberModule,
     ButtonModule,
     CheckboxModule,
+    ToastModule
   ],
   providers: [
     ShowSidebarService,
     CategoriaService,
     ProdutoService,
     MarcaService,
-    Title
+    Title,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
