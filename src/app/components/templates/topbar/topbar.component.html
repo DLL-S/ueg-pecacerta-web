@@ -19,7 +19,7 @@
       <a routerLink="/produtos">Produtos</a>
       <a routerLink="/orcamentos">Orçamentos</a>
       <a routerLink="/vendas">Vendas</a>
-      <span (mouseenter)="menu.toggle($event)" (mouseleave)="menu.toggle($event)">
+      <span (mouseenter)="menu.toggle($event)" (mouseleave)="menu.toggle($event)" (click)="menu.toggle($event)">
         <a style="cursor: pointer">Sistema <i class="fas fa-caret-down"></i></a>
         <p-menu #menu [popup]="true" [model]="items"></p-menu>
       </span>
@@ -30,5 +30,4 @@
       <i class="fas fa-user-circle" style="vertical-align: baseline;"></i> Sair
     </a>
   </div>
-
 </p-toolbar>

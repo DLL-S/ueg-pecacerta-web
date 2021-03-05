@@ -25,7 +25,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { CategoriasComponent } from './components/sistema/categorias/categorias.component';
-import { ProdutosComponent } from './components/sistema/produtos/produtos.component';
 import { MessagesComponent } from './components/templates/utils/messages/messages.component';
 import { PaginaConstrucaoComponent } from './components/templates/pagina-construcao/pagina-construcao.component';
 import { PaginaNaoEncontradaComponent } from './components/templates/pagina-nao-encontrada/pagina-nao-encontrada.component';
@@ -41,7 +40,6 @@ import { ProdutosListComponent } from './components/sistema/produtos/produtos-li
     AppComponent,
     LoginComponent,
     CategoriasComponent,
-    ProdutosComponent,
     MessagesComponent,
     PaginaConstrucaoComponent,
     PaginaNaoEncontradaComponent,
