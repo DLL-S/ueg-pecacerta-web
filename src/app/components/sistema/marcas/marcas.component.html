@@ -7,18 +7,18 @@
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       Marcas
-      <div>
-        <button appPrimaryColor pButton style="margin-right: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
+      <span style="display: inherit;">
+        <button appPrimaryColor pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
           tooltipPosition="top" (click)="novoDialogo()"></button>
         <button appPrimaryColor pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton
           icon="pi pi-refresh" pTooltip="Recarregar" tooltipPosition="top"></button>
 
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+          <input pInputText style="width: 100% !important;" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
             placeholder="Pesquisar..." />
         </span>
-      </div>
+      </span>
     </div>
   </ng-template>
 
