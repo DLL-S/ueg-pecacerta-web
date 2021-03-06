@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { Marca } from 'src/app/models/marca.model';
 import { MarcaService } from 'src/app/services/marca.service';
 import { TopbarTitleService } from 'src/app/services/topbar-title.service';
 import { Title } from '@angular/platform-browser';
+import { NotifyComponent } from '../../templates/utils/notify/notify.component';
 
 @Component({
   selector: 'app-marcas',
@@ -15,49 +16,67 @@ import { Title } from '@angular/platform-browser';
 export class MarcasComponent implements OnInit {
 
   marcas: Marca[];
-  marca: Marca = {};;
-  submitted: boolean;
-  textoBotao: String;
+  marca: Marca = {};
+  marcaSelecionada: Marca[];
+
+  @ViewChild(NotifyComponent) notify: NotifyComponent;
+
+  dialog: boolean;
 
   constructor(private marcaService: MarcaService, private topbarTitleService: TopbarTitleService, private titleService: Title) {
-    topbarTitleService.topbarData = {
+    this.topbarTitleService.topbarData = {
       title: 'Cadastro de marcas',
       routerUrl: '/sistema/marcas'
     };
-    this.titleService.setTitle("Peça Certa (Cadastro de Marcas)");
+    this.titleService.setTitle("Peça Certa | Marcas");
   }
 
   ngOnInit(): void {
     this.marca = {};
-    this.textoBotao = "Salvar";
-    this.marcaService.read().subscribe(Response => { this.marcas = Response });
+    this.marcaService.read().subscribe(Response => { this.marcas = Response.sort((a, b) => a.codigo - b.codigo) });
   }
 
-  salvarMarca() {
-    this.marcaService
-      .create(this.marca).subscribe(data => {
-        console.log(data)
-        this.marca = {};
-      },
-        error => console.log(error));
+  esconderDialogo() {
+    this.dialog = false;
   }
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.marca.codigo == null) {
-      this.salvarMarca();
-    } else {
+  novoDialogo() {
+    this.marca = new Marca();
+    this.dialog = true;
+  }
+
+  editar(marca: Marca) {
+    this.marca = { ...marca };
+    this.dialog = true;
+  }
+
+  atualizarStatus(marca: Marca, event: any) {
+    event.stopPropagation();
+    this.marcaService.updateStatus(marca, marca.ativo).subscribe(() =>
+      this.notify.showMessage("info", "Atenção", "Status da marca alterado!")
+    );
+  }
+
+  salvar() {
+    if (this.marca.codigo) {
       this.marcaService.update(this.marca).subscribe(
-        response => { this.marcas[this.findIndexById(this.marca.codigo)] = response });
+        response => this.marca[this.findIndexById(this.marca.codigo)] = response
+      );
     }
-    window.location.reload();
+    else {
+      this.marcaService.create(this.marca).subscribe(
+        response => this.marcas.push(response)
+      );
+    }
 
+    this.marcas = [...this.marcas];
+    this.dialog = false;
+    this.marca = new Marca();
+    this.recarregarPagina();
   }
 
-  alteraMarca(marca: Marca) {
-    this.textoBotao = "Alterar";
-    this.marca.codigo = marca.codigo;
-    this.marca.nome = marca.nome;
+  recarregarPagina() {
+    window.location.reload();
   }
 
   findIndexById(codigo: number): number {

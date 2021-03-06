@@ -16,6 +16,7 @@ export class ProdutoService {
   constructor(private http: HttpClient) { }
 
   create(produto: Produto): Observable<any> {
+    produto.ativo = true;
     return this.http.post<Produto>(this.baseUrl, produto, this.httpOptions).pipe(
       map((obj) => obj)
     );

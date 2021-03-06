@@ -28,7 +28,7 @@ export class ProdutosSearchComponent implements OnInit {
       title: 'Cadastro De Produto',
       routerUrl: '/sistema/produtos'
     };
-    this.titleService.setTitle("Peça Certa (Cadastro de Produtos)");
+    this.titleService.setTitle("Peça Certa | Produtos");
     this.isMobile = isMobileService.checkPlatform();
   }
 
@@ -36,7 +36,7 @@ export class ProdutosSearchComponent implements OnInit {
 
     this.categoriaService.read().subscribe(Response => { this.categorias = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
     this.marcaService.read().subscribe(Response => { this.marcas = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
-    this.produtoService.read().subscribe(Response => { this.produtos = Response });
+    this.produtoService.read().subscribe(Response => { this.produtos = Response.sort((a, b) => a.codigo - b.codigo) });
 
   }
 }

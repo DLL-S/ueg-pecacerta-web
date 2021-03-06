@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ShowSidebarService } from './../sidebar/event/show-sidebar.service';
 import { TopbarTitleService } from './../../../services/topbar-title.service';
 import { IsMobileService } from '../utils/is-mobile.service';
@@ -39,5 +39,10 @@ export class TopbarComponent implements OnInit {
 
   callSideBar() {
     this.showSidebarService.sendShowSidebar();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.isMobile = this.isMobileService.checkPlatform();
   }
 }

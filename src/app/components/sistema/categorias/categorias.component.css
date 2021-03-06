@@ -1,38 +1,40 @@
-.categoria {
-    max-width: 80%;
-    margin-right: 20px;
-    padding-right: 5px;
-    padding-top: 80px;
-
+:host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+	display: none;
+}
+@media screen and (max-width: 40rem) {
+	:host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead > tr > th, :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot > tr > td {
+		display: none !important;
+   }
+	:host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td {
+		text-align: left;
+		display: block;
+		width: 100%;
+		float: left;
+		clear: left;
+		border: 0 none;
+   }
+	:host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+		padding: 0.4rem;
+		min-width: 30%;
+		display: inline-block;
+		margin: -0.4em 1em -0.4em -0.4rem;
+		font-weight: bold;
+   }
+	:host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td:last-child {
+		border-bottom: 1px solid var(--surface-d);
+   }
 }
 
-section{
-    margin: auto;
-    margin-top: 10px;
-  }
-
-#categoria-field{
-    width: 10px;
+p-table {
+  margin: auto 1em auto 1em;
 }
 
-#column-item{
-    cursor: pointer;
+.acoes {
+	width: 8em;
+	text-align: center;
 }
 
-.button-salvar{
-    width: 120px;
-    align-self:flex-end;
-}
 
-.button-limpar{
-    width: 120px;
-    margin-right: 20px;
-}
-
-.acoes-botao{
-    display: inline;
-    width: auto;
-    align-self:flex-end;
-    align-content: flex-end;
-    margin-bottom: 20px;
+:host ::ng-deep .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-icon {
+  background-color: #18778C;
 }

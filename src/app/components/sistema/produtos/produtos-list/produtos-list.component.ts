@@ -26,30 +26,28 @@ export class ProdutosListComponent implements OnInit {
 
   }
 
-  hideDialog() {
+  esconderDialogo() {
     this.dialog = false;
   }
 
-  openNew() {
+  novoDialogo() {
     this.produto = new Produto();
     this.dialog = true;
   }
 
-  editProduct(produto: Produto) {
+  editar(produto: Produto) {
     this.produto = { ...produto };
     this.dialog = true;
   }
 
-  updateStatus(produto: Produto, event: any) {
+  atualizarStatus(produto: Produto, event: any) {
     event.stopPropagation();
     this.produtoService.updateStatus(produto, produto.ativo).subscribe(() =>
       this.notify.showMessage("info", "Atenção", "Status do produto alterado!")
     );
   }
 
-  saveProduct() {
-
-
+  salvar() {
     if (this.produto.codigo) {
       this.produtoService.update(this.produto).subscribe(
         response => this.produtos[this.findIndexById(this.produto.codigo)] = response
@@ -64,10 +62,10 @@ export class ProdutosListComponent implements OnInit {
     this.produtos = [...this.produtos];
     this.dialog = false;
     this.produto = new Produto();
-    this.reloadPage();
+    this.recarregarPagina();
   }
 
-  reloadPage() {
+  recarregarPagina() {
     window.location.reload();
   }
 

@@ -2,15 +2,15 @@
 <p-table #dt [value]="produtos" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo"
   [rowHover]="true" dataKey="codigo"
   currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecords} entradas"
-  [showCurrentPageReport]="true" ortMode="multiple" sortField="codigo">
+  [showCurrentPageReport]="true">
 
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       Lançamentos
       <div>
         <button appPrimaryColor pButton style="margin-right: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
-          tooltipPosition="top" (click)="openNew()"></button>
-        <button appPrimaryColor (click)="reloadPage()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
+          tooltipPosition="top" (click)="novoDialogo()"></button>
+        <button appPrimaryColor (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
           tooltipPosition="top"></button>
       </div>
     </div>
@@ -32,12 +32,13 @@
       </th>
       <th pSortableColumn="qtdeEstoque">Estoque <p-sortIcon field="qtdeEstoque"></p-sortIcon>
       </th>
-      <th class="acoes">Ativo</th>
+      <th class="acoes" pSortableColumn="ativo">Ativo <p-sortIcon field="nome"></p-sortIcon>
+      </th>
     </tr>
   </ng-template>
 
   <ng-template pTemplate="body" let-produtoItemTabela>
-    <tr (click)="editProduct(produtoItemTabela)">
+    <tr (click)="editar(produtoItemTabela)">
       <td>
         <span class="p-column-title">Código</span>
         {{produtoItemTabela.codigo}}
@@ -69,7 +70,7 @@
       <td class="acoes">
         <span class="p-column-title">Ativo</span>
         <p-checkbox [(ngModel)]="produtoItemTabela.ativo" binary="true" inputId="binary"
-          (click)="updateStatus(produtoItemTabela, $event)"></p-checkbox>
+          (click)="atualizarStatus(produtoItemTabela, $event)"></p-checkbox>
       </td>
     </tr>
   </ng-template>
@@ -155,9 +156,9 @@
 
     <ng-template pTemplate="footer">
       <button [style]="{color: '#18778C'}" pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
-        (click)="hideDialog()"></button>
+        (click)="esconderDialogo()"></button>
       <button [style]="{color: '#18778C'}" pButton pRipple type="submit" label="Salvar" icon="pi pi-check"
-        class="p-button-text" (click)="saveProduct()" [disabled]="!dialogoForm.valid"></button>
+        class="p-button-text" (click)="salvar()" [disabled]="!dialogoForm.valid"></button>
     </ng-template>
 
   </p-dialog>
