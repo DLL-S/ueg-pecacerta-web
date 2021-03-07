@@ -15,7 +15,7 @@
 
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+          <input pInputText style="width: 100% !important;" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
             placeholder="Pesquisar..." />
         </span>
       </span>
@@ -24,7 +24,7 @@
 
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="codigo">Codigo <p-sortIcon field="codigo"></p-sortIcon>
+      <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon>
       </th>
       <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
       </th>
