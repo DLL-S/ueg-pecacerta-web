@@ -1,0 +1,36 @@
+<p-toolbar *ngIf="isMobile">
+  <div class="menu p-toolbar-group-left" (click)="callSideBar()">
+    <i class="pi pi-bars" style="font-size: 1.5rem"></i>
+  </div>
+  <div class="p-toolbar-group-center links">
+    <a routerLink="{{ routerUrl }}">
+      {{ title }}
+    </a>
+  </div>
+  <div class="p-toolbar-group-right links">
+    <a routerLink="/login">
+      <i class="fas fa-user-circle" style="vertical-align: baseline;"></i> Sair
+    </a>
+  </div>
+</p-toolbar>
+
+<p-toolbar *ngIf="!isMobile">
+  <div class="menu p-toolbar-group-left">
+    <a routerLink="/"><img class="logo" src="assets/logo.png"></a>
+    <div class="links">
+      <a routerLink="/produtos">Produtos</a>
+      <a routerLink="/orcamentos">Orçamentos</a>
+      <a routerLink="/vendas">Vendas</a>
+      <span style="display: inline-block;" (mouseenter)="menu.toggle($event)" (mouseleave)="menu.toggle($event)"
+        (click)="menu.toggle($event)">
+        <a style="cursor: pointer">Sistema <i class="fas fa-caret-down"></i></a>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      </span>
+    </div>
+  </div>
+  <div class="p-toolbar-group-right links">
+    <a routerLink="/login">
+      <i class="fas fa-user-circle" style="vertical-align: baseline;"></i> Sair
+    </a>
+  </div>
+</p-toolbar>

@@ -1,72 +1,86 @@
-import { ProdutoService } from './services/produto-service';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { TableModule } from 'primeng/table';
-import { CardModule } from 'primeng/card';
+import { FormsModule } from '@angular/forms';
+
+import { ShowSidebarService } from './components/templates/sidebar/event/show-sidebar.service';
+import { MarcaService } from './services/marca.service';
+import { CategoriaService } from './services/categoria.service';
+import { ProdutoService } from './services/produto.service';
+
 import { SidebarModule } from 'primeng/sidebar';
-import { MessagesModule } from 'primeng/messages';
-import { MessageModule } from 'primeng/message';
 import { ToolbarModule } from 'primeng/toolbar';
+import { MenuModule } from 'primeng/menu';
+import { FieldsetModule } from 'primeng/fieldset';
+import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber'
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './componentes/login/login.component';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { CabecalhoComponent } from './componentes/cabecalho/cabecalho.component';
-import { BarraLateralComponent } from './componentes/sistema/barra-lateral/barra-lateral.component';
-import { CategoriasComponent } from './componentes/sistema/categorias/categorias.component';
-import { CategoriaService } from './services/categoria-service';
-import { ProdutosComponent } from './componentes/sistema/produtos/produtos.component';
-import { MensagensComponent } from './componentes/utils/mensagens/mensagens.component';
-import { PaginaConstrucaoComponent } from './componentes/utils/pagina-construcao/pagina-construcao.component';
-import { PaginaNaoEncontradaComponent } from './componentes/utils/pagina-nao-encontrada/pagina-nao-encontrada.component';
-import { MarcasComponent } from './componentes/sistema/marcas/marcas.component';
-import { MarcaService } from './services/marca-service';
-import { RodapeComponent } from './componentes/rodape/rodape.component';
+import { LoginComponent } from './components/login/login.component';
+import { CategoriasComponent } from './components/sistema/categorias/categorias.component';
+import { MessagesComponent } from './components/templates/utils/messages/messages.component';
+import { PaginaConstrucaoComponent } from './components/templates/pagina-construcao/pagina-construcao.component';
+import { PaginaNaoEncontradaComponent } from './components/templates/pagina-nao-encontrada/pagina-nao-encontrada.component';
+import { MarcasComponent } from './components/sistema/marcas/marcas.component';
+import { SidebarComponent } from './components/templates/sidebar/sidebar.component';
+import { TopbarComponent } from './components/templates/topbar/topbar.component';
+import { PrimaryColorDirective } from './directives/primary-color.directive';
+import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
+import { ProdutosListComponent } from './components/sistema/produtos/produtos-list/produtos-list.component';
+import { NotifyComponent } from './components/templates/utils/notify/notify.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    BarraLateralComponent,
-    CabecalhoComponent,
     CategoriasComponent,
-    ProdutosComponent,
-    MensagensComponent,
+    MessagesComponent,
     PaginaConstrucaoComponent,
     PaginaNaoEncontradaComponent,
     MarcasComponent,
-    RodapeComponent
+    SidebarComponent,
+    TopbarComponent,
+    MessagesComponent,
+    PrimaryColorDirective,
+    ProdutosSearchComponent,
+    ProdutosListComponent,
+    NotifyComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    InputTextModule,
     FormsModule,
-    ButtonModule,
-    TableModule,
-    CardModule,
-    DropdownModule,
     SidebarModule,
-    MessagesModule,
-    MessageModule,
     ToolbarModule,
+    MenuModule,
+    FieldsetModule,
+    TableModule,
     DialogModule,
-    InputNumberModule
+    DropdownModule,
+    InputTextModule,
+    InputNumberModule,
+    ButtonModule,
+    CheckboxModule,
+    ToastModule
   ],
   providers: [
+    ShowSidebarService,
     CategoriaService,
     ProdutoService,
-    MarcaService
+    MarcaService,
+    Title,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

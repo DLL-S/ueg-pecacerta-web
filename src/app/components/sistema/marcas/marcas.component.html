@@ -1,0 +1,83 @@
+<app-notify></app-notify>
+<p-table #dt id="column-item" [value]="marcas" [rows]="10" [paginator]="true" [globalFilterFields]="['codigo','nome']"
+  [rowHover]="true" dataKey="codigo" styleClass="p-datatable-responsive-demo"
+  currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecords} entradas"
+  [showCurrentPageReport]="true">
+
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      Marcas
+      <span style="display: inherit;">
+        <button appPrimaryColor pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
+          tooltipPosition="top" (click)="novoDialogo()"></button>
+        <button appPrimaryColor pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton
+          icon="pi pi-refresh" pTooltip="Recarregar" tooltipPosition="top"></button>
+
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText style="width: 100% !important;" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Pesquisar..." />
+        </span>
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon>
+      </th>
+      <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+      </th>
+      <th class="acoes" pSortableColumn="ativo">Ativo <p-sortIcon field="nome"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-marca>
+    <tr (click)="editar(marca)">
+      <td>
+        <span class="p-column-title">Código</span>
+        {{ marca.codigo }}
+      </td>
+      <td>
+        <span class="p-column-title">Nome</span>
+        {{ marca.nome }}
+      </td>
+      <td class="acoes">
+        <span class="p-column-title">Ativo</span>
+        <p-checkbox [(ngModel)]="marca.ativo" binary="true" inputId="binary" (click)="atualizarStatus(marca, $event)">
+        </p-checkbox>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<form #dialogoForm="ngForm">
+  <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes do marca" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+      <div class="p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="codigo">Código</label>
+          <input type="number" pInputText id="codigo" name="codigo" [(ngModel)]="marca.codigo" placeholder="Novo"
+            disabled />
+        </div>
+      </div>
+
+      <div class="p-field">
+        <label for="nome">Nome</label>
+        <input type="text" pInputText id="nome" name="nome" #nome="ngModel" [(ngModel)]="marca.nome"
+          placeholder="Nome da marca" maxLength="50" required aria-describedby="nome-helper" />
+        <app-messages id="nome-helper" [control]="nome" error="required" text="Informe o Nome"></app-messages>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <button [style]="{color: '#18778C'}" pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="esconderDialogo()"></button>
+      <button [style]="{color: '#18778C'}" pButton pRipple type="submit" label="Salvar" icon="pi pi-check"
+        class="p-button-text" (click)="salvar()" [disabled]="!dialogoForm.valid"></button>
+    </ng-template>
+
+  </p-dialog>
+</form>

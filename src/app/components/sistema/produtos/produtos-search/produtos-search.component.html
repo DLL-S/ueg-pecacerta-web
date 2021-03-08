@@ -1,0 +1,32 @@
+<p-fieldset legend="Procurar" [toggleable]="true" [collapsed]="false">
+  <form #produtoSearchForm="ngForm" id="produtoForm" class="p-fluid p-formgrid p-grid">
+
+    <div class='p-field p-col-12 p-md-1'>
+      <label for="codigo">Codigo</label>
+      <input type="number" pInputText name="codigo" placeholder="Id">
+    </div>
+    <div class='p-field p-col-12 p-md-6'>
+      <label for="nome">Nome</label>
+      <input type="text" pInputText name="nome" placeholder="Nome do produto">
+    </div>
+    <div class='p-field p-col-12 p-md-3'>
+      <label for="categoria">Categoria</label>
+      <p-dropdown optionLabel="nome" [options]="categorias" name="categoria" placeholder="Selecionar..."></p-dropdown>
+    </div>
+    <div class='p-field p-col-12 p-md-2'>
+      <label for="marca">Marca</label>
+      <p-dropdown optionLabel="nome" [options]="marcas" name="marca" placeholder="Selecionar..."></p-dropdown>
+    </div>
+
+    <div class="p-field p-col-12 p-md-10"></div>
+    <div class="p-field p-col-12 p-md-2">
+      <button appPrimaryColor pButton label="Procurar" type="submit" form="produtoSearchForm" icon="pi pi-search"></button>
+    </div>
+  </form>
+</p-fieldset>
+
+<div class="p-grid">
+  <div class="p-col-12">
+    <app-produtos-list [produtos]="produtos" [categorias]="categorias" [marcas]="marcas"></app-produtos-list>
+  </div>
+</div>
