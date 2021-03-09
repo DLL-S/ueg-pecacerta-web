@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://localhost:8080/api/v1'
+  apiBaseUrl: 'https://pecacerta-api-hml.herokuapp.com/api/v1'
 };
 
 /*
