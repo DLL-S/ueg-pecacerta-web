@@ -8,9 +8,9 @@
     <div class="p-d-flex p-ai-center p-jc-between">
       Clientes
       <span style="display: inherit;">
-        <button appPrimaryColor pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar" tooltipPosition="top"
+        <button  pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar" tooltipPosition="top"
           (click)="novoDialogo()"></button>
-        <button appPrimaryColor pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
+        <button  pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
           tooltipPosition="top"></button>
 
         <span class="p-input-icon-left">
@@ -196,7 +196,8 @@
         <div class="p-field p-col-9">
           <label for="complemento">Complemento</label>
           <input type="text" pInputText id="complemento" name="complemento" #complemento="ngModel" [(ngModel)]="cliente.endereco.complemento"
-            placeholder="Complemento do endereço" maxlength="30" aria-describedby="complemento-helper" />
+            placeholder="Complemento do endereço" maxlength="30" required aria-describedby="complemento-helper" />
+          <app-messages id="complemento-helper" [control]="complemento" error="required" text="Informe o Complemento do endereço"></app-messages>
           <app-messages id="complemento-helper" [control]="complemento" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
         </div>
         <div class="p-field p-col-6">

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import './assets/css/theme.css';
+
 body {
 	font-family: Helvetica,Verdana,Arial,sans-serif;
 }

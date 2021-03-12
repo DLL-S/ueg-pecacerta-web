@@ -7,6 +7,7 @@ import { PaginaNaoEncontradaComponent } from './components/templates/pagina-nao-
 import { CategoriasComponent } from './components/sistema/categorias/categorias.component';
 import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
 import { ClientesComponent } from './components/sistema/clientes/clientes.component';
+import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
 
 const routes: Routes = [
   { path: "", component: ProdutosSearchComponent },
@@ -16,7 +17,7 @@ const routes: Routes = [
   { path: "vendas", component: PaginaConstrucaoComponent },
   { path: "sistema/produtos", component: ProdutosSearchComponent },
   { path: "sistema/estoque", component: PaginaConstrucaoComponent },
-  { path: "sistema/funcionarios", component: PaginaConstrucaoComponent },
+  { path: "sistema/funcionarios", component: FuncionariosComponent },
   { path: "sistema/clientes", component: ClientesComponent },
   { path: "sistema/marcas", component: MarcasComponent },
   { path: "sistema/categorias", component: CategoriasComponent },

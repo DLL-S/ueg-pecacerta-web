@@ -33,8 +33,3 @@ p-table {
 	width: 8em;
 	text-align: center;
 }
-
-
-:host ::ng-deep .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-icon {
-  background-color: #18778C;
-}

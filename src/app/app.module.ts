@@ -40,6 +40,7 @@ import { MarcaService } from './services/marca.service';
 import { CategoriaService } from './services/categoria.service';
 import { ProdutoService } from './services/produto.service';
 import { SharedModule } from './shared/shared.module';
+import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { SharedModule } from './shared/shared.module';
     ProdutosSearchComponent,
     ProdutosListComponent,
     NotifyComponent,
-    ClientesComponent
+    ClientesComponent,
+    FuncionariosComponent
   ],
   imports: [
     BrowserModule,
