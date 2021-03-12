@@ -30,7 +30,7 @@ export class CategoriasComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoria = {};
-    this.categoriaService.read().subscribe(Response => { this.categorias = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.categoriaService.listar().subscribe(Response => { this.categorias = Response.sort((a, b) => a.codigo - b.codigo) });
   }
 
   esconderDialogo() {
@@ -49,19 +49,19 @@ export class CategoriasComponent implements OnInit {
 
   atualizarStatus(categoria: Categoria, event: any) {
     event.stopPropagation();
-    this.categoriaService.updateStatus(categoria, categoria.ativo).subscribe(() =>
+    this.categoriaService.atualizarStatus(categoria, categoria.ativo).subscribe(() =>
       this.notify.showMessage("info", "Atenção", "Status da categoria alterado!")
     );
   }
 
   salvar() {
     if (this.categoria.codigo) {
-      this.categoriaService.update(this.categoria).subscribe(
+      this.categoriaService.atualizar(this.categoria).subscribe(
         response => this.categoria[this.findIndexById(this.categoria.codigo)] = response
       );
     }
     else {
-      this.categoriaService.create(this.categoria).subscribe(
+      this.categoriaService.incluir(this.categoria).subscribe(
         response => this.categorias.push(response)
       );
     }

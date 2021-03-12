@@ -33,7 +33,7 @@ export class MarcasComponent implements OnInit {
 
   ngOnInit(): void {
     this.marca = {};
-    this.marcaService.read().subscribe(Response => { this.marcas = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.marcaService.listar().subscribe(Response => { this.marcas = Response.sort((a, b) => a.codigo - b.codigo) });
   }
 
   esconderDialogo() {
@@ -52,19 +52,19 @@ export class MarcasComponent implements OnInit {
 
   atualizarStatus(marca: Marca, event: any) {
     event.stopPropagation();
-    this.marcaService.updateStatus(marca, marca.ativo).subscribe(() =>
+    this.marcaService.atualizarStatus(marca, marca.ativo).subscribe(() =>
       this.notify.showMessage("info", "Atenção", "Status da marca alterado!")
     );
   }
 
   salvar() {
     if (this.marca.codigo) {
-      this.marcaService.update(this.marca).subscribe(
+      this.marcaService.atualizar(this.marca).subscribe(
         response => this.marca[this.findIndexById(this.marca.codigo)] = response
       );
     }
     else {
-      this.marcaService.create(this.marca).subscribe(
+      this.marcaService.incluir(this.marca).subscribe(
         response => this.marcas.push(response)
       );
     }
