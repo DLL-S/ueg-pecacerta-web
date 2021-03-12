@@ -42,19 +42,19 @@ export class ProdutosListComponent implements OnInit {
 
   atualizarStatus(produto: Produto, event: any) {
     event.stopPropagation();
-    this.produtoService.updateStatus(produto, produto.ativo).subscribe(() =>
+    this.produtoService.atualizarStatus(produto, produto.ativo).subscribe(() =>
       this.notify.showMessage("info", "Atenção", "Status do produto alterado!")
     );
   }
 
   salvar() {
     if (this.produto.codigo) {
-      this.produtoService.update(this.produto).subscribe(
+      this.produtoService.atualizar(this.produto).subscribe(
         response => this.produtos[this.findIndexById(this.produto.codigo)] = response
       );
     }
     else {
-      this.produtoService.create(this.produto).subscribe(
+      this.produtoService.incluir(this.produto).subscribe(
         response => this.produtos.push(response)
       );
     }

@@ -1,18 +1,23 @@
 <app-notify></app-notify>
 <p-table #dt [value]="produtos" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo"
-  [rowHover]="true" dataKey="codigo"
+  [rowHover]="true" dataKey="codigo" [globalFilterFields]="['codigo','nome', 'categoria.nome', 'marca.nome', 'preco']"
   currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecords} entradas"
   [showCurrentPageReport]="true">
 
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center p-jc-between">
       Produtos
-      <div>
-        <button appPrimaryColor pButton style="margin-right: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
-          tooltipPosition="top" (click)="novoDialogo()"></button>
-        <button appPrimaryColor (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
+      <span style="display: inherit;">
+        <button appPrimaryColor pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar" tooltipPosition="top"
+          (click)="novoDialogo()"></button>
+        <button appPrimaryColor pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
           tooltipPosition="top"></button>
-      </div>
+
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText style="width: 100% !important;" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisar..." />
+        </span>
+      </span>
     </div>
   </ng-template>
 

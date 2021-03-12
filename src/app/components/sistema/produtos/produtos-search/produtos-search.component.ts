@@ -29,14 +29,14 @@ export class ProdutosSearchComponent implements OnInit {
       routerUrl: '/sistema/produtos'
     };
     this.titleService.setTitle("Peça Certa | Produtos");
-    this.isMobile = isMobileService.checkPlatform();
+    this.isMobile = this.isMobileService.checkPlatform();
   }
 
   ngOnInit(): void {
 
-    this.categoriaService.read().subscribe(Response => { this.categorias = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
-    this.marcaService.read().subscribe(Response => { this.marcas = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
-    this.produtoService.read().subscribe(Response => { this.produtos = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.categoriaService.listar().subscribe(Response => { this.categorias = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
+    this.marcaService.listar().subscribe(Response => { this.marcas = Response.sort((a, b) => a.nome.localeCompare(b.nome)) });
+    this.produtoService.listar().subscribe(Response => { this.produtos = Response.sort((a, b) => a.codigo - b.codigo) });
 
   }
 }
