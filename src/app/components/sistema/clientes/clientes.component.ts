@@ -16,7 +16,6 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
   cliente: Cliente;
-  marcaSelecionada: Cliente[];
 
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
@@ -55,7 +54,7 @@ export class ClientesComponent implements OnInit {
   }
 
   atualizarStatus(cliente: Cliente, event: any) {
-    this.naoExibeDialogo(event);
+    event.stopPropagation();
     this.clienteService.atualizarStatus(cliente, cliente.ativo).subscribe(() =>
       this.notify.showMessage("info", "Atenção", "Status do cliente alterado!")
     );
@@ -68,6 +67,7 @@ export class ClientesComponent implements OnInit {
       );
     }
     else {
+      console.log(JSON.stringify(this.cliente).toString());
       this.clienteService.incluir(this.cliente).subscribe(
         response => this.clientes.push(response)
       );
@@ -83,7 +83,7 @@ export class ClientesComponent implements OnInit {
     window.location.reload();
   }
 
-  naoExibeDialogo(event: any) {
+  detalhesCliente(cliente: Cliente, event: any) {
     event.stopPropagation();
   }
 
