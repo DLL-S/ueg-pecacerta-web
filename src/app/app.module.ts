@@ -4,10 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-import { ShowSidebarService } from './components/templates/sidebar/event/show-sidebar.service';
-import { MarcaService } from './services/marca.service';
-import { CategoriaService } from './services/categoria.service';
-import { ProdutoService } from './services/produto.service';
 
 import { SidebarModule } from 'primeng/sidebar';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -21,6 +17,9 @@ import { InputNumberModule } from 'primeng/inputnumber'
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToastModule } from 'primeng/toast';
+import { InputMaskModule } from 'primeng/inputmask';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { MessageService } from 'primeng/api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,11 +31,15 @@ import { PaginaNaoEncontradaComponent } from './components/templates/pagina-nao-
 import { MarcasComponent } from './components/sistema/marcas/marcas.component';
 import { SidebarComponent } from './components/templates/sidebar/sidebar.component';
 import { TopbarComponent } from './components/templates/topbar/topbar.component';
-import { PrimaryColorDirective } from './shared/directives/primary-color.directive';
 import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
 import { ProdutosListComponent } from './components/sistema/produtos/produtos-list/produtos-list.component';
 import { NotifyComponent } from './components/templates/utils/notify/notify.component';
-import { MessageService } from 'primeng/api';
+import { ShowSidebarService } from './components/templates/sidebar/event/show-sidebar.service';
+import { ClientesComponent } from './components/sistema/clientes/clientes.component';
+import { MarcaService } from './services/marca.service';
+import { CategoriaService } from './services/categoria.service';
+import { ProdutoService } from './services/produto.service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -50,10 +53,10 @@ import { MessageService } from 'primeng/api';
     SidebarComponent,
     TopbarComponent,
     MessagesComponent,
-    PrimaryColorDirective,
     ProdutosSearchComponent,
     ProdutosListComponent,
-    NotifyComponent
+    NotifyComponent,
+    ClientesComponent
   ],
   imports: [
     BrowserModule,
@@ -70,9 +73,13 @@ import { MessageService } from 'primeng/api';
     DropdownModule,
     InputTextModule,
     InputNumberModule,
+    InputMaskModule,
     ButtonModule,
     CheckboxModule,
-    ToastModule
+    ToastModule,
+    RadioButtonModule,
+    SharedModule
+
   ],
   providers: [
     ShowSidebarService,

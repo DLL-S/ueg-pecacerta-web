@@ -131,11 +131,11 @@
 
         <span class="p-field p-col-12">
           <span class="p-field-radiobutton">
-            <p-radioButton name="tipoCliente" value="PESSOA_FISICA" [(ngModel)]="cliente.tipoCliente" inputId="tipoPF"></p-radioButton>
-            <label for="city1">Pessoa Física</label>
-            <p-radioButton name="tipoCliente" value="PESSOA_JURIDICA" [(ngModel)]="cliente.tipoCliente" inputId="tipoPJ" style="margin-left: 30px;">
+            <p-radioButton name="tipoPF" value="PESSOA_FISICA" [(ngModel)]="cliente.tipoCliente" inputId="tipoPF"></p-radioButton>
+            <label for="tipoPF">Pessoa Física</label>
+            <p-radioButton name="tipoPJ" value="PESSOA_JURIDICA" [(ngModel)]="cliente.tipoCliente" inputId="tipoPJ" style="margin-left: 30px;">
             </p-radioButton>
-            <label for="city2">Pessoa Jurídica</label>
+            <label for="tipoPJ">Pessoa Jurídica</label>
           </span>
         </span>
 
@@ -169,11 +169,11 @@
           <app-messages id="cnpj-helper" [control]="cnpj" error="maxlength" text="Deve possuir 14 caracteres"></app-messages>
         </div>
 
-        <div class="p-field p-col-6">{{cliente.dataNascFund}} | {{cliente.dataNascFund}}
+        <div class="p-field p-col-6">
           <label for="cnpj" *ngIf="cliente.tipoCliente == 'PESSOA_FISICA'">Data de nascimento</label>
           <label for="cnpj" *ngIf="cliente.tipoCliente == 'PESSOA_JURIDICA'">Data de fundação</label>
-          <input type="date" style="height: 35px;" pInputText id="dataNascFund" name="dataNascFund" #dataNascFund="ngModel"
-            [(ngModel)]="cliente.dataNascFund" placeholder="dd/mm/aaaa" required aria-describedby="dataNascFund-helper" />
+          <input type="date" style="height: 35px;" pInputText id="dataNascFund" name="dataNascFund" #dataNascFund="ngModel" [(ngModel)]="cliente.dataNascFund"
+            placeholder="dd/mm/aaaa" required aria-describedby="dataNascFund-helper" />
           <app-messages id="dataNascFund-help" [control]="dataNascFund" error="required" text="Informe a data de dataNascFund"></app-messages>
         </div>
 
@@ -238,8 +238,8 @@
         </div>
         <div class="p-field p-col-12">
           <label for="email">E-mail</label>
-          <input pInputText name="email" type="email" [(ngModel)]="cliente.email" #email="ngModel" email required maxlength="40"
-            aria-describedby="email-helper" placeholder="E-mail do cliente">
+          <input pInputText name="email" type="email" [(ngModel)]="cliente.email" #email="ngModel" email required maxlength="40" aria-describedby="email-helper"
+            placeholder="E-mail do cliente">
           <app-messages id="email-helper" [control]="email" error="required" text="Informe um e-mail"></app-messages>
           <app-messages id="email-helper" [control]="email" error="email" text="Informe um e-mail válido"></app-messages>
           <app-messages id="email-helper" [control]="email" error="maxlength" text="Deve possuir no máximo 40 caracteres"></app-messages>
