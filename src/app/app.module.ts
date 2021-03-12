@@ -32,7 +32,7 @@ import { PaginaNaoEncontradaComponent } from './components/templates/pagina-nao-
 import { MarcasComponent } from './components/sistema/marcas/marcas.component';
 import { SidebarComponent } from './components/templates/sidebar/sidebar.component';
 import { TopbarComponent } from './components/templates/topbar/topbar.component';
-import { PrimaryColorDirective } from './directives/primary-color.directive';
+import { PrimaryColorDirective } from './shared/directives/primary-color.directive';
 import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
 import { ProdutosListComponent } from './components/sistema/produtos/produtos-list/produtos-list.component';
 import { NotifyComponent } from './components/templates/utils/notify/notify.component';
