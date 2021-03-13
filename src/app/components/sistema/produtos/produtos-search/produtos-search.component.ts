@@ -37,6 +37,5 @@ export class ProdutosSearchComponent implements OnInit {
     this.categoriaService.listarAtivos().subscribe(Response => this.categorias = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
     this.marcaService.listarAtivos().subscribe(Response => this.marcas = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
     this.produtoService.listar().subscribe(Response => this.produtos = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
-
   }
 }

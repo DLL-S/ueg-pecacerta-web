@@ -75,7 +75,7 @@
       <td class="acoes">
         <span class="p-column-title">Ativo</span>
         <p-checkbox [(ngModel)]="produtoItemTabela.ativo" binary="true" inputId="binary"
-          (click)="atualizarStatus(produtoItemTabela, $event)"></p-checkbox>
+          (click)="atualizarStatus(produtoItemTabela, $event)" [pTooltip]="(produtoItemTabela.ativo == true ? 'Inativar' : 'Ativar')"></p-checkbox>
       </td>
     </tr>
   </ng-template>

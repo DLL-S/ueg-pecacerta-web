@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
 import { Marca } from 'src/app/models/marca.model';
 import { MarcaService } from 'src/app/services/marca.service';
 import { TopbarTitleService } from 'src/app/services/topbar-title.service';
@@ -10,8 +8,7 @@ import { NotifyComponent } from '../../templates/utils/notify/notify.component';
 @Component({
   selector: 'app-marcas',
   templateUrl: './marcas.component.html',
-  styleUrls: ['./marcas.component.css'],
-  providers: [MessageService, ConfirmationService]
+  styleUrls: ['./marcas.component.css']
 })
 export class MarcasComponent implements OnInit {
 
