@@ -5,9 +5,9 @@ export class Funcionario {
   codigo?: number;
   ativo?: boolean;
   nome?: string;
-  tipoFuncionario?: ETipoFuncionario;
+  tipoDeFuncionario?: ETipoFuncionario;
   cpf?: string;
-  dataNascimento?: Date;
+  dataNasc?: Date;
   endereco?: Endereco;
   email?: string;
   telefone?: string;

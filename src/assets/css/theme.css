@@ -848,7 +848,7 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   background: #ffffff;
 }
 .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-  background: #05c7f3;
+  background: #0a8ba8;
 }
 
 p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
@@ -1291,8 +1291,8 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   color: #ffffff;
 }
 .p-selectbutton .p-button.p-highlight:hover {
-  background: #05c7f3;
-  border-color: #05c7f3;
+  background: #0a8ba8;
+  border-color: #0a8ba8;
   color: #ffffff;
 }
 .p-selectbutton .p-button.p-highlight:hover .p-button-icon-left,
@@ -1385,8 +1385,8 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
   color: #ffffff;
 }
 .p-togglebutton.p-button.p-highlight:hover {
-  background: #05c7f3;
-  border-color: #05c7f3;
+  background: #0a8ba8;
+  border-color: #0a8ba8;
   color: #ffffff;
 }
 .p-togglebutton.p-button.p-highlight:hover .p-button-icon-left,
@@ -1408,9 +1408,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 3px;
 }
 .p-button:enabled:hover {
-  background: #05c7f3;
+  background: #0a8ba8;
   color: #ffffff;
-  border-color: #05c7f3;
+  border-color: #0a8ba8;
 }
 .p-button:enabled:active {
   background: #0d7a92;
@@ -2297,8 +2297,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-right: 1px solid #dee2e6;
 }
 .fc .fc-view-container .fc-event {
-  background: #05c7f3;
-  border: 1px solid #05c7f3;
+  background: #0a8ba8;
+  border: 1px solid #0a8ba8;
   color: #ffffff;
 }
 .fc .fc-view-container .fc-divider {
@@ -2316,9 +2316,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   align-items: center;
 }
 .fc .fc-toolbar .fc-button:enabled:hover {
-  background: #05c7f3;
+  background: #0a8ba8;
   color: #ffffff;
-  border-color: #05c7f3;
+  border-color: #0a8ba8;
 }
 .fc .fc-toolbar .fc-button:enabled:active {
   background: #0d7a92;
@@ -2368,8 +2368,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #ffffff;
 }
 .fc .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active:hover, .fc .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active:hover, .fc .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active:hover {
-  background: #05c7f3;
-  border-color: #05c7f3;
+  background: #0a8ba8;
+  border-color: #0a8ba8;
   color: #ffffff;
 }
 .fc .fc-toolbar .fc-button.fc-dayGridMonth-button:focus, .fc .fc-toolbar .fc-button.fc-timeGridWeek-button:focus, .fc .fc-toolbar .fc-button.fc-timeGridDay-button:focus {
@@ -3483,7 +3483,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   right: -1rem;
 }
 .p-overlaypanel .p-overlaypanel-close:enabled:hover {
-  background: #05c7f3;
+  background: #0a8ba8;
   color: #ffffff;
 }
 .p-overlaypanel:after {
@@ -3590,9 +3590,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-fileupload-choose:not(.p-disabled):hover {
-  background: #05c7f3;
+  background: #0a8ba8;
   color: #ffffff;
-  border-color: #05c7f3;
+  border-color: #0a8ba8;
 }
 .p-fileupload-choose:not(.p-disabled):active {
   background: #0d7a92;

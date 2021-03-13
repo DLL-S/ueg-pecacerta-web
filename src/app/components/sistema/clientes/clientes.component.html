@@ -118,7 +118,7 @@
 </p-table>
 
 <form #dialogoForm="ngForm">
-  <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes da marca" [modal]="true" styleClass="p-fluid">
+  <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes do cliente" [modal]="true" styleClass="p-fluid">
 
     <ng-template pTemplate="content">
       <div class="p-formgrid p-grid">
@@ -225,7 +225,7 @@
         <div class="p-field p-col-6">
           <label for="telefone">Telefone</label>
           <p-inputMask mask="(99) 99999-9999" autoClear unmask="true" name="telefone" [(ngModel)]="cliente.telefone" #telefone="ngModel" required minlength="11"
-            maxlength="11" aria-describedby="telefone-help">
+           placeholder="Telefone do cliente" maxlength="11" aria-describedby="telefone-help">
           </p-inputMask>
           <app-messages id="telefone-help" [control]="telefone" error="required" text="Informe o Telefone"></app-messages>
           <app-messages id="telefone-helper" [control]="telefone" error="minlength" text="Deve possuir no mínimo 11 caracteres"></app-messages>

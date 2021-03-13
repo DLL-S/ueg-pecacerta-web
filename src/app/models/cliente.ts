@@ -1,11 +1,11 @@
 import { Endereco } from "./endereco";
-import { TipoCliente } from "./enums/ETipoCliente";
+import { ETipoCliente } from "./enums/ETipoCliente";
 
 export class Cliente {
   codigo?: number;
   ativo?: boolean;
   nome?: string;
-  tipoCliente?: TipoCliente;
+  tipoCliente?: ETipoCliente;
   cpfCnpj?: string;
   dataNascFund?: Date;
   endereco?: Endereco;

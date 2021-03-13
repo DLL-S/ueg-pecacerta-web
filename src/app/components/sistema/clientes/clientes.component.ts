@@ -5,7 +5,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { TopbarTitleService } from 'src/app/services/topbar-title.service';
 import { IsMobileService } from '../../templates/utils/is-mobile.service';
 import { NotifyComponent } from '../../templates/utils/notify/notify.component';
-import { TipoCliente } from "src/app/models/enums/ETipoCliente";
+import { ETipoCliente } from "src/app/models/enums/ETipoCliente";
 
 @Component({
   selector: 'app-clientes',
@@ -43,7 +43,7 @@ export class ClientesComponent implements OnInit {
 
   novoDialogo() {
     this.cliente = new Cliente();
-    this.cliente.tipoCliente = TipoCliente.PESSOA_FISICA;
+    this.cliente.tipoCliente = ETipoCliente.PESSOA_FISICA;
     this.cliente.endereco = {};
     this.dialog = true;
   }

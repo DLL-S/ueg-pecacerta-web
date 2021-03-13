@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Funcionario } from 'src/app/models/funcionario';
+import { FuncionarioService } from 'src/app/services/funcionario.service';
+import { TopbarTitleService } from 'src/app/services/topbar-title.service';
+import { IsMobileService } from '../../templates/utils/is-mobile.service';
+import { NotifyComponent } from '../../templates/utils/notify/notify.component';
+import { ETipoFuncionario } from "src/app/models/enums/ETipoFuncionario";
 
 @Component({
   selector: 'app-funcionarios',
@@ -7,9 +14,88 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FuncionariosComponent implements OnInit {
 
-  constructor() { }
+  funcionarios: Funcionario[];
+  funcionario: Funcionario;
 
-  ngOnInit(): void {
+  @ViewChild(NotifyComponent) notify: NotifyComponent;
+
+  dialog: boolean;
+  ismobile: Boolean;
+
+  constructor(private funcionarioService: FuncionarioService, private topbarTitleService: TopbarTitleService, private titleService: Title,
+    private isMobileService: IsMobileService) {
+    this.topbarTitleService.topbarData = {
+      title: 'Cadastro de funcionarios',
+      routerUrl: '/sistema/funcionarios'
+    };
+    this.titleService.setTitle("Peça Certa | Funcionarios");
+    this.ismobile = this.isMobileService.checkPlatform();
   }
 
+  ngOnInit(): void {
+    this.funcionario = null;
+    this.funcionarioService.listar().subscribe(Response => { this.funcionarios = Response.sort((a, b) => a.codigo - b.codigo) });
+  }
+
+  esconderDialogo() {
+    this.dialog = false;
+  }
+
+  novoDialogo() {
+    this.funcionario = new Funcionario();
+    this.funcionario.tipoDeFuncionario = ETipoFuncionario.Atendente;
+    this.funcionario.endereco = {};
+    this.dialog = true;
+  }
+
+  editar(funcionario: Funcionario) {
+    this.funcionario = { ...funcionario };
+    this.dialog = true;
+  }
+
+  atualizarStatus(funcionario: Funcionario, event: any) {
+    event.stopPropagation();
+    this.funcionarioService.atualizarStatus(funcionario, funcionario.ativo).subscribe(() =>
+      this.notify.showMessage("info", "Atenção", "Status do funcionario alterado!")
+    );
+  }
+
+  salvar() {
+    if (this.funcionario.codigo) {
+      this.funcionarioService.atualizar(this.funcionario).subscribe(
+        response => this.funcionario[this.findIndexById(this.funcionario.codigo)] = response
+      );
+    }
+    else {
+      console.log(JSON.stringify(this.funcionario).toString());
+      this.funcionarioService.incluir(this.funcionario).subscribe(
+        response => this.funcionarios.push(response)
+      );
+    }
+
+    this.funcionarios = [...this.funcionarios];
+    this.dialog = false;
+    this.funcionario = new Funcionario();
+    this.recarregarPagina();
+  }
+
+  recarregarPagina() {
+    window.location.reload();
+  }
+
+  detalhesFuncionario(funcionario: Funcionario, event: any) {
+    event.stopPropagation();
+  }
+
+  findIndexById(codigo: number): number {
+    let index = -1;
+    for (let i = 0; i < this.funcionarios.length; i++) {
+      if (this.funcionarios[i].codigo === codigo) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
+  }
 }
