@@ -13,8 +13,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 export class CategoriasComponent implements OnInit {
 
   categorias: Categoria[];
-  categoria: Categoria = {};
-  marcaSelecionada: Categoria[];
+  categoria: Categoria;
 
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
@@ -30,7 +29,7 @@ export class CategoriasComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoria = {};
-    this.categoriaService.read().subscribe(Response => { this.categorias = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.categoriaService.listar().subscribe(Response => this.categorias = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
   }
 
   esconderDialogo() {
@@ -38,7 +37,7 @@ export class CategoriasComponent implements OnInit {
   }
 
   novoDialogo() {
-    this.categoria = new Categoria();
+    this.categoria = {};
     this.dialog = true;
   }
 
@@ -49,31 +48,34 @@ export class CategoriasComponent implements OnInit {
 
   atualizarStatus(categoria: Categoria, event: any) {
     event.stopPropagation();
-    this.categoriaService.updateStatus(categoria, categoria.ativo).subscribe(() =>
+    this.categoriaService.atualizarStatus(categoria, categoria.ativo).subscribe(() =>
       this.notify.showMessage("info", "Atenção", "Status da categoria alterado!")
     );
   }
 
   salvar() {
     if (this.categoria.codigo) {
-      this.categoriaService.update(this.categoria).subscribe(
-        response => this.categoria[this.findIndexById(this.categoria.codigo)] = response
+      let indice = this.findIndexById(this.categoria.codigo)
+      this.categoriaService.atualizar(this.categoria).subscribe(
+        response => this.categorias[indice] = response
       );
     }
     else {
-      this.categoriaService.create(this.categoria).subscribe(
+      this.categoriaService.incluir(this.categoria).subscribe(
         response => this.categorias.push(response)
       );
     }
 
     this.categorias = [...this.categorias];
     this.dialog = false;
-    this.categoria = new Categoria();
-    this.recarregarPagina();
+    this.categoria = {};
   }
 
   recarregarPagina() {
-    window.location.reload();
+    this.categoriaService.listar().subscribe(response => {
+      this.categorias = response.sort((a, b) => a.codigo - b.codigo),
+      this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
+    });
   }
 
   findIndexById(codigo: number): number {

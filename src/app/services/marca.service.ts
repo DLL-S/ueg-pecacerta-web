@@ -15,31 +15,34 @@ export class MarcaService {
 
   constructor(private http: HttpClient) { }
 
-  create(marca: Marca): Observable<Marca> {
+  incluir(marca: Marca): Observable<Marca> {
     marca.ativo = true;
     return this.http.post<Marca>(this.baseUrl, marca).pipe(
       map((obj) => obj)
     );
   }
 
-  read(): Observable<Marca[]> {
+  listar(): Observable<Marca[]> {
     return this.http.get<Marca[]>(this.baseUrl);
-
   }
 
-  readById(id: number): Observable<Marca> {
+  listarAtivos(): Observable<Marca[]> {
+    return this.http.get<Marca[]>(`${this.baseUrl}/ativos`);
+  }
+
+  consultar(id: number): Observable<Marca> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.get<Marca>(url).pipe(
       map((obj) => obj)
     );
   }
 
-  update(marca: Marca): Observable<Marca> {
+  atualizar(marca: Marca): Observable<Marca> {
     const url = `${this.baseUrl}/${marca.codigo}`;
     return this.http.put<Marca>(url, marca);
   }
 
-  updateStatus(marca: Marca, status: boolean): Observable<Marca> {
+  atualizarStatus(marca: Marca, status: boolean): Observable<Marca> {
     const url = `${this.baseUrl}/${marca.codigo}/ativo`;
     return this.http.put<Marca>(url, status, this.httpOptions);
   }

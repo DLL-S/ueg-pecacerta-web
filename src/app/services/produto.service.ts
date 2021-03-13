@@ -15,31 +15,34 @@ export class ProdutoService {
 
   constructor(private http: HttpClient) { }
 
-  create(produto: Produto): Observable<any> {
+  incluir(produto: Produto): Observable<any> {
     produto.ativo = true;
     return this.http.post<Produto>(this.baseUrl, produto, this.httpOptions).pipe(
       map((obj) => obj)
     );
   }
 
-  read(): Observable<Produto[]> {
+  listar(): Observable<Produto[]> {
     return this.http.get<Produto[]>(this.baseUrl)
-
   }
 
-  readById(id: number): Observable<Produto> {
+  listarAtivos(): Observable<Produto[]> {
+    return this.http.get<Produto[]>(`${this.baseUrl}/ativos`);
+  }
+
+  consultar(id: number): Observable<Produto> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.get<Produto>(url).pipe(
       map((obj) => obj)
     );
   }
 
-  update(produto: Produto): Observable<Produto> {
+  atualizar(produto: Produto): Observable<Produto> {
     const url = `${this.baseUrl}/${produto.codigo}`;
     return this.http.put<Produto>(url, produto, this.httpOptions);
   }
 
-  updateStatus(produto: Produto, status: boolean): Observable<Produto> {
+  atualizarStatus(produto: Produto, status: boolean): Observable<Produto> {
     const url = `${this.baseUrl}/${produto.codigo}/ativo`;
     return this.http.put<Produto>(url, status, this.httpOptions);
   }

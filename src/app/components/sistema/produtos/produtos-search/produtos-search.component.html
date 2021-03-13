@@ -1,3 +1,4 @@
+<!--
 <p-fieldset legend="Procurar" [toggleable]="true" [collapsed]="false">
   <form #produtoSearchForm="ngForm" id="produtoForm" class="p-fluid p-formgrid p-grid">
 
@@ -20,12 +21,13 @@
 
     <div class="p-field p-col-12 p-md-10"></div>
     <div class="p-field p-col-12 p-md-2">
-      <button appPrimaryColor pButton label="Procurar" type="submit" form="produtoSearchForm" icon="pi pi-search"></button>
+      <button  pButton label="Procurar" type="submit" form="produtoSearchForm" icon="pi pi-search"></button>
     </div>
   </form>
 </p-fieldset>
+-->
 
-<div class="p-grid">
+<div class="p-grid margem">
   <div class="p-col-12">
     <app-produtos-list [produtos]="produtos" [categorias]="categorias" [marcas]="marcas"></app-produtos-list>
   </div>

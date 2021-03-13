@@ -8,9 +8,9 @@
     <div class="p-d-flex p-ai-center p-jc-between">
       Categorias
       <span style="display: inherit;">
-        <button appPrimaryColor pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
+        <button  pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar"
           tooltipPosition="top" (click)="novoDialogo()"></button>
-        <button appPrimaryColor pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton
+        <button  pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton
           icon="pi pi-refresh" pTooltip="Recarregar" tooltipPosition="top"></button>
 
         <span class="p-input-icon-left">
@@ -45,7 +45,8 @@
       </td>
       <td class="acoes">
         <span class="p-column-title">Ativo</span>
-        <p-checkbox [(ngModel)]="categoria.ativo" binary="true" inputId="binary" (click)="atualizarStatus(categoria, $event)">
+        <p-checkbox [(ngModel)]="categoria.ativo" binary="true" inputId="binary" (click)="atualizarStatus(categoria, $event)"
+        [pTooltip]="(categoria.ativo == true ? 'Inativar' : 'Ativar')">
         </p-checkbox>
       </td>
     </tr>
@@ -53,7 +54,7 @@
 </p-table>
 
 <form #dialogoForm="ngForm">
-  <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes do categoria" [modal]="true"
+  <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes da categoria" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="content">
       <div class="p-formgrid p-grid">

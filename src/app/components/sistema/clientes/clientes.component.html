@@ -1,0 +1,254 @@
+<app-notify></app-notify>
+
+<p-table #dt id="column-item" [value]="clientes" [rows]="10" [paginator]="true" [globalFilterFields]="['codigo','nome', 'email', 'telefone']" [rowHover]="true"
+  dataKey="codigo" styleClass="p-datatable-responsive-demo" currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecords} entradas"
+  [showCurrentPageReport]="true">
+
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      Clientes
+      <span style="display: inherit;">
+        <button  pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus" pTooltip="Cadastrar" tooltipPosition="top"
+          (click)="novoDialogo()"></button>
+        <button  pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
+          tooltipPosition="top"></button>
+
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText style="width: 100% !important;" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisar..." />
+        </span>
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem"></th>
+      <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon>
+      </th>
+      <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+      </th>
+      <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon>
+      </th>
+      <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th class="acoes" pSortableColumn="ativo">Ativo <p-sortIcon field="nome"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-cliente let-expanded="expanded">
+    <tr (click)="editar(cliente)">
+      <td>
+        <button type="button" pButton pRipple [pRowToggler]="cliente" class="p-button-text p-button-rounded p-button-plain"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" (click)="detalhesCliente(cliente, $event)"></button>
+      </td>
+      <td>
+        <span class="p-column-title">Código</span>
+        {{ cliente.codigo }}
+      </td>
+      <td>
+        <span class="p-column-title">Nome</span>
+        {{ cliente.nome }}
+      </td>
+      <td>
+        <span class="p-column-title">Telefone</span>
+        {{ cliente.telefone | phone }}
+      </td>
+      <td>
+        <span class="p-column-title">Email</span>
+        {{ cliente.email }}
+      </td>
+      <td class="acoes" style="text-align: center;">
+        <span class="p-column-title">Ativo</span>
+        <p-checkbox [(ngModel)]="cliente.ativo" binary="true" inputId="binary" (click)="atualizarStatus(cliente, $event)"
+        [pTooltip]="(cliente.ativo == true ? 'Inativar' : 'Ativar')">
+        </p-checkbox>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-cliente>
+    <tr>
+      <td colspan="6">
+        <div class="p-p-3">
+          <p-table [value]="[{}]" dataKey="codigo" [rowHover]="false">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Tipo</th>
+                <th>CPF/CNPJ</th>
+                <th>Nascimento</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body">
+              <tr>
+                <td>
+                  <span class="p-column-title">Tipo</span>
+                  {{cliente.tipoCliente | tipoPessoa}}
+                </td>
+                <td>
+                  <span class="p-column-title">CPF/CNPJ</span>
+                  {{cliente.cpfCnpj | cpfCnpj}}
+                </td>
+                <td>
+                  <span class="p-column-title">Nascimento</span>
+                  {{cliente.dataNascFund | date: 'dd/MM/yyyy'}}
+                </td>
+                <td>
+                  <span class="p-column-title">Logradouro</span>
+                  {{cliente.endereco.logradouro}}
+                </td>
+                <td>
+                  <span class="p-column-title">Cidade</span>
+                  {{cliente.endereco.cidade}}
+                </td>
+                <td>
+                  <span class="p-column-title">Estado</span>
+                  {{cliente.endereco.estado}}
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<form #dialogoForm="ngForm">
+  <p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Detalhes do cliente" [modal]="true" styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+      <div class="p-formgrid p-grid">
+
+        <span class="p-field p-col-12">
+          <span class="p-field-radiobutton">
+            <p-radioButton name="tipoPF" value="PESSOA_FISICA" [(ngModel)]="cliente.tipoCliente" inputId="tipoPF"></p-radioButton>
+            <label for="tipoPF">Pessoa Física</label>
+            <p-radioButton name="tipoPJ" value="PESSOA_JURIDICA" [(ngModel)]="cliente.tipoCliente" inputId="tipoPJ" style="margin-left: 30px;">
+            </p-radioButton>
+            <label for="tipoPJ">Pessoa Jurídica</label>
+          </span>
+        </span>
+
+        <div class="p-field p-col-3">
+          <label for="codigo">Código</label>
+          <input type="number" pInputText id="codigo" name="codigo" [(ngModel)]="cliente.codigo" placeholder="Novo" disabled />
+        </div>
+
+        <div class="p-field p-col-9">
+          <label for="nome">Nome</label>
+          <input type="text" pInputText id="nome" name="nome" #nome="ngModel" [(ngModel)]="cliente.nome" placeholder="Nome do cliente" maxlength="60" required
+            aria-describedby="nome-helper" />
+          <app-messages id="nome-helper" [control]="nome" error="required" text="Informe o Nome do cliente"></app-messages>
+          <app-messages id="nome-helper" [control]="nome" error="maxlength" text="Não pode exceder 60 caracteres"></app-messages>
+        </div>
+
+        <div class="p-field p-col-6" *ngIf="cliente.tipoCliente == 'PESSOA_FISICA'">
+          <label for="cpf">CPF</label>
+          <p-inputMask mask="999.999.999-99" autoClear unmask="true" id="cpf" name="cpf" #cpf="ngModel" [(ngModel)]="cliente.cpfCnpj"
+            placeholder="CPF do cliente" minlength="11" maxlength="11" required aria-describedby="cpf-helper"></p-inputMask>
+          <app-messages id="cpf-helper" [control]="cpf" error="required" text="Digite o CPF"></app-messages>
+          <app-messages id="cpf-helper" [control]="cpf" error="minlength" text="Deve possuir 11 caracteres"></app-messages>
+          <app-messages id="cpf-helper" [control]="cpf" error="maxlength" text="Deve possuir 11 caracteres"></app-messages>
+        </div>
+        <div class="p-field p-col-6" *ngIf="cliente.tipoCliente == 'PESSOA_JURIDICA'">
+          <label for="cnpj">CNPJ</label>
+          <p-inputMask mask="99.999.999/9999-99" autoClear unmask="true" id="cnpj" name="cnpj" #cnpj="ngModel" [(ngModel)]="cliente.cpfCnpj"
+            placeholder="CNPJ do cliente" minlength="14" maxlength="14" required aria-describedby="cnpj-helper"></p-inputMask>
+          <app-messages id="cnpj-helper" [control]="cnpj" error="required" text="Digite o CNPJ"></app-messages>
+          <app-messages id="cnpj-helper" [control]="cnpj" error="minlength" text="Deve possuir 14 caracteres"></app-messages>
+          <app-messages id="cnpj-helper" [control]="cnpj" error="maxlength" text="Deve possuir 14 caracteres"></app-messages>
+        </div>
+
+        <div class="p-field p-col-6">
+          <label for="cnpj" *ngIf="cliente.tipoCliente == 'PESSOA_FISICA'">Data de nascimento</label>
+          <label for="cnpj" *ngIf="cliente.tipoCliente == 'PESSOA_JURIDICA'">Data de fundação</label>
+          <input type="date" style="height: 35px;" pInputText id="dataNascFund" name="dataNascFund" #dataNascFund="ngModel" [(ngModel)]="cliente.dataNascFund"
+            placeholder="dd/mm/aaaa" required aria-describedby="dataNascFund-helper" />
+          <app-messages id="dataNascFund-help" [control]="dataNascFund" error="required" text="Informe a data de dataNascFund"></app-messages>
+        </div>
+
+        <div class="p-field p-col-4">
+          <label for="cep">CEP</label>
+          <p-inputMask mask="99.999-999" autoClear unmask="true" name="cep" [(ngModel)]="cliente.endereco.cep" #cep="ngModel" required minlength
+            aria-describedby="cep-help" placeholder="CEP">
+          </p-inputMask>
+          <app-messages id="cep-help" [control]="cep" error="required" text="Informe o CEP"></app-messages>
+        </div>
+        <div class="p-field p-col-8">
+          <label for="logradouro">Endereço</label>
+          <input type="text" pInputText id="logradouro" name="logradouro" #logradouro="ngModel" [(ngModel)]="cliente.endereco.logradouro"
+            placeholder="Endereço do cliente" maxlength="40" required aria-describedby="logradouro-helper" />
+          <app-messages id="logradouro-helper" [control]="logradouro" error="required" text="Informe o Endereço do cliente"></app-messages>
+          <app-messages id="logradouro-helper" [control]="logradouro" error="maxlength" text="Não pode exceder 40 caracteres"></app-messages>
+        </div>
+        <div class="p-field p-col-3">
+          <label for="numero">Número</label>
+          <input type="number" pInputText id="numero" name="numero" #numero="ngModel" [(ngModel)]="cliente.endereco.numero" placeholder="0" maxlength="10"
+            min="0" required aria-describedby="numero-helper" />
+          <app-messages id="numero-helper" [control]="numero" error="required" text="Informe o Numero do cliente"></app-messages>
+          <app-messages id="numero-helper" [control]="numero" error="maxlength" text="Não pode exceder 10 caracteres"></app-messages>
+          <app-messages id="numero-helper" [control]="numero" error="min" text="Não pode ser negativo"></app-messages>
+        </div>
+        <div class="p-field p-col-9">
+          <label for="complemento">Complemento</label>
+          <input type="text" pInputText id="complemento" name="complemento" #complemento="ngModel" [(ngModel)]="cliente.endereco.complemento"
+            placeholder="Complemento do endereço" maxlength="30" required aria-describedby="complemento-helper" />
+          <app-messages id="complemento-helper" [control]="complemento" error="required" text="Informe o Complemento do endereço"></app-messages>
+          <app-messages id="complemento-helper" [control]="complemento" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+        </div>
+        <div class="p-field p-col-6">
+          <label for="bairro">Bairro</label>
+          <input type="text" pInputText id="bairro" name="bairro" #bairro="ngModel" [(ngModel)]="cliente.endereco.bairro" placeholder="Bairro do endereço"
+            maxlength="30" required aria-describedby="bairro-helper" />
+          <app-messages id="bairro-helper" [control]="bairro" error="required" text="Informe o bairro"></app-messages>
+          <app-messages id="bairro-helper" [control]="bairro" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+        </div>
+
+        <div class="p-field p-col-6">
+          <label for="cidade">Cidade</label>
+          <input type="text" pInputText id="cidade" name="cidade" #cidade="ngModel" [(ngModel)]="cliente.endereco.cidade" placeholder="Cidade do endereço"
+            maxlength="30" required aria-describedby="cidade-helper" />
+          <app-messages id="cidade-helper" [control]="cidade" error="required" text="Informe o cidade"></app-messages>
+          <app-messages id="cidade-helper" [control]="cidade" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+        </div>
+        <div class="p-field p-col-6">
+          <label for="estado">Estado</label>
+          <input type="text" pInputText id="estado" name="estado" #estado="ngModel" [(ngModel)]="cliente.endereco.estado" placeholder="Estado do endereço"
+            maxlength="30" required aria-describedby="estado-helper" />
+          <app-messages id="estado-helper" [control]="estado" error="required" text="Informe o estado"></app-messages>
+          <app-messages id="estado-helper" [control]="estado" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+        </div>
+        <div class="p-field p-col-6">
+          <label for="telefone">Telefone</label>
+          <p-inputMask mask="(99) 99999-9999" autoClear unmask="true" name="telefone" [(ngModel)]="cliente.telefone" #telefone="ngModel" required minlength="11"
+           placeholder="Telefone do cliente" maxlength="11" aria-describedby="telefone-help">
+          </p-inputMask>
+          <app-messages id="telefone-help" [control]="telefone" error="required" text="Informe o Telefone"></app-messages>
+          <app-messages id="telefone-helper" [control]="telefone" error="minlength" text="Deve possuir no mínimo 11 caracteres"></app-messages>
+          <app-messages id="telefone-helper" [control]="telefone" error="maxlength" text="Deve possuir no máximo 11 caracteres"></app-messages>
+        </div>
+        <div class="p-field p-col-12">
+          <label for="email">E-mail</label>
+          <input pInputText name="email" type="email" [(ngModel)]="cliente.email" #email="ngModel" email required maxlength="40" aria-describedby="email-helper"
+            placeholder="E-mail do cliente">
+          <app-messages id="email-helper" [control]="email" error="required" text="Informe um e-mail"></app-messages>
+          <app-messages id="email-helper" [control]="email" error="email" text="Informe um e-mail válido"></app-messages>
+          <app-messages id="email-helper" [control]="email" error="maxlength" text="Deve possuir no máximo 40 caracteres"></app-messages>
+        </div>
+
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <button [style]="{color: '#18778C'}" pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="esconderDialogo()"></button>
+      <button [style]="{color: '#18778C'}" pButton pRipple type="submit" label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvar()"
+        [disabled]="!dialogoForm.valid"></button>
+    </ng-template>
+
+  </p-dialog>
+</form>

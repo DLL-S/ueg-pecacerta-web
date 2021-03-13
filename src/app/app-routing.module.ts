@@ -6,17 +6,20 @@ import { PaginaConstrucaoComponent } from './components/templates/pagina-constru
 import { PaginaNaoEncontradaComponent } from './components/templates/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { CategoriasComponent } from './components/sistema/categorias/categorias.component';
 import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
+import { ClientesComponent } from './components/sistema/clientes/clientes.component';
+import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
+import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
 
 const routes: Routes = [
-  { path: "", component: ProdutosSearchComponent },
+  { path: "", component: ProdutosSelecaoComponent },
   { path: "login", component: LoginComponent },
-  { path: "produtos", component: PaginaConstrucaoComponent },
+  { path: "produtos", component: ProdutosSelecaoComponent },
   { path: "orcamentos", component: PaginaConstrucaoComponent },
   { path: "vendas", component: PaginaConstrucaoComponent },
   { path: "sistema/produtos", component: ProdutosSearchComponent },
   { path: "sistema/estoque", component: PaginaConstrucaoComponent },
-  { path: "sistema/funcionarios", component: PaginaConstrucaoComponent },
-  { path: "sistema/clientes", component: PaginaConstrucaoComponent },
+  { path: "sistema/funcionarios", component: FuncionariosComponent },
+  { path: "sistema/clientes", component: ClientesComponent },
   { path: "sistema/marcas", component: MarcasComponent },
   { path: "sistema/categorias", component: CategoriasComponent },
   { path: "**", component: PaginaNaoEncontradaComponent }

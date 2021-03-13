@@ -17,31 +17,34 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) { }
 
-  create(categoria: Categoria): Observable<any> {
+  incluir(categoria: Categoria): Observable<any> {
     categoria.ativo = true;
     return this.http.post<Categoria>(this.baseUrl, categoria).pipe(
       map((obj) => obj)
     );
   }
 
-  read(): Observable<Categoria[]> {
+  listar(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.baseUrl)
-
   }
 
-  readById(id: number): Observable<Categoria> {
+  listarAtivos(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.baseUrl}/ativos`);
+  }
+
+  consultar(id: number): Observable<Categoria> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.get<Categoria>(url).pipe(
       map((obj) => obj)
     );
   }
 
-  update(categoria: Categoria): Observable<Categoria> {
+  atualizar(categoria: Categoria): Observable<Categoria> {
     const url = `${this.baseUrl}/${categoria.codigo}`;
     return this.http.put<Categoria>(url, categoria);
   }
 
-  updateStatus(categoria: Categoria, status: boolean): Observable<Categoria> {
+  atualizarStatus(categoria: Categoria, status: boolean): Observable<Categoria> {
     const url = `${this.baseUrl}/${categoria.codigo}/ativo`;
     return this.http.put<Categoria>(url, status, this.httpOptions);
   }
