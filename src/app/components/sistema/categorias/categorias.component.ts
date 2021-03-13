@@ -13,8 +13,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 export class CategoriasComponent implements OnInit {
 
   categorias: Categoria[];
-  categoria: Categoria = {};
-  marcaSelecionada: Categoria[];
+  categoria: Categoria;
 
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
@@ -38,7 +37,7 @@ export class CategoriasComponent implements OnInit {
   }
 
   novoDialogo() {
-    this.categoria = new Categoria();
+    this.categoria = {};
     this.dialog = true;
   }
 
@@ -56,8 +55,9 @@ export class CategoriasComponent implements OnInit {
 
   salvar() {
     if (this.categoria.codigo) {
+      let indice = this.findIndexById(this.categoria.codigo)
       this.categoriaService.atualizar(this.categoria).subscribe(
-        response => this.categoria[this.findIndexById(this.categoria.codigo)] = response
+        response => this.categorias[indice] = response
       );
     }
     else {
@@ -68,12 +68,14 @@ export class CategoriasComponent implements OnInit {
 
     this.categorias = [...this.categorias];
     this.dialog = false;
-    this.categoria = new Categoria();
-    this.recarregarPagina();
+    this.categoria = {};
   }
 
   recarregarPagina() {
-    window.location.reload();
+    this.categoriaService.listar().subscribe(response => {
+      this.categorias = response.sort((a, b) => a.codigo - b.codigo),
+      this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
+    });
   }
 
   findIndexById(codigo: number): number {

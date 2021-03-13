@@ -33,7 +33,7 @@ export class ClientesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cliente = null;
+    this.cliente = {};
     this.clienteService.listar().subscribe(Response => { this.clientes = Response.sort((a, b) => a.codigo - b.codigo) });
   }
 
@@ -42,7 +42,7 @@ export class ClientesComponent implements OnInit {
   }
 
   novoDialogo() {
-    this.cliente = new Cliente();
+    this.cliente = {};
     this.cliente.tipoCliente = ETipoCliente.PESSOA_FISICA;
     this.cliente.endereco = {};
     this.dialog = true;
@@ -62,8 +62,9 @@ export class ClientesComponent implements OnInit {
 
   salvar() {
     if (this.cliente.codigo) {
+      let indice = this.findIndexById(this.cliente.codigo);
       this.clienteService.atualizar(this.cliente).subscribe(
-        response => this.cliente[this.findIndexById(this.cliente.codigo)] = response
+        response => this.clientes[indice] = response
       );
     }
     else {
@@ -75,12 +76,14 @@ export class ClientesComponent implements OnInit {
 
     this.clientes = [...this.clientes];
     this.dialog = false;
-    this.cliente = new Cliente();
-    this.recarregarPagina();
+    this.cliente = {};
   }
 
   recarregarPagina() {
-    window.location.reload();
+    this.clienteService.listar().subscribe(response => {
+      this.clientes = response.sort((a, b) => a.codigo - b.codigo),
+      this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
+    });
   }
 
   detalhesCliente(cliente: Cliente, event: any) {

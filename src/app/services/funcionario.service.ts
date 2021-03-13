@@ -25,11 +25,15 @@ export class FuncionarioService {
   }
 
   listar(): Observable<Funcionario[]> {
-    return this.http.get<Funcionario[]>(this.baseUrl)
+    return this.http.get<Funcionario[]>(this.baseUrl).pipe(
+      map((obj) => obj)
+    );
   }
 
   listarAtivos(): Observable<Funcionario[]> {
-    return this.http.get<Funcionario[]>(`${this.baseUrl}/ativos`);
+    return this.http.get<Funcionario[]>(`${this.baseUrl}/ativos`).pipe(
+      map((obj) => obj)
+    );
   }
 
   consultar(id: number): Observable<Funcionario> {
@@ -41,11 +45,15 @@ export class FuncionarioService {
 
   atualizar(funcionario: Funcionario): Observable<Funcionario> {
     const url = `${this.baseUrl}/${funcionario.codigo}`;
-    return this.http.put<Funcionario>(url, funcionario);
+    return this.http.put<Funcionario>(url, funcionario).pipe(
+      map((obj) => obj)
+    );
   }
 
   atualizarStatus(funcionario: Funcionario, status: boolean): Observable<Funcionario> {
     const url = `${this.baseUrl}/${funcionario.codigo}/ativo`;
-    return this.http.put<Funcionario>(url, status, this.httpOptions);
+    return this.http.put<Funcionario>(url, status, this.httpOptions).pipe(
+      map((obj) => obj)
+    );
   }
 }

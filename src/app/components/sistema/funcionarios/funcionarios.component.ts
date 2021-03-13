@@ -33,8 +33,9 @@ export class FuncionariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.funcionario = null;
+    this.funcionario = {};
     this.funcionarioService.listar().subscribe(Response => { this.funcionarios = Response.sort((a, b) => a.codigo - b.codigo) });
+
   }
 
   esconderDialogo() {
@@ -42,7 +43,7 @@ export class FuncionariosComponent implements OnInit {
   }
 
   novoDialogo() {
-    this.funcionario = new Funcionario();
+    this.funcionario = {};
     this.funcionario.tipoDeFuncionario = ETipoFuncionario.Atendente;
     this.funcionario.endereco = {};
     this.dialog = true;
@@ -62,8 +63,9 @@ export class FuncionariosComponent implements OnInit {
 
   salvar() {
     if (this.funcionario.codigo) {
+      let indice = this.findIndexById(this.funcionario.codigo);
       this.funcionarioService.atualizar(this.funcionario).subscribe(
-        response => this.funcionario[this.findIndexById(this.funcionario.codigo)] = response
+        response => this.funcionarios[indice] = response
       );
     }
     else {
@@ -75,12 +77,14 @@ export class FuncionariosComponent implements OnInit {
 
     this.funcionarios = [...this.funcionarios];
     this.dialog = false;
-    this.funcionario = new Funcionario();
-    this.recarregarPagina();
+    this.funcionario = {};
   }
 
   recarregarPagina() {
-    window.location.reload();
+    this.funcionarioService.listar().subscribe(response => {
+      this.funcionarios = response.sort((a, b) => a.codigo - b.codigo),
+      this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
+    });
   }
 
   detalhesFuncionario(funcionario: Funcionario, event: any) {

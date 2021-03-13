@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NotifyComponent } from 'src/app/components/templates/utils/notify/notify.component';
+import { Categoria } from 'src/app/models/categoria.model';
+import { Marca } from 'src/app/models/marca.model';
 import { Produto } from 'src/app/models/produto.model';
 import { ProdutoService } from 'src/app/services/produto.service';
 
@@ -11,14 +13,13 @@ import { ProdutoService } from 'src/app/services/produto.service';
 })
 export class ProdutosListComponent implements OnInit {
 
-  @Input() produtos = [];
-  @Input() categorias = [];
-  @Input() marcas = [];
+  @Input() produtos: Produto[];
+  @Input() categorias: Categoria[];
+  @Input() marcas: Marca[];
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
   dialog: boolean;
   produto: Produto;
-  produtoSelecionado: Produto[];
 
   constructor(private produtoService: ProdutoService) { }
 
@@ -31,7 +32,7 @@ export class ProdutosListComponent implements OnInit {
   }
 
   novoDialogo() {
-    this.produto = new Produto();
+    this.produto = {};
     this.dialog = true;
   }
 
@@ -49,8 +50,9 @@ export class ProdutosListComponent implements OnInit {
 
   salvar() {
     if (this.produto.codigo) {
+      let indice = this.findIndexById(this.produto.codigo);
       this.produtoService.atualizar(this.produto).subscribe(
-        response => this.produtos[this.findIndexById(this.produto.codigo)] = response
+        response => this.produtos[indice] = response
       );
     }
     else {
@@ -61,12 +63,14 @@ export class ProdutosListComponent implements OnInit {
 
     this.produtos = [...this.produtos];
     this.dialog = false;
-    this.produto = new Produto();
-    this.recarregarPagina();
+    this.produto = {};
   }
 
   recarregarPagina() {
-    window.location.reload();
+    this.produtoService.listar().subscribe(response => {
+      this.produtos = response.sort((a, b) => a.codigo - b.codigo),
+      this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
+    });
   }
 
   findIndexById(codigo: number): number {

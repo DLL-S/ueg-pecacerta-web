@@ -16,7 +16,7 @@ import { NotifyComponent } from '../../templates/utils/notify/notify.component';
 export class MarcasComponent implements OnInit {
 
   marcas: Marca[];
-  marca: Marca = {};
+  marca: Marca;
   marcaSelecionada: Marca[];
 
   @ViewChild(NotifyComponent) notify: NotifyComponent;
@@ -41,7 +41,7 @@ export class MarcasComponent implements OnInit {
   }
 
   novoDialogo() {
-    this.marca = new Marca();
+    this.marca = {};
     this.dialog = true;
   }
 
@@ -59,8 +59,9 @@ export class MarcasComponent implements OnInit {
 
   salvar() {
     if (this.marca.codigo) {
+      let indice = this.findIndexById(this.marca.codigo);
       this.marcaService.atualizar(this.marca).subscribe(
-        response => this.marca[this.findIndexById(this.marca.codigo)] = response
+        response => this.marcas[indice] = response
       );
     }
     else {
@@ -71,12 +72,14 @@ export class MarcasComponent implements OnInit {
 
     this.marcas = [...this.marcas];
     this.dialog = false;
-    this.marca = new Marca();
-    this.recarregarPagina();
+    this.marca = {};
   }
 
   recarregarPagina() {
-    window.location.reload();
+    this.marcaService.listar().subscribe(response => {
+      this.marcas = response.sort((a, b) => a.codigo - b.codigo),
+      this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
+    });
   }
 
   findIndexById(codigo: number): number {
