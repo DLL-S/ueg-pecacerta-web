@@ -8,11 +8,12 @@ import { CategoriasComponent } from './components/sistema/categorias/categorias.
 import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-search/produtos-search.component';
 import { ClientesComponent } from './components/sistema/clientes/clientes.component';
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
+import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
 
 const routes: Routes = [
-  { path: "", component: ProdutosSearchComponent },
+  { path: "", component: ProdutosSelecaoComponent },
   { path: "login", component: LoginComponent },
-  { path: "produtos", component: PaginaConstrucaoComponent },
+  { path: "produtos", component: ProdutosSelecaoComponent },
   { path: "orcamentos", component: PaginaConstrucaoComponent },
   { path: "vendas", component: PaginaConstrucaoComponent },
   { path: "sistema/produtos", component: ProdutosSearchComponent },

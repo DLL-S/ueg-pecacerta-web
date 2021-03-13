@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-
 import { SidebarModule } from 'primeng/sidebar';
 import { ToolbarModule } from 'primeng/toolbar';
 import { MenuModule } from 'primeng/menu';
@@ -20,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MessageService } from 'primeng/api';
+import {TooltipModule} from 'primeng/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +41,8 @@ import { CategoriaService } from './services/categoria.service';
 import { ProdutoService } from './services/produto.service';
 import { SharedModule } from './shared/shared.module';
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
+import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
+import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-novo.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { FuncionariosComponent } from './components/sistema/funcionarios/funcion
     ProdutosListComponent,
     NotifyComponent,
     ClientesComponent,
-    FuncionariosComponent
+    FuncionariosComponent,
+    ProdutosSelecaoComponent,
+    OrcamentoNovoComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +84,8 @@ import { FuncionariosComponent } from './components/sistema/funcionarios/funcion
     CheckboxModule,
     ToastModule,
     RadioButtonModule,
-    SharedModule
+    SharedModule,
+    TooltipModule
 
   ],
   providers: [
