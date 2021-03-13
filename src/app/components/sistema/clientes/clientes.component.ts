@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser';
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { TopbarTitleService } from 'src/app/services/topbar-title.service';
-import { IsMobileService } from '../../templates/utils/is-mobile.service';
 import { NotifyComponent } from '../../templates/utils/notify/notify.component';
 import { ETipoCliente } from "src/app/models/enums/ETipoCliente";
 
@@ -31,7 +30,7 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cliente = {};
-    this.clienteService.listar().subscribe(Response => { this.clientes = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.clienteService.listar().subscribe(Response => this.clientes = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
   }
 
   esconderDialogo() {

@@ -31,7 +31,7 @@ export class FuncionariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.funcionario = {};
-    this.funcionarioService.listar().subscribe(Response => { this.funcionarios = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.funcionarioService.listar().subscribe(Response => this.funcionarios = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
 
   }
 

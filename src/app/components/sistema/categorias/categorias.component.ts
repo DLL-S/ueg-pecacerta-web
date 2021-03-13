@@ -29,7 +29,7 @@ export class CategoriasComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoria = {};
-    this.categoriaService.listar().subscribe(Response => { this.categorias = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.categoriaService.listar().subscribe(Response => this.categorias = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
   }
 
   esconderDialogo() {

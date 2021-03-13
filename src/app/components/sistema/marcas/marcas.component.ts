@@ -32,7 +32,7 @@ export class MarcasComponent implements OnInit {
 
   ngOnInit(): void {
     this.marca = {};
-    this.marcaService.listar().subscribe(Response => { this.marcas = Response.sort((a, b) => a.codigo - b.codigo) });
+    this.marcaService.listar().subscribe(Response => this.marcas = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
   }
 
   esconderDialogo() {
