@@ -17,7 +17,6 @@ export class MarcasComponent implements OnInit {
 
   marcas: Marca[];
   marca: Marca;
-  marcaSelecionada: Marca[];
 
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 

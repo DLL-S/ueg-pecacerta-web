@@ -20,16 +20,13 @@ export class ClientesComponent implements OnInit {
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
   dialog: boolean;
-  ismobile: Boolean;
 
-  constructor(private clienteService: ClienteService, private topbarTitleService: TopbarTitleService, private titleService: Title,
-    private isMobileService: IsMobileService) {
+  constructor(private clienteService: ClienteService, private topbarTitleService: TopbarTitleService, private titleService: Title) {
     this.topbarTitleService.topbarData = {
       title: 'Cadastro de clientes',
       routerUrl: '/sistema/clientes'
     };
     this.titleService.setTitle("Peça Certa | Clientes");
-    this.ismobile = this.isMobileService.checkPlatform();
   }
 
   ngOnInit(): void {

@@ -20,16 +20,13 @@ export class FuncionariosComponent implements OnInit {
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
   dialog: boolean;
-  ismobile: Boolean;
 
-  constructor(private funcionarioService: FuncionarioService, private topbarTitleService: TopbarTitleService, private titleService: Title,
-    private isMobileService: IsMobileService) {
+  constructor(private funcionarioService: FuncionarioService, private topbarTitleService: TopbarTitleService, private titleService: Title) {
     this.topbarTitleService.topbarData = {
       title: 'Cadastro de funcionarios',
       routerUrl: '/sistema/funcionarios'
     };
     this.titleService.setTitle("Peça Certa | Funcionarios");
-    this.ismobile = this.isMobileService.checkPlatform();
   }
 
   ngOnInit(): void {
