@@ -8,7 +8,7 @@ export class Produto {
   descricao?: string;
   categoria?: Categoria;
   marca?: Marca;
-  preco?: DoubleRange;
+  preco?: number;
   qtdeEstoque?: number;
   ativo?: boolean;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Produto } from 'src/app/models/produto.model';
+import { Router } from '@angular/router';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { MarcaService } from 'src/app/services/marca.service';
 import { ProdutoService } from 'src/app/services/produto.service';
@@ -23,7 +23,7 @@ export class ProdutosSelecaoComponent implements OnInit {
   produto: ProdutoSelecao;
 
   constructor(private produtoService: ProdutoService, private categoriaService: CategoriaService, private marcaService: MarcaService,
-    private titleService: Title, private topbarTitleService: TopbarTitleService) {
+    private titleService: Title, private topbarTitleService: TopbarTitleService, private router: Router) {
     this.topbarTitleService.topbarData = {
       title: 'Seleção de Produto',
       routerUrl: '/produtos'
@@ -35,22 +35,33 @@ export class ProdutosSelecaoComponent implements OnInit {
     this.produtoService.listarAtivos().subscribe(Response => this.produtos = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
   }
 
-  manterOrcamento() {
-    this.notify.showMessage("warn", "Atenção", "Fechando orçamento!");
-
-    this.produtos.forEach(produto => {
-      if (produto.quantidade && this.findIndexById(produto.codigo) == -1) {
-        this.produtosSelecionados.push(produto);
-      }
-    });
-   }
+  fecharOrcamento() {
+    this.manterProdutosOrcamento();
+    this.router.navigate([`../produtos/orcamento`]);
+  }
 
   recarregarPagina() {
     this.produtoService.listarAtivos().subscribe(response => {
       this.produtos = response.sort((a, b) => a.nome.localeCompare(b.nome));
       this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!");
+      sessionStorage.removeItem("produtosSelecionados");
       this.produtosSelecionados = [];
     });
+  }
+
+  atualizarQuantidade(produto) {
+    if (produto.quantidade != 0 && this.findIndexById(produto.codigo) == -1) {
+      this.produtosSelecionados.push(produto);
+    }
+    else if ((produto.quantidade === 0 || produto.quantidade === "0")  && this.findIndexById(produto.codigo) != -1) {
+      this.produtosSelecionados.splice(this.findIndexById(produto.codigo), 1);
+    }
+    this.manterProdutosOrcamento();
+  }
+
+  manterProdutosOrcamento() {
+    const data = JSON.stringify( this.produtosSelecionados);
+    sessionStorage.setItem("produtosSelecionados", data);
   }
 
   findIndexById(codigo: number): number {

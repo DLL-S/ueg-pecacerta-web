@@ -9,7 +9,7 @@ currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecor
       Montar Orçamento
       <span style="display: inherit;">
         <button pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-shopping-cart" pTooltip="Cadastrar" tooltipPosition="top"
-          (click)="manterOrcamento()" pTooltip="Fechar orçamento"></button>
+          (click)="fecharOrcamento()" pTooltip="Fechar orçamento" [disabled]="produtosSelecionados.length == 0"></button>
         <button  pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
           tooltipPosition="top"></button>
 
@@ -77,7 +77,8 @@ currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecor
 
           <div class="p-grid p-fluid p-field p-col-13" style="width: 100%;">
             <p-inputNumber [(ngModel)]="produtoItemTabela.quantidade" [showButtons]="true" buttonLayout="horizontal" inputId="qtdeProduto" spinnerMode="horizontal"
-            min="0" [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0">
+            min="0" [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0" (onInput)="atualizarQuantidade(produtoItemTabela)"
+            [readonly]="true">
             </p-inputNumber>
           </div>
 

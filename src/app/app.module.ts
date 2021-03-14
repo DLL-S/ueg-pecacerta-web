@@ -19,7 +19,10 @@ import { ToastModule } from 'primeng/toast';
 import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MessageService } from 'primeng/api';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -85,7 +88,9 @@ import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-no
     ToastModule,
     RadioButtonModule,
     SharedModule,
-    TooltipModule
+    TooltipModule,
+    InputTextareaModule,
+    CalendarModule
 
   ],
   providers: [
