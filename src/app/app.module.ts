@@ -45,7 +45,8 @@ import { ProdutoService } from './services/produto.service';
 import { SharedModule } from './shared/shared.module';
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
 import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
-import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-novo.component';
+import { OrcamentoNovoComponent } from './components/orcamentos/orcamento-novo/orcamento-novo.component';
+import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list/orcamentos-list.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-no
     ClientesComponent,
     FuncionariosComponent,
     ProdutosSelecaoComponent,
-    OrcamentoNovoComponent
+    OrcamentoNovoComponent,
+    OrcamentosListComponent
   ],
   imports: [
     BrowserModule,

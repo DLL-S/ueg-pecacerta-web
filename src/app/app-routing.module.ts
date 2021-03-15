@@ -9,14 +9,15 @@ import { ProdutosSearchComponent } from './components/sistema/produtos/produtos-
 import { ClientesComponent } from './components/sistema/clientes/clientes.component';
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
 import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
-import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-novo.component';
+import { OrcamentoNovoComponent } from './components/orcamentos/orcamento-novo/orcamento-novo.component';
+import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list/orcamentos-list.component';
 
 const routes: Routes = [
   { path: "", component: ProdutosSelecaoComponent },
   { path: "login", component: LoginComponent },
   { path: "produtos", component: ProdutosSelecaoComponent },
   { path: "produtos/orcamento", component: OrcamentoNovoComponent },
-  { path: "orcamentos", component: PaginaConstrucaoComponent },
+  { path: "orcamentos", component: OrcamentosListComponent },
   { path: "vendas", component: PaginaConstrucaoComponent },
   { path: "sistema/produtos", component: ProdutosSearchComponent },
   { path: "sistema/estoque", component: PaginaConstrucaoComponent },

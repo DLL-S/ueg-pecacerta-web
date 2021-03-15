@@ -33,10 +33,12 @@ export class ProdutosSelecaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.produtoService.listarAtivos().subscribe(Response => this.produtos = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
+    this.manterProdutosSelecionados();
   }
 
   fecharOrcamento() {
-    this.manterProdutosOrcamento();
+    this.manterProdutosSelecionados();
+    this.produtosSelecionados = [];
     this.router.navigate([`../produtos/orcamento`]);
   }
 
@@ -56,11 +58,11 @@ export class ProdutosSelecaoComponent implements OnInit {
     else if ((produto.quantidade === 0 || produto.quantidade === "0")  && this.findIndexById(produto.codigo) != -1) {
       this.produtosSelecionados.splice(this.findIndexById(produto.codigo), 1);
     }
-    this.manterProdutosOrcamento();
+    this.manterProdutosSelecionados();
   }
 
-  manterProdutosOrcamento() {
-    const data = JSON.stringify( this.produtosSelecionados);
+  manterProdutosSelecionados() {
+    const data = JSON.stringify(this.produtosSelecionados);
     sessionStorage.setItem("produtosSelecionados", data);
   }
 

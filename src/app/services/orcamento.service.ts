@@ -18,8 +18,6 @@ export class OrcamentoService {
   constructor(private http: HttpClient) { }
 
   incluir(orcamento: Orcamento): Observable<any> {
-    orcamento.ativo = true;
-    orcamento.codigo = 1;
     return this.http.post<Orcamento>(this.baseUrl, orcamento).pipe(
       map((obj) => obj)
     );

@@ -73,7 +73,7 @@ export class CategoriasComponent implements OnInit {
 
   recarregarPagina() {
     this.categoriaService.listar().subscribe(response => {
-      this.categorias = response.sort((a, b) => a.codigo - b.codigo),
+      this.categorias = response.sort((a, b) => a.nome.localeCompare(b.nome)),
       this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
     });
   }

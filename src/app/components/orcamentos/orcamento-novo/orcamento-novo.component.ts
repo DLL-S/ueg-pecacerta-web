@@ -8,23 +8,9 @@ import { ProdutoSelecao } from 'src/app/models/produto-selecao.model';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { TopbarTitleService } from 'src/app/services/topbar-title.service';
-import { NotifyComponent } from '../templates/utils/notify/notify.component';
+import { NotifyComponent } from '../../templates/utils/notify/notify.component';
 import { Location } from '@angular/common';
 
-/*{
-  "cliente": {
-    "codigo": 1
-  },
-  "data": "2021-02-02",
-  "observacoes": "inclusão minima 2",
-  "produtosOrcamento": [
-    {
-      "codigoProduto": 3,
-      "quantidade": 500
-    }
-  ],
-  "valorTotal": 0}
-*/
 @Component({
   selector: 'app-orcamento-novo',
   templateUrl: './orcamento-novo.component.html',
@@ -60,6 +46,7 @@ export class OrcamentoNovoComponent implements OnInit {
     this.carregarProdutosSelecionados();
     this.inicializarOrcamento();
     this.inicializarCliente();
+    this.atualizarValorTotal();
   }
 
   carregarProdutosSelecionados() {
@@ -69,22 +56,28 @@ export class OrcamentoNovoComponent implements OnInit {
   }
 
   private inicializarOrcamento() {
+    this.orcamento.produtosOrcamento = this.produtosOrcamento;
+    this.orcamento.data = new Date();
+    this.orcamento.valorTotal = "0";
     for (let item of this.produtosSelecionados) {
-      this.valorTotalOrcamento += item.preco * item.quantidade;
       this.produtosOrcamento.push({
         "codigoProduto": item.codigo,
         "quantidade": item.quantidade
       });
     }
-    this.orcamento.produtosOrcamento = this.produtosOrcamento;
-    this.orcamento.data = new Date();
-    this.orcamento.valorTotal = "0";
   }
 
   private inicializarCliente() {
     this.clienteService.listarAtivos().subscribe(Response => this.clientes = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
     this.cliente.tipoCliente = ETipoCliente.PESSOA_FISICA;
     this.cliente.endereco = {};
+  }
+
+  private atualizarValorTotal() {
+    this.valorTotalOrcamento = 0;
+    for (let item of this.produtosSelecionados) {
+      this.valorTotalOrcamento += item.preco * item.quantidade;
+    }
   }
 
   salvarCliente() {
@@ -110,10 +103,15 @@ export class OrcamentoNovoComponent implements OnInit {
   }
 
   removerProduto(produto) {
-    const index = this.produtosSelecionados.indexOf(produto);
+    let index = this.produtosSelecionados.indexOf(produto);
     if (index !== -1) {
       this.produtosSelecionados.splice(index, 1);
     }
+    index = this.findIndexById(produto.codigo);
+    if (index !== -1) {
+      this.orcamento.produtosOrcamento.splice(index, 1);
+    }
+    this.atualizarValorTotal();
   }
 
   salvarOrcamento() {
@@ -133,6 +131,7 @@ export class OrcamentoNovoComponent implements OnInit {
     else {
       this.produtosOrcamento.push(produtoAtualizado);
     }
+    this.atualizarValorTotal();
   }
 
   findIndexById(codigo: number): number {

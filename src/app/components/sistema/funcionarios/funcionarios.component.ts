@@ -79,7 +79,7 @@ export class FuncionariosComponent implements OnInit {
 
   recarregarPagina() {
     this.funcionarioService.listar().subscribe(response => {
-      this.funcionarios = response.sort((a, b) => a.codigo - b.codigo),
+      this.funcionarios = response.sort((a, b) => a.nome.localeCompare(b.nome)),
       this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
     });
   }

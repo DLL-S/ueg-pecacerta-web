@@ -5,7 +5,6 @@ import { Marca } from 'src/app/models/marca.model';
 import { Produto } from 'src/app/models/produto.model';
 import { ProdutoService } from 'src/app/services/produto.service';
 
-
 @Component({
   selector: 'app-produtos-list',
   templateUrl: './produtos-list.component.html',
@@ -68,7 +67,7 @@ export class ProdutosListComponent implements OnInit {
 
   recarregarPagina() {
     this.produtoService.listar().subscribe(response => {
-      this.produtos = response.sort((a, b) => a.codigo - b.codigo),
+      this.produtos = response.sort((a, b) => a.nome.localeCompare(b.nome)),
       this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
     });
   }

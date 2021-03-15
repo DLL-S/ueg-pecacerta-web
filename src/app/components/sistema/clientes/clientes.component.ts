@@ -77,7 +77,7 @@ export class ClientesComponent implements OnInit {
 
   recarregarPagina() {
     this.clienteService.listar().subscribe(response => {
-      this.clientes = response.sort((a, b) => a.codigo - b.codigo),
+      this.clientes = response.sort((a, b) => a.nome.localeCompare(b.nome)),
       this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
     });
   }
