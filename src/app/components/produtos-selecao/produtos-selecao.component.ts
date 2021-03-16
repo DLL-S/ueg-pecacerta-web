@@ -59,9 +59,6 @@ atualizarQuantidade(produto) {
   if (produto.quantidade != 0 && this.findIndexById(produto.codigo) == -1) {
     this.produtosSelecionados.push(produto);
   }
-  else if ((produto.quantidade === 0 || produto.quantidade === "0") && this.findIndexById(produto.codigo) != -1) {
-    this.produtosSelecionados.splice(this.findIndexById(produto.codigo), 1);
-  }
 }
 
 recarregarPagina() {

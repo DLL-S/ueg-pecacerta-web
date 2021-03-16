@@ -75,7 +75,7 @@ currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecor
       <td class="p-grid p-fluid" style="text-align: center;">
           <div class="p-col-12 p-sm-12 p-md-12 p-xl-12">
             <p-inputNumber [(ngModel)]="produtoItemTabela.quantidade" [showButtons]="true" buttonLayout="horizontal" inputId="qtdeProduto" spinnerMode="horizontal"
-            min="0" [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0" (onInput)="atualizarQuantidade(produtoItemTabela)"
+            min=0 [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0" (onInput)="atualizarQuantidade(produtoItemTabela)"
             [readonly]="true">
             </p-inputNumber>
           </div>
@@ -83,3 +83,4 @@ currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecor
     </tr>
   </ng-template>
 </p-table>
+
