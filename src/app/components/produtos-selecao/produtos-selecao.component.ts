@@ -65,8 +65,6 @@ recarregarPagina() {
   this.produtoService.listarAtivos().subscribe(response => {
     this.produtosSelecionados = response.sort((a, b) => a.nome.localeCompare(b.nome));
     this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!");
-    sessionStorage.removeItem("produtosSelecionados");
-    this.produtosSelecionados = [];
   });
 }
 
