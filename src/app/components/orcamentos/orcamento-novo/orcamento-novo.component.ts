@@ -44,6 +44,7 @@ export class OrcamentoNovoComponent implements OnInit {
   ngOnInit(): void {
     this.orcamento = history.state;
     this.orcamento.data = new Date();
+    this.clienteService.listar().subscribe(response => this.clientes = response);
     if (this.orcamento.produtosOrcamento)
       this.carregarProdutosSelecionados();
     if (!this.orcamento.cliente) {
@@ -60,6 +61,7 @@ export class OrcamentoNovoComponent implements OnInit {
         produto = response;
         produto.quantidade = item.quantidade;
         this.produtosSelecionados.push(produto);
+        this.atualizarValorTotal();
       })
     });
   }
@@ -70,8 +72,8 @@ export class OrcamentoNovoComponent implements OnInit {
       this.clienteService.incluir(this.orcamento.cliente).subscribe(response => {
         this.orcamento.cliente = response;
         this.clientes.push(response);
+        this.notify.showMessage("success", "Sucesso", "Cliente cadastrado com sucesso!");
       });
-      this.notify.showMessage("success", "Sucesso", "Cliente cadastrado com sucesso!");
     }
     else {
       this.orcamento.cliente = this.clientes.find(cliente => cliente.cpfCnpj == this.orcamento.cliente.cpfCnpj);

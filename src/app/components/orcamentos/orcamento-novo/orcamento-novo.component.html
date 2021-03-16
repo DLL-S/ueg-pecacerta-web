@@ -122,7 +122,7 @@
       <div class="p-field p-col-12 p-md-2">
         <div style="height: 42%;"></div>
         <button pButton class="v-middle" label="Procurar" type="submit" form="orcamentoForm" icon="pi pi-search" *ngIf="!novoCliente"
-          [disabled]="!orcamento.cliente.nome || !orcamento.cliente.cpfCnpj" (click)="selecionarCliente()"></button>
+          [disabled]="!orcamento.cliente.cpfCnpj" (click)="selecionarCliente()"></button>
         <button pButton class="v-middle" label="Cadastrar" type="submit" form="orcamentoForm" icon="pi pi-save" *ngIf="novoCliente"
           [disabled]="!orcamentoForm.valid" (click)="selecionarCliente()"></button>
       </div>
@@ -226,14 +226,14 @@
 
   <div class="p-fluid p-formgrid p-grid observacoes">
     <div class="p-field p-col-6"></div>
-    <div class="p-field p-col-2">
+    <div class="p-field p-col-2" style="display: inherit;">
       <button pButton class="p-button-outlined" icon="pi pi-times" label="Cancelar" (click)="limparEVoltar()"></button>
     </div>
-    <div class="p-field p-col-2">
+    <div class="p-field p-col-2" style="display: inherit;">
       <button pButton class="p-button-outlined" icon="pi pi-save" label="Salvar" [disabled]="!orcamento.cliente.codigo" (click)="salvarOrcamento()"
         pTooltip="Salvar Orçamento" tooltipPosition="top"></button>
     </div>
-    <div class="p-field p-col-2">
+    <div class="p-field p-col-2" style="display: inherit;">
       <button pButton icon="pi pi-check-circle" label="Vender" routerLink="/vendas" pTooltip="Efetivar Venda" tooltipPosition="top"></button>
     </div>
   </div>
@@ -242,3 +242,4 @@
 <div *ngIf="!(orcamento.produtosOrcamento)">
   <app-pagina-vazia mensagem="Um orçamento existente ou uma lista de produtos devem ser previamente selecionados!"></app-pagina-vazia>
 </div>
+
