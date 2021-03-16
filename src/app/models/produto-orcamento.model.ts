@@ -5,9 +5,4 @@ export class ProdutoOrcamento {
   codigoOrcamento?: number;
   codigoProduto?: number;
   quantidade?: number;
-
-  constructor(codigoProduto: number, quantidade: number) {
-    this.codigoProduto = codigoProduto;
-    this.quantidade = quantidade;
-  }
 }

@@ -47,6 +47,7 @@ import { FuncionariosComponent } from './components/sistema/funcionarios/funcion
 import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
 import { OrcamentoNovoComponent } from './components/orcamentos/orcamento-novo/orcamento-novo.component';
 import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list/orcamentos-list.component';
+import { PaginaVaziaComponent } from './components/templates/pagina-vazia/pagina-vazia.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list
     FuncionariosComponent,
     ProdutosSelecaoComponent,
     OrcamentoNovoComponent,
-    OrcamentosListComponent
+    OrcamentosListComponent,
+    PaginaVaziaComponent
   ],
   imports: [
     BrowserModule,

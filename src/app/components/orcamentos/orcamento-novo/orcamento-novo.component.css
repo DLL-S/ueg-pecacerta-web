@@ -1,7 +1,7 @@
 :host ::ng-deep .p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
 	display: none;
 }
-@media screen and (max-width: 40rem) {
+@media screen and (max-width: 1222px) {
 	:host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-thead > tr > th, :host ::ng-deep .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot > tr > td {
 		display: none !important;
    }

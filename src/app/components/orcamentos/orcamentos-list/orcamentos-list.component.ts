@@ -1,13 +1,10 @@
-import { Cliente } from 'src/app/models/cliente';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Orcamento } from 'src/app/models/orcamento.model';
-import { ClienteService } from 'src/app/services/cliente.service';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
-import { ProdutoService } from 'src/app/services/produto.service';
 import { TopbarTitleService } from 'src/app/services/topbar-title.service';
 import { NotifyComponent } from '../../templates/utils/notify/notify.component';
-import { Produto } from 'src/app/models/produto.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orcamentos-list',
@@ -17,16 +14,11 @@ import { Produto } from 'src/app/models/produto.model';
 export class OrcamentosListComponent implements OnInit {
 
   orcamentos: Orcamento[] = [];
-  orcamento: Orcamento = {};
-  clientes: Cliente[] = [];
-  produto: Produto = {};
 
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
-  dialog: boolean;
-
-  constructor(private orcamentoService: OrcamentoService, private clienteService: ClienteService,
-    private produtoService: ProdutoService, private titleService: Title, private topbarTitleService: TopbarTitleService) {
+  constructor(private orcamentoService: OrcamentoService, private titleService: Title,
+    private topbarTitleService: TopbarTitleService, private router: Router) {
       this.topbarTitleService.topbarData = {
         title: 'Orçamentos',
         routerUrl: '/orcamentos'
@@ -35,53 +27,17 @@ export class OrcamentosListComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.orcamentoService.listar().subscribe(response => this.orcamentos = response.sort((a, b) => a.data.getTime() - b.data.getTime()));
-    this.clienteService.listarAtivos().subscribe(response => this.clientes = response.sort((a, b) => a.nome.localeCompare(b.nome)));
+    this.orcamentoService.listarAtivos().subscribe(response => this.orcamentos = response.sort((a, b) => a.cliente.nome.localeCompare(b.cliente.nome)));
   }
 
-  esconderDialogo() {
-    this.dialog = false;
-  }
-
-  novoDialogo() {
-    this.orcamento = {};
-    this.dialog = true;
-  }
-
-  editar(orcamento: Orcamento) {
-    this.orcamento = { ...orcamento };
-    this.dialog = true;
-  }
-
-  atualizarStatus(orcamento: Orcamento, event: any) {
-    event.stopPropagation();
-    this.orcamentoService.atualizarStatus(orcamento, orcamento.ativo).subscribe(() =>
-      this.notify.showMessage("info", "Atenção", "Status do orcamento alterado!")
-    );
-  }
-
-  salvar() {
-    if (this.orcamento.codigo) {
-      let indice = this.findIndexById(this.orcamento.codigo);
-      this.orcamentoService.atualizar(this.orcamento).subscribe(
-        response => this.orcamentos[indice] = response
-      );
-    }
-    else {
-      this.orcamentoService.incluir(this.orcamento).subscribe(
-        response => this.orcamentos.push(response)
-      );
-    }
-
-    this.orcamentos = [...this.orcamentos];
-    this.dialog = false;
-    this.orcamento = {};
+  editarOrcamento(orcamento) {
+    this.router.navigate([`../produtos/orcamento`], { state: orcamento});
   }
 
   recarregarPagina() {
-    this.orcamentoService.listar().subscribe(response => {
-      this.orcamentos = response.sort((a, b) => a.data.getTime() - b.data.getTime()),
-        this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
+    this.orcamentoService.listarAtivos().subscribe(response => {
+        this.orcamentos = response.sort((a, b) => a.cliente.nome.localeCompare(b.cliente.nome)),
+        this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!");
     });
   }
 

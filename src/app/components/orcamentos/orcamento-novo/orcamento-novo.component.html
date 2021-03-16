@@ -1,239 +1,244 @@
-<app-notify></app-notify>
-<p-fieldset legend="Cliente" [toggleable]="true" [collapsed]="false">
-  <form #clienteOrcamento="ngForm" id="orcamentoForm" class="p-fluid p-formgrid p-grid">
+<div *ngIf="orcamento.produtosOrcamento">
+  <app-notify></app-notify>
+  <p-fieldset legend="Cliente" [toggleable]="true" [collapsed]="false">
+    <form #orcamentoForm="ngForm" id="orcamentoForm" class="p-fluid p-formgrid p-grid">
 
-    <div class='p-field p-col-12 p-md-12'>
-      <div class="p-field-checkbox">
-        <p-checkbox [(ngModel)]="novoCliente" name="novoCliente" binary="true" inputId="binary" (onChange)="limparCliente()"></p-checkbox>
-        <label for="novoCliente">Cliente Novo</label>
+      <div class='p-field p-col-12 p-md-12'>
+        <div class="p-field-checkbox">
+          <p-checkbox [(ngModel)]="novoCliente" name="novoCliente" binary="true" inputId="binary" (onChange)="limparCliente()"></p-checkbox>
+          <label for="novoCliente">Cliente Novo</label>
+        </div>
+      </div>
+
+      <div class='p-field p-col-12 p-md-2'>
+        <label for="tipoDeCliente">Tipo de cliente</label>
+        <p-dropdown [options]="tiposCliente" id="tipoDeCliente" name="tipoDeCliente" #tipoCliente="ngModel" [(ngModel)]="orcamento.cliente.tipoCliente"
+          placeholder="Selecione..." optionLabel="label" optionValue="value"></p-dropdown>
+        <app-messages id="tipoCliente-helper" [control]="tipoCliente" error="required" text="Informe o tipoCliente do cliente"></app-messages>
+      </div>
+
+      <div class="p-field p-col-12 p-md-3" *ngIf="orcamento.cliente.tipoCliente == 'PESSOA_FISICA'">
+        <label for="cpf">CPF</label>
+        <p-inputMask mask="999.999.999-99" autoClear unmask="true" id="cpf" name="cpf" #cpf="ngModel" [(ngModel)]="orcamento.cliente.cpfCnpj"
+          placeholder="CPF do cliente" minlength="11" maxlength="11" required aria-describedby="cpf-helper"></p-inputMask>
+        <app-messages id="cpf-helper" [control]="cpf" error="required" text="Digite o CPF"></app-messages>
+        <app-messages id="cpf-helper" [control]="cpf" error="minlength" text="Deve possuir 11 caracteres"></app-messages>
+        <app-messages id="cpf-helper" [control]="cpf" error="maxlength" text="Deve possuir 11 caracteres"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-3" *ngIf="orcamento.cliente.tipoCliente == 'PESSOA_JURIDICA'">
+        <label for="cnpj">CNPJ</label>
+        <p-inputMask mask="99.999.999/9999-99" autoClear unmask="true" id="cnpj" name="cnpj" #cnpj="ngModel" [(ngModel)]="orcamento.cliente.cpfCnpj"
+          placeholder="CNPJ do cliente" minlength="14" maxlength="14" required aria-describedby="cnpj-helper"></p-inputMask>
+        <app-messages id="cnpj-helper" [control]="cnpj" error="required" text="Digite o CNPJ"></app-messages>
+        <app-messages id="cnpj-helper" [control]="cnpj" error="minlength" text="Deve possuir 14 caracteres"></app-messages>
+        <app-messages id="cnpj-helper" [control]="cnpj" error="maxlength" text="Deve possuir 14 caracteres"></app-messages>
+      </div>
+
+      <div class='p-field p-col-12 p-md-5'>
+        <label for="nome">Nome</label>
+        <input type="text" pInputText id="nome" name="nome" #nome="ngModel" [disabled]="!novoCliente" [(ngModel)]="orcamento.cliente.nome"
+          placeholder="Nome do cliente" maxlength="60" required aria-describedby="nome-helper" />
+        <app-messages id="nome-helper" [control]="nome" error="required" text="Informe o Nome do cliente"></app-messages>
+        <app-messages id="nome-helper" [control]="nome" error="maxlength" text="Não pode exceder 60 caracteres"></app-messages>
+      </div>
+
+      <div class="p-field p-col-12 p-md-2">
+        <label for="cnpj" *ngIf="orcamento.cliente.tipoCliente == 'PESSOA_FISICA'">Data de nascimento</label>
+        <label for="cnpj" *ngIf="orcamento.cliente.tipoCliente == 'PESSOA_JURIDICA'">Data de fundação</label>
+        <input type="date" [disabled]="!novoCliente" style="height: 36px;" pInputText id="dataNascFund" name="dataNascFund" #dataNascFund="ngModel"
+          [(ngModel)]="orcamento.cliente.dataNascFund" placeholder="dd/mm/aaaa" required aria-describedby="dataNascFund-helper" />
+        <app-messages id="dataNascFund-help" [control]="dataNascFund" error="required" text="Informe a data de dataNascFund"></app-messages>
+      </div>
+
+      <div class="p-field p-col-12 p-md-2">
+        <label for="cep">CEP</label>
+        <p-inputMask [disabled]="!novoCliente" mask="99.999-999" autoClear unmask="true" name="cep" [(ngModel)]="orcamento.cliente.endereco.cep" #cep="ngModel"
+          required minlength aria-describedby="cep-help" placeholder="CEP">
+        </p-inputMask>
+        <app-messages id="cep-help" [control]="cep" error="required" text="Informe o CEP"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-4">
+        <label for="logradouro">Endereço</label>
+        <input type="text" [disabled]="!novoCliente" pInputText id="logradouro" name="logradouro" #logradouro="ngModel"
+          [(ngModel)]="orcamento.cliente.endereco.logradouro" placeholder="Endereço do cliente" maxlength="40" required aria-describedby="logradouro-helper" />
+        <app-messages id="logradouro-helper" [control]="logradouro" error="required" text="Informe o Endereço do cliente"></app-messages>
+        <app-messages id="logradouro-helper" [control]="logradouro" error="maxlength" text="Não pode exceder 40 caracteres"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-1">
+        <label for="numero">Número</label>
+        <input type="number" [disabled]="!novoCliente" pInputText id="numero" name="numero" #numero="ngModel" [(ngModel)]="orcamento.cliente.endereco.numero"
+          placeholder="0" maxlength="10" min="0" required aria-describedby="numero-helper" />
+        <app-messages id="numero-helper" [control]="numero" error="required" text="Informe o Numero do cliente"></app-messages>
+        <app-messages id="numero-helper" [control]="numero" error="maxlength" text="Não pode exceder 10 caracteres"></app-messages>
+        <app-messages id="numero-helper" [control]="numero" error="min" text="Não pode ser negativo"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="complemento">Complemento</label>
+        <input type="text" [disabled]="!novoCliente" pInputText id="complemento" name="complemento" #complemento="ngModel"
+          [(ngModel)]="orcamento.cliente.endereco.complemento" placeholder="Complemento do endereço" maxlength="30" required
+          aria-describedby="complemento-helper" />
+        <app-messages id="complemento-helper" [control]="complemento" error="required" text="Informe o Complemento do endereço"></app-messages>
+        <app-messages id="complemento-helper" [control]="complemento" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-2">
+        <label for="bairro">Bairro</label>
+        <input type="text" [disabled]="!novoCliente" pInputText id="bairro" name="bairro" #bairro="ngModel" [(ngModel)]="orcamento.cliente.endereco.bairro"
+          placeholder="Bairro do endereço" maxlength="30" required aria-describedby="bairro-helper" />
+        <app-messages id="bairro-helper" [control]="bairro" error="required" text="Informe o bairro"></app-messages>
+        <app-messages id="bairro-helper" [control]="bairro" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-2">
+        <label for="cidade">Cidade</label>
+        <input type="text" [disabled]="!novoCliente" pInputText id="cidade" name="cidade" #cidade="ngModel" [(ngModel)]="orcamento.cliente.endereco.cidade"
+          placeholder="Cidade do endereço" maxlength="30" required aria-describedby="cidade-helper" />
+        <app-messages id="cidade-helper" [control]="cidade" error="required" text="Informe o cidade"></app-messages>
+        <app-messages id="cidade-helper" [control]="cidade" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-2">
+        <label for="estado">Estado</label>
+        <input type="text" [disabled]="!novoCliente" pInputText id="estado" name="estado" #estado="ngModel" [(ngModel)]="orcamento.cliente.endereco.estado"
+          placeholder="Estado do endereço" maxlength="30" required aria-describedby="estado-helper" />
+        <app-messages id="estado-helper" [control]="estado" error="required" text="Informe o estado"></app-messages>
+        <app-messages id="estado-helper" [control]="estado" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-2">
+        <label for="telefone">Telefone</label>
+        <p-inputMask mask="(99) 99999-9999" autoClear unmask="true" [disabled]="!novoCliente" name="telefone" [(ngModel)]="orcamento.cliente.telefone"
+          #telefone="ngModel" required minlength="11" placeholder="Telefone do cliente" maxlength="11" aria-describedby="telefone-help">
+        </p-inputMask>
+        <app-messages id="telefone-help" [control]="telefone" error="required" text="Informe o Telefone"></app-messages>
+        <app-messages id="telefone-helper" [control]="telefone" error="minlength" text="Deve possuir no mínimo 11 caracteres"></app-messages>
+        <app-messages id="telefone-helper" [control]="telefone" error="maxlength" text="Deve possuir no máximo 11 caracteres"></app-messages>
+      </div>
+      <div class="p-field p-col-12 p-md-4">
+        <label for="email">E-mail</label>
+        <input pInputText name="email" type="email" [disabled]="!novoCliente" [(ngModel)]="orcamento.cliente.email" #email="ngModel" email required
+          maxlength="40" aria-describedby="email-helper" placeholder="E-mail do cliente">
+        <app-messages id="email-helper" [control]="email" error="required" text="Informe um e-mail"></app-messages>
+        <app-messages id="email-helper" [control]="email" error="email" text="Informe um e-mail válido"></app-messages>
+        <app-messages id="email-helper" [control]="email" error="maxlength" text="Deve possuir no máximo 40 caracteres"></app-messages>
+      </div>
+
+      <div class="p-field p-col-12 p-md-2">
+        <div style="height: 42%;"></div>
+        <button pButton class="v-middle" label="Procurar" type="submit" form="orcamentoForm" icon="pi pi-search" *ngIf="!novoCliente"
+          [disabled]="!orcamento.cliente.nome || !orcamento.cliente.cpfCnpj" (click)="selecionarCliente()"></button>
+        <button pButton class="v-middle" label="Cadastrar" type="submit" form="orcamentoForm" icon="pi pi-save" *ngIf="novoCliente"
+          [disabled]="!orcamentoForm.valid" (click)="selecionarCliente()"></button>
+      </div>
+    </form>
+  </p-fieldset>
+
+  <app-notify></app-notify>
+  <p-table #dt [value]="produtosSelecionados" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo" dataKey="codigo"
+    [globalFilterFields]="['codigo','nome', 'categoria.nome', 'marca.nome', 'preco']">
+
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        Produtos Selecionados
+        <span style="display: inherit;">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText style="width: 100% !important;" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Pesquisar..." />
+          </span>
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Código</th>
+        <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon>
+        </th>
+        <th pSortableColumn="categoria.nome">Categoria <p-sortIcon field="categoria.nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="marca.nome">Marca <p-sortIcon field="marca.nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="preco">Preço <p-sortIcon field="preco"></p-sortIcon>
+        </th>
+        <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
+        </th>
+        <th class="acoes">Remover</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-produtoItemTabela>
+      <tr>
+        <td>
+          <span class="p-column-title">Código</span>
+          {{produtoItemTabela.codigoDeBarras}}
+        </td>
+        <td>
+          <span class="p-column-title">Nome</span>
+          {{produtoItemTabela.nome}}
+        </td>
+        <td>
+          <span class="p-column-title">Descrição</span>
+          {{produtoItemTabela.descricao}}
+        </td>
+        <td>
+          <span class="p-column-title">Categoria</span>
+          {{produtoItemTabela.categoria.nome}}
+        </td>
+        <td>
+          <span class="p-column-title">Marca</span>
+          {{produtoItemTabela.marca.nome}}
+        </td>
+        <td>
+          <span class="p-column-title">Preço</span>
+          {{produtoItemTabela.preco | currency: 'BRL'}}
+        </td>
+        <td class="p-grid p-fluid" style="text-align: center;">
+          <div class="p-col-12 p-sm-12 p-md-12 p-xl-12">
+            <p-inputNumber [(ngModel)]="produtoItemTabela.quantidade" [showButtons]="true" buttonLayout="horizontal" inputId="qtdeProduto"
+              spinnerMode="horizontal" min="1" [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0"
+              (onInput)="atualizarProdutoOrcamento(produtoItemTabela)" [readonly]="true">
+            </p-inputNumber>
+          </div>
+        </td>
+        <td class="acoes" style="text-align: center; padding-bottom: 31px;">
+          <button pButton icon="pi pi-trash" pTooltip="Remover" (click)="removerProduto(produtoItemTabela)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <div class="p-fluid p-formgrid p-grid observacoes">
+    <div class='p-field p-col-12 p-md-10'>
+      <label for="observacoes">Observações</label>
+      <textarea pInputTextarea id="obervacoes" name="observacoes" rows="5" autoResize="true" [(ngModel)]="orcamento.observacoes"></textarea>
+    </div>
+    <div class='p-field p-col-12 p-md-2' style="margin-top: 1em">
+      <div>
+        <label for="valorTotal">Valor Total</label>
+        <p-inputNumber [disabled]="true" mode="currency" currency="BRL" id="valorTotal" name="valorTotal" #valorTotal="ngModel"
+          [(ngModel)]="orcamento.valorTotal" placeholder="0"></p-inputNumber>
+      </div>
+      <div style="margin-top: 7px;">
+        <label for="data">Data</label>
+        <p-calendar [(ngModel)]="orcamento.data" dateFormat="dd/mm/yy" [disabled]="true"></p-calendar>
       </div>
     </div>
-
-    <div class='p-field p-col-12 p-md-2'>
-      <label for="tipoDeCliente">Tipo de cliente</label>
-      <p-dropdown [options]="tiposCliente" id="tipoDeCliente" name="tipoDeCliente" #tipoCliente="ngModel" [(ngModel)]="cliente.tipoCliente"
-        placeholder="Selecione..." optionLabel="label" optionValue="value"></p-dropdown>
-      <app-messages id="tipoCliente-helper" [control]="tipoCliente" error="required" text="Informe o tipoCliente do cliente"></app-messages>
-    </div>
-
-    <div class="p-field p-col-12 p-md-3" *ngIf="cliente.tipoCliente == 'PESSOA_FISICA'">
-      <label for="cpf">CPF</label>
-      <p-inputMask mask="999.999.999-99" autoClear unmask="true" id="cpf" name="cpf" #cpf="ngModel" [(ngModel)]="cliente.cpfCnpj" placeholder="CPF do cliente"
-        minlength="11" maxlength="11" required aria-describedby="cpf-helper"></p-inputMask>
-      <app-messages id="cpf-helper" [control]="cpf" error="required" text="Digite o CPF"></app-messages>
-      <app-messages id="cpf-helper" [control]="cpf" error="minlength" text="Deve possuir 11 caracteres"></app-messages>
-      <app-messages id="cpf-helper" [control]="cpf" error="maxlength" text="Deve possuir 11 caracteres"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-3" *ngIf="cliente.tipoCliente == 'PESSOA_JURIDICA'">
-      <label for="cnpj">CNPJ</label>
-      <p-inputMask mask="99.999.999/9999-99" autoClear unmask="true" id="cnpj" name="cnpj" #cnpj="ngModel" [(ngModel)]="cliente.cpfCnpj"
-        placeholder="CNPJ do cliente" minlength="14" maxlength="14" required aria-describedby="cnpj-helper"></p-inputMask>
-      <app-messages id="cnpj-helper" [control]="cnpj" error="required" text="Digite o CNPJ"></app-messages>
-      <app-messages id="cnpj-helper" [control]="cnpj" error="minlength" text="Deve possuir 14 caracteres"></app-messages>
-      <app-messages id="cnpj-helper" [control]="cnpj" error="maxlength" text="Deve possuir 14 caracteres"></app-messages>
-    </div>
-
-    <div class='p-field p-col-12 p-md-5'>
-      <label for="nome">Nome</label>
-      <input type="text" pInputText id="nome" name="nome" #nome="ngModel" [disabled]="!novoCliente" [(ngModel)]="cliente.nome" placeholder="Nome do cliente"
-        maxlength="60" required aria-describedby="nome-helper" />
-      <app-messages id="nome-helper" [control]="nome" error="required" text="Informe o Nome do cliente"></app-messages>
-      <app-messages id="nome-helper" [control]="nome" error="maxlength" text="Não pode exceder 60 caracteres"></app-messages>
-    </div>
-
-
-    <div class="p-field p-col-12 p-md-2">
-      <label for="cnpj" *ngIf="cliente.tipoCliente == 'PESSOA_FISICA'">Data de nascimento</label>
-      <label for="cnpj" *ngIf="cliente.tipoCliente == 'PESSOA_JURIDICA'">Data de fundação</label>
-      <input type="date" [disabled]="!novoCliente" style="height: 36px;" pInputText id="dataNascFund" name="dataNascFund" #dataNascFund="ngModel"
-        [(ngModel)]="cliente.dataNascFund" placeholder="dd/mm/aaaa" required aria-describedby="dataNascFund-helper" />
-      <app-messages id="dataNascFund-help" [control]="dataNascFund" error="required" text="Informe a data de dataNascFund"></app-messages>
-    </div>
-
-    <div class="p-field p-col-12 p-md-2">
-      <label for="cep">CEP</label>
-      <p-inputMask [disabled]="!novoCliente" mask="99.999-999" autoClear unmask="true" name="cep" [(ngModel)]="cliente.endereco.cep" #cep="ngModel" required
-        minlength aria-describedby="cep-help" placeholder="CEP">
-      </p-inputMask>
-      <app-messages id="cep-help" [control]="cep" error="required" text="Informe o CEP"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-      <label for="logradouro">Endereço</label>
-      <input type="text" [disabled]="!novoCliente" pInputText id="logradouro" name="logradouro" #logradouro="ngModel" [(ngModel)]="cliente.endereco.logradouro"
-        placeholder="Endereço do cliente" maxlength="40" required aria-describedby="logradouro-helper" />
-      <app-messages id="logradouro-helper" [control]="logradouro" error="required" text="Informe o Endereço do cliente"></app-messages>
-      <app-messages id="logradouro-helper" [control]="logradouro" error="maxlength" text="Não pode exceder 40 caracteres"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-1">
-      <label for="numero">Número</label>
-      <input type="number" [disabled]="!novoCliente" pInputText id="numero" name="numero" #numero="ngModel" [(ngModel)]="cliente.endereco.numero"
-        placeholder="0" maxlength="10" min="0" required aria-describedby="numero-helper" />
-      <app-messages id="numero-helper" [control]="numero" error="required" text="Informe o Numero do cliente"></app-messages>
-      <app-messages id="numero-helper" [control]="numero" error="maxlength" text="Não pode exceder 10 caracteres"></app-messages>
-      <app-messages id="numero-helper" [control]="numero" error="min" text="Não pode ser negativo"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-3">
-      <label for="complemento">Complemento</label>
-      <input type="text" [disabled]="!novoCliente" pInputText id="complemento" name="complemento" #complemento="ngModel"
-        [(ngModel)]="cliente.endereco.complemento" placeholder="Complemento do endereço" maxlength="30" required aria-describedby="complemento-helper" />
-      <app-messages id="complemento-helper" [control]="complemento" error="required" text="Informe o Complemento do endereço"></app-messages>
-      <app-messages id="complemento-helper" [control]="complemento" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-2">
-      <label for="bairro">Bairro</label>
-      <input type="text" [disabled]="!novoCliente" pInputText id="bairro" name="bairro" #bairro="ngModel" [(ngModel)]="cliente.endereco.bairro"
-        placeholder="Bairro do endereço" maxlength="30" required aria-describedby="bairro-helper" />
-      <app-messages id="bairro-helper" [control]="bairro" error="required" text="Informe o bairro"></app-messages>
-      <app-messages id="bairro-helper" [control]="bairro" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-2">
-      <label for="cidade">Cidade</label>
-      <input type="text" [disabled]="!novoCliente" pInputText id="cidade" name="cidade" #cidade="ngModel" [(ngModel)]="cliente.endereco.cidade"
-        placeholder="Cidade do endereço" maxlength="30" required aria-describedby="cidade-helper" />
-      <app-messages id="cidade-helper" [control]="cidade" error="required" text="Informe o cidade"></app-messages>
-      <app-messages id="cidade-helper" [control]="cidade" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-2">
-      <label for="estado">Estado</label>
-      <input type="text" [disabled]="!novoCliente" pInputText id="estado" name="estado" #estado="ngModel" [(ngModel)]="cliente.endereco.estado"
-        placeholder="Estado do endereço" maxlength="30" required aria-describedby="estado-helper" />
-      <app-messages id="estado-helper" [control]="estado" error="required" text="Informe o estado"></app-messages>
-      <app-messages id="estado-helper" [control]="estado" error="maxlength" text="Não pode exceder 30 caracteres"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-2">
-      <label for="telefone">Telefone</label>
-      <p-inputMask mask="(99) 99999-9999" autoClear unmask="true" [disabled]="!novoCliente" name="telefone" [(ngModel)]="cliente.telefone" #telefone="ngModel"
-        required minlength="11" placeholder="Telefone do cliente" maxlength="11" aria-describedby="telefone-help">
-      </p-inputMask>
-      <app-messages id="telefone-help" [control]="telefone" error="required" text="Informe o Telefone"></app-messages>
-      <app-messages id="telefone-helper" [control]="telefone" error="minlength" text="Deve possuir no mínimo 11 caracteres"></app-messages>
-      <app-messages id="telefone-helper" [control]="telefone" error="maxlength" text="Deve possuir no máximo 11 caracteres"></app-messages>
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-      <label for="email">E-mail</label>
-      <input pInputText name="email" type="email" [disabled]="!novoCliente" [(ngModel)]="cliente.email" #email="ngModel" email required maxlength="40"
-        aria-describedby="email-helper" placeholder="E-mail do cliente">
-      <app-messages id="email-helper" [control]="email" error="required" text="Informe um e-mail"></app-messages>
-      <app-messages id="email-helper" [control]="email" error="email" text="Informe um e-mail válido"></app-messages>
-      <app-messages id="email-helper" [control]="email" error="maxlength" text="Deve possuir no máximo 40 caracteres"></app-messages>
-    </div>
-
-    <div class="p-field p-col-12 p-md-2">
-      <div style="height: 42%;"></div>
-      <button pButton class="v-middle" label="Procurar" type="submit" form="orcamentoForm" icon="pi pi-search" *ngIf="!novoCliente"
-        [disabled]="cliente.nome == 0" (click)="procurarCliente()"></button>
-      <button pButton class="v-middle" label="Cadastrar" type="submit" form="orcamentoForm" icon="pi pi-save" *ngIf="novoCliente"
-        [disabled]="!clienteOrcamento.valid" (click)="salvarCliente()"></button>
-    </div>
-  </form>
-</p-fieldset>
-
-<app-notify></app-notify>
-<p-table #dt [value]="produtosSelecionados" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo" dataKey="codigo"
-  [globalFilterFields]="['codigo','nome', 'categoria.nome', 'marca.nome', 'preco']">
-
-  <ng-template pTemplate="caption">
-    <div class="p-d-flex p-ai-center p-jc-between">
-      Produtos
-      <span style="display: inherit;">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText style="width: 100% !important;" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisar..." />
-        </span>
-      </span>
-    </div>
-  </ng-template>
-
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Código</th>
-      <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
-      </th>
-      <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon>
-      </th>
-      <th pSortableColumn="categoria.nome">Categoria <p-sortIcon field="categoria.nome"></p-sortIcon>
-      </th>
-      <th pSortableColumn="marca.nome">Marca <p-sortIcon field="marca.nome"></p-sortIcon>
-      </th>
-      <th pSortableColumn="preco">Preço <p-sortIcon field="preco"></p-sortIcon>
-      </th>
-      <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
-      </th>
-      <th class="acoes">Remover</th>
-    </tr>
-  </ng-template>
-
-  <ng-template pTemplate="body" let-produtoItemTabela>
-    <tr>
-      <td>
-        <span class="p-column-title">Código</span>
-        {{produtoItemTabela.codigoDeBarras}}
-      </td>
-      <td>
-        <span class="p-column-title">Nome</span>
-        {{produtoItemTabela.nome}}
-      </td>
-      <td>
-        <span class="p-column-title">Descrição</span>
-        {{produtoItemTabela.descricao}}
-      </td>
-      <td>
-        <span class="p-column-title">Categoria</span>
-        {{produtoItemTabela.categoria.nome}}
-      </td>
-      <td>
-        <span class="p-column-title">Marca</span>
-        {{produtoItemTabela.marca.nome}}
-      </td>
-      <td>
-        <span class="p-column-title">Preço</span>
-        {{produtoItemTabela.preco | currency: 'BRL'}}
-      </td>
-      <td>
-        <span class="p-column-title">Quantidade</span>
-        <div class="p-grid p-fluid p-field p-col-5 p-md-12">
-          <p-inputNumber [(ngModel)]="produtoItemTabela.quantidade" [showButtons]="true" buttonLayout="horizontal" inputId="qtdeProduto"
-            spinnerMode="horizontal" min="1" [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0"
-            (onInput)="atualizarProdutoOrcamento(produtoItemTabela)" [readonly]="true">
-          </p-inputNumber>
-        </div>
-      </td>
-      <td class="acoes" style="text-align: center; padding-bottom: 31px;">
-        <span class="p-column-title">Remover</span>
-        <button pButton icon="pi pi-trash" pTooltip="Remover" (click)="removerProduto(produtoItemTabela)"></button>
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
-
-<div class="p-fluid p-formgrid p-grid observacoes">
-  <div class='p-field p-col-12 p-md-10'>
-    <label for="observacoes">Observações</label>
-    <textarea pInputTextarea id="obervacoes" name="observacoes" rows="5" autoResize="true" [(ngModel)]="orcamento.observacoes"></textarea>
   </div>
-  <div class='p-field p-col-12 p-md-2' style="margin-top: 1em">
-    <div>
-      <label for="valorTotal">Valor Total</label>
-      <p-inputNumber [disabled]="true" mode="currency" currency="BRL" id="valorTotal" name="valorTotal" #valorTotal="ngModel" [(ngModel)]="valorTotalOrcamento"
-        placeholder="0"></p-inputNumber>
+
+  <div class="p-fluid p-formgrid p-grid observacoes">
+    <div class="p-field p-col-6"></div>
+    <div class="p-field p-col-2">
+      <button pButton class="p-button-outlined" icon="pi pi-times" label="Cancelar" (click)="limparEVoltar()"></button>
     </div>
-    <div style="margin-top: 7px;">
-      <label for="data">Data</label>
-      <p-calendar [(ngModel)]="orcamento.data" dateFormat="dd/mm/yy" [disabled]="true"></p-calendar>
+    <div class="p-field p-col-2">
+      <button pButton class="p-button-outlined" icon="pi pi-save" label="Salvar" [disabled]="!orcamento.cliente.codigo" (click)="salvarOrcamento()"
+        pTooltip="Salvar Orçamento" tooltipPosition="top"></button>
+    </div>
+    <div class="p-field p-col-2">
+      <button pButton icon="pi pi-check-circle" label="Vender" routerLink="/vendas" pTooltip="Efetivar Venda" tooltipPosition="top"></button>
     </div>
   </div>
 </div>
 
-<div class="p-fluid p-formgrid p-grid observacoes">
-  <div class="p-field p-col-6"></div>
-  <div class="p-field p-col-2">
-    <button pButton class="p-button-outlined" icon="pi pi-times" label="Cancelar" (click)="limparEVoltar()"></button>
-  </div>
-  <div class="p-field p-col-2">
-    <button pButton class="p-button-outlined" icon="pi pi-save" label="Salvar" [disabled]="!cliente.codigo" (click)="salvarOrcamento()"
-      pTooltip="Salvar Orçamento" tooltipPosition="top"></button>
-  </div>
-  <div class="p-field p-col-2">
-    <button pButton icon="pi pi-check-circle" label="Vender" disabled></button>
-  </div>
+<div *ngIf="!(orcamento.produtosOrcamento)">
+  <app-pagina-vazia mensagem="Um orçamento existente ou uma lista de produtos devem ser previamente selecionados!"></app-pagina-vazia>
 </div>

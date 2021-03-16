@@ -8,5 +8,5 @@ export class Orcamento {
   produtosOrcamento?: ProdutoOrcamento[];
   cliente?: Cliente;
   observacoes?: string;
-  valorTotal?: string;
+  valorTotal?: number;
 }
