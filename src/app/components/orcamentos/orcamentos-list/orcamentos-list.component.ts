@@ -27,7 +27,7 @@ export class OrcamentosListComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.orcamentoService.listarAtivos().subscribe(response => this.orcamentos = response.sort((a, b) => a.cliente.nome.localeCompare(b.cliente.nome)));
+    this.orcamentoService.listarAtivos().subscribe(response => this.orcamentos = response.sort((a, b) => b.codigo - a.codigo));
   }
 
   editarOrcamento(orcamento) {
@@ -36,7 +36,7 @@ export class OrcamentosListComponent implements OnInit {
 
   recarregarPagina() {
     this.orcamentoService.listarAtivos().subscribe(response => {
-        this.orcamentos = response.sort((a, b) => a.cliente.nome.localeCompare(b.cliente.nome)),
+        this.orcamentos = response.sort((a, b) => b.codigo - a.codigo),
         this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!");
     });
   }

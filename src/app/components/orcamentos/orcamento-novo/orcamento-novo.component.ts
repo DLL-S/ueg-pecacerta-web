@@ -64,7 +64,6 @@ export class OrcamentoNovoComponent implements OnInit {
         this.atualizarValorTotal();
       })
     });
-    this.produtosSelecionados.sort((a, b) => a.nome.localeCompare(b.nome));
   }
 
   selecionarCliente() {
@@ -126,10 +125,10 @@ export class OrcamentoNovoComponent implements OnInit {
   }
 
   limparEVoltar() {
-    this.location.back();
     this.orcamento.cliente = {};
     this.orcamento = {};
     this.produtosSelecionados = [];
+    this.location.back();
   }
 
   private atualizarValorTotal() {
