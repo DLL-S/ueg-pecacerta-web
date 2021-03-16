@@ -245,8 +245,8 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-      <button [style]="{color: '#18778C'}" pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="esconderDialogo()"></button>
-      <button [style]="{color: '#18778C'}" pButton pRipple type="submit" label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvar()"
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="esconderDialogo()"></button>
+      <button pButton pRipple type="submit" label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvar()"
         [disabled]="!dialogoForm.valid"></button>
     </ng-template>
 

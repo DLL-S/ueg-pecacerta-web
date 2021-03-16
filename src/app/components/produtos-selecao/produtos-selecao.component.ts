@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Produto } from 'src/app/models/produto.model';
+import { Router } from '@angular/router';
+import { Cliente } from 'src/app/models/cliente';
+import { Endereco } from 'src/app/models/endereco';
+import { ETipoCliente } from 'src/app/models/enums/ETipoCliente';
+import { Orcamento } from 'src/app/models/orcamento.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { MarcaService } from 'src/app/services/marca.service';
 import { ProdutoService } from 'src/app/services/produto.service';
@@ -15,15 +19,13 @@ import { ProdutoSelecao } from './../../models/produto-selecao.model';
 })
 export class ProdutosSelecaoComponent implements OnInit {
 
-  produtos: ProdutoSelecao[] = [];
+  produtosSelecionados: ProdutoSelecao[] = [];
+  orcamento: Orcamento = {};
 
   @ViewChild(NotifyComponent) notify: NotifyComponent;
 
-  produtosSelecionados: ProdutoSelecao[] = [];
-  produto: ProdutoSelecao;
-
   constructor(private produtoService: ProdutoService, private categoriaService: CategoriaService, private marcaService: MarcaService,
-    private titleService: Title, private topbarTitleService: TopbarTitleService) {
+    private titleService: Title, private topbarTitleService: TopbarTitleService, private router: Router) {
     this.topbarTitleService.topbarData = {
       title: 'Seleção de Produto',
       routerUrl: '/produtos'
@@ -32,36 +34,48 @@ export class ProdutosSelecaoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.produtoService.listarAtivos().subscribe(Response => this.produtos = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
+    this.produtoService.listarAtivos().subscribe(Response => this.produtosSelecionados = Response.sort((a, b) => a.nome.localeCompare(b.nome)));
   }
 
-  manterOrcamento() {
-    this.notify.showMessage("warn", "Atenção", "Fechando orçamento!");
-
-    this.produtos.forEach(produto => {
-      if (produto.quantidade && this.findIndexById(produto.codigo) == -1) {
-        this.produtosSelecionados.push(produto);
-      }
-    });
-   }
-
-  recarregarPagina() {
-    this.produtoService.listarAtivos().subscribe(response => {
-      this.produtos = response.sort((a, b) => a.nome.localeCompare(b.nome));
-      this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!");
-      this.produtosSelecionados = [];
-    });
+  fecharOrcamento() {
+    this.carregarProdutosSelecionados();
+    this.produtosSelecionados = [];
+    this.router.navigate([`../produtos/orcamento`], { state: this.orcamento });
   }
 
-  findIndexById(codigo: number): number {
-    let index = -1;
-    for (let i = 0; i < this.produtosSelecionados.length; i++) {
-      if (this.produtosSelecionados[i].codigo === codigo) {
-        index = i;
-        break;
+  private carregarProdutosSelecionados() {
+    this.orcamento.produtosOrcamento = [];
+    this.produtosSelecionados.forEach(produto => {
+      if (produto.quantidade) {
+        this.orcamento.produtosOrcamento.push({
+          "codigoProduto": produto.codigo,
+          "quantidade": produto.quantidade
+        });
       }
+  })
+}
+
+atualizarQuantidade(produto) {
+  if (produto.quantidade != 0 && this.findIndexById(produto.codigo) == -1) {
+    this.produtosSelecionados.push(produto);
+  }
+}
+
+recarregarPagina() {
+  this.produtoService.listarAtivos().subscribe(response => {
+    this.produtosSelecionados = response.sort((a, b) => a.nome.localeCompare(b.nome));
+    this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!");
+  });
+}
+
+findIndexById(codigo: number): number {
+  let index = -1;
+  for (let i = 0; i < this.produtosSelecionados.length; i++) {
+    if (this.produtosSelecionados[i].codigo === codigo) {
+      index = i;
+      break;
     }
-
-    return index;
   }
+  return index;
+}
 }

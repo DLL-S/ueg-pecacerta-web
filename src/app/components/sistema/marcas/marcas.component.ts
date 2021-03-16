@@ -73,7 +73,7 @@ export class MarcasComponent implements OnInit {
 
   recarregarPagina() {
     this.marcaService.listar().subscribe(response => {
-      this.marcas = response.sort((a, b) => a.codigo - b.codigo),
+      this.marcas = response.sort((a, b) => a.nome.localeCompare(b.nome)),
       this.notify.showMessage("success", "Sucesso", "Dados da tabela atualizados!")
     });
   }

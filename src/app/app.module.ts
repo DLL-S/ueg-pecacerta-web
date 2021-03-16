@@ -19,7 +19,10 @@ import { ToastModule } from 'primeng/toast';
 import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MessageService } from 'primeng/api';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,7 +45,9 @@ import { ProdutoService } from './services/produto.service';
 import { SharedModule } from './shared/shared.module';
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
 import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
-import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-novo.component';
+import { OrcamentoNovoComponent } from './components/orcamentos/orcamento-novo/orcamento-novo.component';
+import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list/orcamentos-list.component';
+import { PaginaVaziaComponent } from './components/templates/pagina-vazia/pagina-vazia.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +67,9 @@ import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-no
     ClientesComponent,
     FuncionariosComponent,
     ProdutosSelecaoComponent,
-    OrcamentoNovoComponent
+    OrcamentoNovoComponent,
+    OrcamentosListComponent,
+    PaginaVaziaComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +92,9 @@ import { OrcamentoNovoComponent } from './components/orcamento-novo/orcamento-no
     ToastModule,
     RadioButtonModule,
     SharedModule,
-    TooltipModule
+    TooltipModule,
+    InputTextareaModule,
+    CalendarModule
 
   ],
   providers: [

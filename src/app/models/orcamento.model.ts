@@ -5,8 +5,8 @@ export class Orcamento {
   ativo?: boolean;
   codigo?: number;
   data?: Date;
-  produtos?: ProdutoOrcamento[];
+  produtosOrcamento?: ProdutoOrcamento[];
   cliente?: Cliente;
   observacoes?: string;
-  valorTotal?: DoubleRange;
+  valorTotal?: number;
 }

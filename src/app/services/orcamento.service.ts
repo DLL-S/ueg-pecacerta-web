@@ -5,24 +5,6 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Orcamento } from '../models/orcamento.model';
 
-// CONTINUAR CONTROLLER
-/*
-{
-  "cliente": {
-    "codigo": 1
-  },
-  "data": "2021-02-02",
-  "observacoes": "inclusão minima 2",
-  "produtosOrcamento": [
-    {
-      "codigoProduto": 3,
-      "quantidade": 500
-    }
-  ],
-  "valorTotal": 0
-}
-*/
-
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +18,6 @@ export class OrcamentoService {
   constructor(private http: HttpClient) { }
 
   incluir(orcamento: Orcamento): Observable<any> {
-    orcamento.ativo = true;
     return this.http.post<Orcamento>(this.baseUrl, orcamento).pipe(
       map((obj) => obj)
     );

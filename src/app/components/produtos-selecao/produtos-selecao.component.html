@@ -1,5 +1,5 @@
 <app-notify></app-notify>
-<p-table #dt [value]="produtos" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo"
+<p-table #dt [value]="produtosSelecionados" [paginator]="true" [rows]="10" styleClass="p-datatable-responsive-demo"
 [rowHover]="true" dataKey="codigo" [globalFilterFields]="['codigo','nome', 'categoria.nome', 'marca.nome', 'preco']"
 currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecords} entradas"
 [showCurrentPageReport]="true">
@@ -8,8 +8,8 @@ currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecor
     <div class="p-d-flex p-ai-center p-jc-between">
       Montar Orçamento
       <span style="display: inherit;">
-        <button pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-shopping-cart" pTooltip="Cadastrar" tooltipPosition="top"
-          (click)="manterOrcamento()" pTooltip="Fechar orçamento"></button>
+        <button pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="fas fa-coins" pTooltip="Cadastrar" tooltipPosition="top"
+          (click)="fecharOrcamento()" pTooltip="Fechar orçamento" [disabled]="produtosSelecionados.length == 0"></button>
         <button  pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh" pTooltip="Recarregar"
           tooltipPosition="top"></button>
 
@@ -72,16 +72,15 @@ currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecor
         <span class="p-column-title">Estoque</span>
         {{produtoItemTabela.qtdeEstoque}}
       </td>
-      <td class="acoes">
-        <span class="p-column-title">Adicionar</span>
-
-          <div class="p-grid p-fluid p-field p-col-13" style="width: 100%;">
+      <td class="p-grid p-fluid" style="text-align: center;">
+          <div class="p-col-12 p-sm-12 p-md-12 p-xl-12">
             <p-inputNumber [(ngModel)]="produtoItemTabela.quantidade" [showButtons]="true" buttonLayout="horizontal" inputId="qtdeProduto" spinnerMode="horizontal"
-            min="0" [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0">
+            min=0 [max]="produtoItemTabela.qtdeEstoque" placeholder="0" [disabled]="produtoItemTabela.qtdeEstoque == 0" (onInput)="atualizarQuantidade(produtoItemTabela)"
+            [readonly]="true">
             </p-inputNumber>
           </div>
-
       </td>
     </tr>
   </ng-template>
 </p-table>
+
