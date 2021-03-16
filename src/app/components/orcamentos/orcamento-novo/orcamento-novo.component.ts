@@ -64,6 +64,7 @@ export class OrcamentoNovoComponent implements OnInit {
         this.atualizarValorTotal();
       })
     });
+    this.produtosSelecionados.sort((a, b) => a.nome.localeCompare(b.nome));
   }
 
   selecionarCliente() {
@@ -110,12 +111,18 @@ export class OrcamentoNovoComponent implements OnInit {
     this.limparEVoltar();
   }
 
-  limparCliente() {
+  limparCliente(mudarTipo: boolean) {
     let cpfCnpj = this.orcamento.cliente.cpfCnpj;
+    let tipoCliente = this.orcamento.cliente.tipoCliente;
     this.orcamento.cliente = {};
     this.orcamento.cliente.endereco = {};
-    this.orcamento.cliente.cpfCnpj = cpfCnpj;
-    this.orcamento.cliente.tipoCliente = cpfCnpj && cpfCnpj.length == 14 ? ETipoCliente.PESSOA_JURIDICA : ETipoCliente.PESSOA_FISICA;
+    if (mudarTipo)
+      this.orcamento.cliente.tipoCliente = tipoCliente;
+    else {
+      this.orcamento.cliente.tipoCliente = tipoCliente;
+      this.orcamento.cliente.cpfCnpj = cpfCnpj;
+    }
+    console.log(this.orcamento.cliente.tipoCliente)
   }
 
   limparEVoltar() {

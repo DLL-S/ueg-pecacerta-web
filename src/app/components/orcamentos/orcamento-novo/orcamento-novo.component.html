@@ -1,11 +1,11 @@
 <div *ngIf="orcamento.produtosOrcamento">
   <app-notify></app-notify>
   <p-fieldset legend="Cliente" [toggleable]="true" [collapsed]="false">
-    <form #orcamentoForm="ngForm" id="orcamentoForm" class="p-fluid p-formgrid p-grid">
+    <form #orcamentoForm="ngForm" id="orcamentoForm" class="p-fluid p-formgrid p-grid" [disabled]="orcamento.codigo">
 
       <div class='p-field p-col-12 p-md-12'>
         <div class="p-field-checkbox">
-          <p-checkbox [(ngModel)]="novoCliente" name="novoCliente" binary="true" inputId="binary" (onChange)="limparCliente()"></p-checkbox>
+          <p-checkbox [(ngModel)]="novoCliente" name="novoCliente" binary="true" inputId="binary" (onChange)="limparCliente(false)"></p-checkbox>
           <label for="novoCliente">Cliente Novo</label>
         </div>
       </div>
@@ -13,7 +13,7 @@
       <div class='p-field p-col-12 p-md-2'>
         <label for="tipoDeCliente">Tipo de cliente</label>
         <p-dropdown [options]="tiposCliente" id="tipoDeCliente" name="tipoDeCliente" #tipoCliente="ngModel" [(ngModel)]="orcamento.cliente.tipoCliente"
-          placeholder="Selecione..." optionLabel="label" optionValue="value"></p-dropdown>
+          placeholder="Selecione..." optionLabel="label" optionValue="value" (onChange)="limparCliente(true)"></p-dropdown>
         <app-messages id="tipoCliente-helper" [control]="tipoCliente" error="required" text="Informe o tipoCliente do cliente"></app-messages>
       </div>
 
