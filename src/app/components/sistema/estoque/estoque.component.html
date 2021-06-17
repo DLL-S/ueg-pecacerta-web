@@ -1,0 +1,67 @@
+<app-notify></app-notify>
+
+<p-table #dt id="column-item" [value]="movimentacoes" [rows]="10" [paginator]="true"
+	[globalFilterFields]="['codigo','operacao', 'produto.nome']" [rowHover]="true" dataKey="codigo"
+	styleClass="p-datatable-responsive-demo"
+	currentPageReportTemplate="Exibindo de {first} à {last} do total de {totalRecords} entradas"
+	[showCurrentPageReport]="true">
+
+	<ng-template pTemplate="caption">
+		<div class="p-d-flex p-ai-center p-jc-between">
+			Movimentações de Estoque
+			<span style="display: inherit;">
+				<button pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus"
+					pTooltip="Registrar Troca" tooltipPosition="top" (click)="novoDialogo()"></button>
+				<button pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh"
+					pTooltip="Recarregar" tooltipPosition="top"></button>
+
+				<span class="p-input-icon-left">
+					<i class="pi pi-search"></i>
+					<input pInputText style="width: 100% !important;" type="text"
+						(input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisar..." />
+				</span>
+			</span>
+		</div>
+	</ng-template>
+
+	<ng-template pTemplate="header">
+		<tr>
+			<th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon>
+			</th>
+			<th pSortableColumn="produto">Produto <p-sortIcon field="produto"></p-sortIcon>
+			</th>
+			<th pSortableColumn="operacao">Operação <p-sortIcon field="operacao"></p-sortIcon>
+			</th>
+			<th pSortableColumn="data">Data <p-sortIcon field="data"></p-sortIcon>
+			</th>
+			<th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
+			</th>
+		</tr>
+	</ng-template>
+
+	<ng-template pTemplate="body" let-movimentacao>
+		<tr>
+			<td>
+				<span class="p-column-title">Código</span>
+				{{ movimentacao.codigo }}
+			</td>
+			<td>
+				<span class="p-column-title">Produto</span>
+				{{ movimentacao.produto.codigo }} - {{ movimentacao.produto.nome }}
+			</td>
+			<td>
+				<span class="p-column-title">Operação</span>
+				{{ movimentacao.operacao }}
+			</td>
+			<td>
+				<span class="p-column-title">Data</span>
+				{{ movimentacao.data | date: "dd/MM/yyyy" }}
+			</td>
+			<td>
+				<span class="p-column-title">Quantidade</span>
+				{{ movimentacao.quantidade }}
+			</td>
+		</tr>
+	</ng-template>
+
+</p-table>
