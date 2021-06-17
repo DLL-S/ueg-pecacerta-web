@@ -26,7 +26,8 @@ export class MovimentacaoEstoqueService {
 
   trocar(movimentacao: MovimentacaoEstoque): Observable<any> {
     movimentacao.ativo = true;
-    return this.http.post<MovimentacaoEstoque>(this.baseUrl, movimentacao).pipe(
+	let url = `${this.baseUrl}/trocar?codigoProduto=${movimentacao.produto.codigo}&quantidade=${movimentacao.quantidade}`;
+    return this.http.post<MovimentacaoEstoque>(url, null).pipe(
       map((obj) => obj)
     );
   }

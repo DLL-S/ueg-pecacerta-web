@@ -63,5 +63,44 @@
 			</td>
 		</tr>
 	</ng-template>
-
 </p-table>
+
+<form #dialogoForm="ngForm">
+	<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Registrar Troca" [modal]="true"
+		styleClass="p-fluid">
+
+		<ng-template pTemplate="content">
+			<div class="p-formgrid p-grid">
+
+				<div class="p-field p-col">
+					<label for="produto">Produto</label>
+					<p-dropdown optionLabel="nome" [options]="produtos" ngModel id="produto" name="produto" #produto="ngModel"
+					[(ngModel)]="movimentacao.produto" placeholder="Selecionar..." required
+					aria-describedby="produto-helper">
+				</p-dropdown>
+				<app-messages id="produto-helper" [control]="produto" error="required" text="Selecione um Produto">
+				</app-messages>
+			</div>
+			<div class="p-field p-col-3">
+				<label for="qtdeEstoque">Quantidade</label>
+				<input type="number" pInputText [(ngModel)]="movimentacao.quantidade" required min="0" ngModel
+				  #qtdeEstoque="ngModel" id="qtdeEstoque" name="qtdeEstoque" placeholder="0"
+				  aria-describedby="qtdeEstoque-helper">
+				<app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="required"
+				  text="Informe o estoque inicial"></app-messages>
+				<app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="min"
+				  text="Quantidade deve ser maior que 0"></app-messages>
+			  </div>
+
+			</div>
+		</ng-template>
+
+		<ng-template pTemplate="footer">
+			<button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+				(click)="esconderDialogo()"></button>
+			<button pButton pRipple type="submit" label="Salvar" icon="pi pi-check" class="p-button-text"
+				(click)="salvar()" [disabled]="!dialogoForm.valid"></button>
+		</ng-template>
+
+	</p-dialog>
+</form>
