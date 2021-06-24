@@ -11,6 +11,7 @@ import { FuncionariosComponent } from './components/sistema/funcionarios/funcion
 import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos-selecao.component';
 import { OrcamentoNovoComponent } from './components/orcamentos/orcamento-novo/orcamento-novo.component';
 import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list/orcamentos-list.component';
+import { EstoqueComponent } from './components/sistema/estoque/estoque.component';
 
 const routes: Routes = [
   { path: "", component: ProdutosSelecaoComponent },
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: "orcamentos", component: OrcamentosListComponent },
   { path: "vendas", component: PaginaConstrucaoComponent },
   { path: "sistema/produtos", component: ProdutosSearchComponent },
-  { path: "sistema/estoque", component: PaginaConstrucaoComponent },
+  { path: "sistema/estoque", component: EstoqueComponent },
   { path: "sistema/funcionarios", component: FuncionariosComponent },
   { path: "sistema/clientes", component: ClientesComponent },
   { path: "sistema/marcas", component: MarcasComponent },
