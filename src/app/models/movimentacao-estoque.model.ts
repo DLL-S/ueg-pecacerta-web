@@ -10,5 +10,4 @@ export class MovimentacaoEstoque {
 	precoDeVenda?: number;
 	quantidade?: number;
 	data?: Date;
-	atendente?: Funcionario;
 }

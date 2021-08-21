@@ -1,3 +1,4 @@
+import { EMovimentacaoEstoque } from './../models/enums/EMovimentacaoEstoque';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,22 +12,12 @@ import { MovimentacaoEstoque } from '../models/movimentacao-estoque.model';
 export class MovimentacaoEstoqueService {
 
   private baseUrl = `${environment.apiBaseUrl}/controleestoque`;
-  private httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  }
 
   constructor(private http: HttpClient) { }
 
-  incluir(movimentacao: MovimentacaoEstoque): Observable<any> {
+  salvar(movimentacao: MovimentacaoEstoque): Observable<any> {
     movimentacao.ativo = true;
-    return this.http.post<MovimentacaoEstoque>(this.baseUrl, movimentacao).pipe(
-      map((obj) => obj)
-    );
-  }
-
-  trocar(movimentacao: MovimentacaoEstoque): Observable<any> {
-    movimentacao.ativo = true;
-	let url = `${this.baseUrl}/trocar?codigoProduto=${movimentacao.produto.codigo}&quantidade=${movimentacao.quantidade}`;
+    let url = `${this.baseUrl}/movimentar?codigoProduto=${movimentacao.produto.codigo}&operacao=${movimentacao.operacao}&quantidade=${movimentacao.quantidade}`;
     return this.http.post<MovimentacaoEstoque>(url, null).pipe(
       map((obj) => obj)
     );

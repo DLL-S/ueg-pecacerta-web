@@ -11,7 +11,7 @@
 			Movimentações de Estoque
 			<span style="display: inherit;">
 				<button pButton style="margin-right: 0.5em; margin-left: 0.5em;" icon="pi pi-plus"
-					pTooltip="Registrar Troca" tooltipPosition="top" (click)="novoDialogo()"></button>
+					pTooltip="Registrar Movimentação" tooltipPosition="top" (click)="novoDialogo()"></button>
 				<button pButton style="margin-right: 0.5em;" (click)="recarregarPagina()" pButton icon="pi pi-refresh"
 					pTooltip="Recarregar" tooltipPosition="top"></button>
 
@@ -66,31 +66,63 @@
 </p-table>
 
 <form #dialogoForm="ngForm">
-	<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Registrar Troca" [modal]="true"
+	<p-dialog [(visible)]="dialog" [style]="{width: '450px'}" header="Registrar Movimentação" [modal]="true"
 		styleClass="p-fluid">
 
 		<ng-template pTemplate="content">
 			<div class="p-formgrid p-grid">
 
-				<div class="p-field p-col">
-					<label for="produto">Produto</label>
-					<p-dropdown optionLabel="nome" [options]="produtos" ngModel id="produto" name="produto" #produto="ngModel"
-					[(ngModel)]="movimentacao.produto" placeholder="Selecionar..." required
-					aria-describedby="produto-helper">
-				</p-dropdown>
-				<app-messages id="produto-helper" [control]="produto" error="required" text="Selecione um Produto">
-				</app-messages>
-			</div>
-			<div class="p-field p-col-3">
-				<label for="qtdeEstoque">Quantidade</label>
-				<input type="number" pInputText [(ngModel)]="movimentacao.quantidade" required min="0" ngModel
-				  #qtdeEstoque="ngModel" id="qtdeEstoque" name="qtdeEstoque" placeholder="0"
-				  aria-describedby="qtdeEstoque-helper">
-				<app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="required"
-				  text="Informe o estoque inicial"></app-messages>
-				<app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="min"
-				  text="Quantidade deve ser maior que 0"></app-messages>
-			  </div>
+				<div class="p-field p-col-5">
+					<label for="codigoProduto">Código do Produto</label>
+					<div class="p-inputgroup">
+						<input type="number" pInputText [(ngModel)]="codigoDoProduto" required min="0" ngModel
+							#codigoProduto="ngModel" id="codigoProduto" name="codigoProduto"
+							placeholder="Digite aqui..." aria-describedby="codigoProduto-helper">
+						<app-messages id="codigoProduto-helper" [control]="codigoProduto" error="required"
+							text="Informe o código de um produto">
+						</app-messages>
+						<app-messages id="codigoProduto-helper" [control]="codigoProduto" error="min"
+							text="O código informado não é válido">
+						</app-messages>
+
+						<button pButton type="button" icon="pi pi-search" pTooltip="Encontrar" tooltipPosition="top"
+							(click)="procurarProduto()"></button>
+					</div>
+				</div>
+
+				<div class="p-field p-col-7">
+					<label for="nomeProduto">Produto</label>
+					<div class="p-inputgroup">
+						<input type="text" pInputText [(ngModel)]="movimentacao.produto.nome" ngModel hidden readonly required
+							#nomeProduto="ngModel" id="nomeProdutoHidden" name="nomeProdutoHidden">
+						<input type="text" pInputText [value]="movimentacao.produto.nome" ngModel disabled
+							id="nomeProduto" name="nomeProduto" placeholder="Nome do Produto">
+					</div>
+				</div>
+
+				<div class="p-field p-col-5">
+					<label for="operacao">Operação</label>
+					<p-dropdown [options]="operacoes" ngModel id="operacao" name="operacao"
+						#operacaoSelecionada="ngModel" [(ngModel)]="movimentacao.operacao" optionLabel="chave" optionValue="valor"
+						placeholder="Selecionar..." required aria-describedby="operacao-helper">
+					</p-dropdown>
+					<app-messages id="operacao-helper" [control]="qtdeEstoque" error="required"
+						text="Informe a operação">
+					</app-messages>
+				</div>
+
+				<div class="p-field p-col-3">
+					<label for="qtdeEstoque">Quantidade</label>
+					<input type="number" pInputText [(ngModel)]="movimentacao.quantidade" required min="0" ngModel
+						#qtdeEstoque="ngModel" id="qtdeEstoque" name="qtdeEstoque" placeholder="0"
+						aria-describedby="qtdeEstoque-helper">
+					<app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="required"
+						text="Informe a quantidade">
+					</app-messages>
+					<app-messages id="qtdeEstoque-helper" [control]="qtdeEstoque" error="min"
+						text="Quantidade inválida">
+					</app-messages>
+				</div>
 
 			</div>
 		</ng-template>

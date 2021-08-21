@@ -1,6 +1,6 @@
 export enum EMovimentacaoEstoque {
-	Troca = "Troca",
-	Perda = "Perda",
 	Entrada = "Entrada",
-	Saida = "Saida"
+	Saida = "Saida",
+	Troca = "Troca",
+	Perda = "Perda"
 }
