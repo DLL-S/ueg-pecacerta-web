@@ -48,6 +48,7 @@ import { ProdutosSelecaoComponent } from './components/produtos-selecao/produtos
 import { OrcamentoNovoComponent } from './components/orcamentos/orcamento-novo/orcamento-novo.component';
 import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list/orcamentos-list.component';
 import { PaginaVaziaComponent } from './components/templates/pagina-vazia/pagina-vazia.component';
+import { EstoqueComponent } from './components/sistema/estoque/estoque.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { PaginaVaziaComponent } from './components/templates/pagina-vazia/pagina
     ProdutosSelecaoComponent,
     OrcamentoNovoComponent,
     OrcamentosListComponent,
-    PaginaVaziaComponent
+    PaginaVaziaComponent,
+    EstoqueComponent
   ],
   imports: [
     BrowserModule,
