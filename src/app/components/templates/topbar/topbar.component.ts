@@ -1,8 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ShowSidebarService } from './../sidebar/event/show-sidebar.service';
 import { TopbarTitleService } from './../../../services/topbar-title.service';
 import { IsMobileService } from '../utils/is-mobile.service';
 import { MenuItem } from 'primeng/api';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { NotifyComponent } from '../utils/notify/notify.component';
 
 @Component({
   selector: 'app-topbar',
@@ -14,7 +16,7 @@ export class TopbarComponent implements OnInit {
   isMobile: Boolean;
   items: MenuItem[];
 
-  constructor(private showSidebarService: ShowSidebarService, private topbarTitleService: TopbarTitleService, private isMobileService: IsMobileService) {
+  constructor(private showSidebarService: ShowSidebarService, private topbarTitleService: TopbarTitleService, private isMobileService: IsMobileService, private tokenStorageService: TokenStorageService) {
     this.isMobile = isMobileService.checkPlatform();
   }
 
@@ -44,5 +46,10 @@ export class TopbarComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.isMobile = this.isMobileService.checkPlatform();
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
 }

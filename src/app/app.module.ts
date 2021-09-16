@@ -49,6 +49,7 @@ import { OrcamentoNovoComponent } from './components/orcamentos/orcamento-novo/o
 import { OrcamentosListComponent } from './components/orcamentos/orcamentos-list/orcamentos-list.component';
 import { PaginaVaziaComponent } from './components/templates/pagina-vazia/pagina-vazia.component';
 import { EstoqueComponent } from './components/sistema/estoque/estoque.component';
+import { authInterceptorProviders } from './helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { EstoqueComponent } from './components/sistema/estoque/estoque.component
     ProdutoService,
     MarcaService,
     Title,
-    MessageService
+    MessageService,
+    authInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })
